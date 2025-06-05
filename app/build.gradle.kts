@@ -1,7 +1,10 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("ru.practicum.android.diploma.plugins.developproperties")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.developproperties)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -21,17 +24,23 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("Boolean", "DEBUG", "true")
+            applicationIdSuffix = ".debug"
+            isMinifyEnabled = false
+        }
         release {
+            buildConfigField("Boolean", "DEBUG", "false")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "21"
     }
 
     buildFeatures {
@@ -40,19 +49,32 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidX.core)
-    implementation(libs.androidX.appCompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.material)
+    implementation(libs.glide)
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.timber)
 
-    // UI layer libraries
-    implementation(libs.ui.material)
-    implementation(libs.ui.constraintLayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    // region Unit tests
-    testImplementation(libs.unitTests.junit)
-    // endregion
-
-    // region UI tests
-    androidTestImplementation(libs.uiTests.junitExt)
-    androidTestImplementation(libs.uiTests.espressoCore)
-    // endregion
+    ksp(libs.glide.compiler)
+    ksp(libs.room.compiler)
 }
