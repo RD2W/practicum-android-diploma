@@ -11,4 +11,8 @@
     <string name="fragment_country_name">Select Country</string>
     <string name="fragment_region_name">Select Region</string>
     <string name="fragment_industry_name">Select Industry</string>
+    <!-- Названия пунктов для bottom navigation меню -->
+    <string name="tab_main_title">Main</string>
+    <string name="tab_favorites_title">@string/fragment_favorites_name</string>
+    <string name="tab_team_title">@string/fragment_team_name</string>
 </resources>

@@ -39,7 +39,6 @@
         tools:layout="@layout/fragment_vacancy">
         <argument
             android:name="vacancyId"
-            android:defaultValue=""
             app:argType="string" />
     </fragment>
     <fragment

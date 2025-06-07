@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.workplace.presentation.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
@@ -20,10 +21,27 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWorkplaceBinding.bind(view)
+        setupButtonListeners()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupButtonListeners() {
+        // Обработка первой кнопки
+        binding.firstButton.setOnClickListener {
+            findNavController().navigate(
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()
+            )
+        }
+
+        // Обработка второй кнопки
+        binding.secondButton.setOnClickListener {
+            findNavController().navigate(
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToCountryFragment()
+            )
+        }
     }
 }
