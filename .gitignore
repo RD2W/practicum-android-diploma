@@ -77,3 +77,5 @@ lint/tmp/
 # App Specific cases
 app/release/output.json
 .idea/codeStyles/
+# Local configuration file (sdk path, etc)
+develop.properties
