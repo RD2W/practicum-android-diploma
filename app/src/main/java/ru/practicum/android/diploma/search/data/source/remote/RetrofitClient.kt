@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.utils.NetworkUtils
+import timber.log.Timber
 import java.io.IOException
 
 class RetrofitClient(private val hhApiService: HHApiService, private val networkUtils: NetworkUtils) : NetworkClient {
@@ -12,11 +13,15 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
         return withContext(Dispatchers.IO) {
             try {
+                Timber.d("Search request: $request")
                 val response = executeRequest(request as HHApiRequest)
+                Timber.d("Get response: $response")
                 response.apply { responseCode = OK }
             } catch (e: HttpException) {
+                Timber.e("HTTP error occurred: ${e.code()}")
                 handleHttpExceptions(e)
             } catch (e: IOException) {
+                Timber.e("Network problems: ${e.message}")
                 HHApiResponse.BadResponse("Network error: ${e.message}").apply { responseCode = NETWORK_ERROR }
             }
         }
@@ -24,9 +29,11 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
     private fun preValidation(request: Any): HHApiResponse? {
         if (request !is HHApiRequest) {
+            Timber.e("Invalid request type: $request")
             HHApiResponse.BadResponse("Invalid request type").apply { responseCode = BAD_REQUEST }
         }
         if (!networkUtils.isNetworkAvailable()) {
+            Timber.e("No Internet connection")
             HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
         }
         return null
