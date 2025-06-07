@@ -18,8 +18,8 @@ import timber.log.Timber
  */
 class MainActivity : AppCompatActivity() {
     /**
-     * ViewBinding для activity_main.xml. Инициализируется лениво при первом обращении.
-     * Ленивая инициализация позволяет отложить создание до фактической необходимости.
+     * ViewBinding для activity_main.xml. Инициализируется лениво (по требованию)
+     * для оптимизации производительности. Гарантирует безопасный доступ к элементам UI.
      */
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -37,27 +37,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Установка корневого view из binding
         setContentView(binding.root)
+        // Настройка Toolbar как ActionBar
         setSupportActionBar(binding.topAppBar)
+        // Инициализация системы навигации
         setupNavigation()
     }
 
     /**
-     * Основной метод настройки навигации в приложении:
-     * - Связывает BottomNavigation с NavController
-     * - Настраивает обработчик кнопки "Назад"
-     * - Устанавливает слушатель изменений destination
+     * Настраивает систему навигации:
+     * 1. Связывает BottomNavigationView с NavController
+     * 2. Устанавливает начальный заголовок Toolbar
+     * 3. Регистрирует слушатель изменений destination
      */
     private fun setupNavigation() {
-        // Настройка BottomNavigation
+        // Связывание BottomNavigation с NavController
         binding.bottomNavigation.setupWithNavController(navController)
 
-        // Обновление заголовка при старте
+        // Отложенное обновление заголовка (после отрисовки UI)
         binding.root.post {
             updateToolbarTitle(navController.currentDestination)
         }
 
-        // Обработчик изменений destination
+        // Слушатель изменений destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateToolbarTitle(destination)
             updateUIForDestination(destination.id)
@@ -65,56 +68,80 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Обновляет заголовок Toolbar в зависимости от текущего destination.
+     * Обновляет заголовок Toolbar в соответствии с текущим destination
      * @param destination Текущий пункт назначения навигации
      */
     private fun updateToolbarTitle(destination: NavDestination?) {
-        Timber.d("Navigated to ${destination?.label}")
+        Timber.d("Navigation update: ${destination?.label}")
+        // Установка заголовка из метки destination или стандартного значения
         binding.topAppBar.title = destination?.label ?: getString(R.string.app_name)
     }
 
     /**
-     * Обновляет видимость UI элементов в зависимости от destination.
-     * @param destinationId ID текущего пункта назначения
+     * Обновляет видимость UI элементов в зависимости от текущего экрана
+     * @param destinationId ID текущего destination
      */
     private fun updateUIForDestination(destinationId: Int) {
         when (destinationId) {
             R.id.searchFragment -> {
+                // Экран поиска - скрываем Toolbar, показываем нижнюю панель
                 showMainToolBar(false)
-                showNavBarHideBackButton(true)
+                showNavBar(true)
+                setupBackButton(showBackButton = false)
             }
             R.id.vacancyFragment -> {
+                // Экран вакансии - скрываем оба бара, показываем кнопку "Назад"
                 showMainToolBar(false)
-                showNavBarHideBackButton(false)
+                showNavBar(false)
+                setupBackButton(showBackButton = true)
             }
             R.id.favoritesFragment, R.id.teamFragment -> {
+                // Избранное и команда - стандартное отображение
                 showMainToolBar(true)
-                showNavBarHideBackButton(true)
+                showNavBar(true)
+                setupBackButton(showBackButton = false)
             }
             else -> {
+                // Все остальные экраны - Toolbar виден, нижняя панель скрыта
                 showMainToolBar(true)
-                showNavBarHideBackButton(false)
-                binding.topAppBar.setNavigationOnClickListener {
-                    navController.popBackStack()
-                }
+                showNavBar(false)
+                setupBackButton(showBackButton = true)
             }
         }
     }
 
     /**
-     * Управляет видимостью основного Toolbar.
-     * @param isVisible Показывать или скрывать Toolbar
+     * Управляет видимостью основного Toolbar
+     * @param isVisible Флаг видимости
      */
     private fun showMainToolBar(isVisible: Boolean) {
         binding.topAppBar.isVisible = isVisible
     }
 
     /**
-     * Управляет видимостью BottomNavigation и кнопки "Назад".
-     * @param isVisible Показывать или скрывать BottomNavigation
+     * Управляет видимостью нижней панели навигации
+     * @param isVisible Флаг видимости
      */
-    private fun showNavBarHideBackButton(isVisible: Boolean) {
+    private fun showNavBar(isVisible: Boolean) {
         binding.groupNavigationView.isVisible = isVisible
-        supportActionBar?.setDisplayHomeAsUpEnabled(!isVisible)
+    }
+
+    /**
+     * Настраивает кнопку "Назад" в Toolbar
+     * @param showBackButton Флаг видимости и активности кнопки
+     */
+    private fun setupBackButton(showBackButton: Boolean) {
+        // Установка видимости кнопки "Назад" в ActionBar
+        supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
+
+        if (showBackButton) {
+            // Установка обработчика нажатия - возврат на предыдущий экран
+            binding.topAppBar.setNavigationOnClickListener {
+                navController.popBackStack()
+            }
+        } else {
+            // Удаление обработчика, если кнопка не нужна
+            binding.topAppBar.setNavigationOnClickListener(null)
+        }
     }
 }
