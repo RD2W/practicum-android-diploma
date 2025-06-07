@@ -12,5 +12,3 @@ class NetworkUtils(private val context: Context) {
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 }
-
-
