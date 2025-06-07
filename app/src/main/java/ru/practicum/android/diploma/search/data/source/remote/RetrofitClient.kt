@@ -13,15 +13,15 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
         return withContext(Dispatchers.IO) {
             try {
-                Timber.d("Search request: $request")
+                Timber.d("[API] Search request: $request")
                 val response = executeRequest(request as HHApiRequest)
-                Timber.d("Get response: $response")
+                Timber.d("[API] Get response: $response")
                 response.apply { responseCode = OK }
             } catch (e: HttpException) {
-                Timber.e("HTTP error occurred: ${e.code()}")
+                Timber.e("[API] HTTP error occurred: ${e.code()}")
                 handleHttpExceptions(e)
             } catch (e: IOException) {
-                Timber.e("Network problems: ${e.message}")
+                Timber.e("[API] Network problems: ${e.message}")
                 HHApiResponse.BadResponse("Network error: ${e.message}").apply { responseCode = NETWORK_ERROR }
             }
         }
@@ -29,11 +29,11 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
     private fun preValidation(request: Any): HHApiResponse? {
         if (request !is HHApiRequest) {
-            Timber.e("Invalid request type: $request")
+            Timber.e("[API] Invalid request type: $request")
             HHApiResponse.BadResponse("Invalid request type").apply { responseCode = BAD_REQUEST }
         }
         if (!networkUtils.isNetworkAvailable()) {
-            Timber.e("No Internet connection")
+            Timber.e("[API] No Internet connection")
             HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
         }
         return null
