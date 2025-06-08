@@ -1,13 +1,15 @@
 package ru.practicum.android.diploma.search.domain.usecase
 
-import ru.practicum.android.diploma.common.domain.model.Vacancy
+import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.filter.domain.model.Filter
+import ru.practicum.android.diploma.search.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.search.domain.repository.VacanciesGetter
 
 class GetVacanciesUseCase(private val vacanciesGetter: VacanciesGetter) {
     fun execute(
+        vacancyExpression: String,
         filter: Filter
-    ): List<Vacancy> {
-        return vacanciesGetter.getVacancies(filter)
+    ): Flow<SearchVacanciesResult> {
+        return vacanciesGetter.getVacancies(vacancyExpression, filter)
     }
 }
