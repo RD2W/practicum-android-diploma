@@ -15,4 +15,12 @@
     <string name="tab_main_title">Main</string>
     <string name="tab_favorites_title">@string/fragment_favorites_name</string>
     <string name="tab_team_title">@string/fragment_team_name</string>
+    <!-- Экран "Команда" -->
+    <string name="credits_developed_by">App developed by</string>
+    <string name="technologies_format">Technologies: %s</string>
+    <string name="telegram_format">Telegram: %s</string>
+    <string name="not_specified">not specified</string>
+    <!-- Описание ImageView для accessibility -->
+    <string name="team_developer_avatar_description">Photo of the app\'s developer</string>
+    <string name="team_error_image_description">Data loading error</string>
 </resources>

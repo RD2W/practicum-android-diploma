@@ -10,6 +10,7 @@
     tools:context=".vacancy.presentation.view.VacancyFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
+        style="@style/CustomToolbarStyle"
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
