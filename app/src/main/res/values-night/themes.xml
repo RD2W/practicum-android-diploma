@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="android:statusBarColor">@color/black_universal</item> <!-- Тёмный фон системного статус бара -->
+        <item name="android:windowLightStatusBar">false</item> <!-- Светлые иконки в системном статус баре-->
         <!-- Customize your dark theme here. -->
     </style>
 
