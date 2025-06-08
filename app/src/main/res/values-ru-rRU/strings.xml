@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <!-- Название приложения -->
+    <string name="app_name">Агрегатор вакансий</string>
+    <!-- Названия фрагментов -->
+    <string name="fragment_search_name">Поиск вакансий</string>
+    <string name="fragment_favorites_name">Избранное</string>
+    <string name="fragment_team_name">Команда</string>
+    <string name="fragment_vacancy_name">Вакансия</string>
+    <string name="fragment_filter_name">Настройки фильтрации</string>
+    <string name="fragment_workplace_name">Выбор места работы</string>
+    <string name="fragment_country_name">Выбор страны</string>
+    <string name="fragment_region_name">Выбор региона</string>
+    <string name="fragment_industry_name">Выбор отрасли</string>
+    <!-- Названия пунктов для bottom navigation меню -->
+    <string name="tab_main_title">Главная</string>
+    <string name="tab_favorites_title">@string/fragment_favorites_name</string>
+    <string name="tab_team_title">@string/fragment_team_name</string>
 </resources>
