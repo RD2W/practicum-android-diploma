@@ -18,6 +18,8 @@
     <dimen name="value_40">40dp</dimen>
     <dimen name="value_48">48dp</dimen>
     <dimen name="value_52">52dp</dimen>
+    <dimen name="value_56">56dp</dimen>
+    <dimen name="value_64">64dp</dimen>
     <dimen name="value_80">80dp</dimen>
     <dimen name="value_96">96dp</dimen>
     <dimen name="value_160">160dp</dimen>
