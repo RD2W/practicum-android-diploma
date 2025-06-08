@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/developerLinearItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/value_8">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        style="@style/DeveloperAvatarStyle"
+        android:id="@+id/ivDeveloperAvatar"
+        android:layout_width="@dimen/value_80"
+        android:layout_height="@dimen/value_80"
+        android:contentDescription="@string/team_developer_avatar_description"
+        android:src="@drawable/ic_placeholder_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/avatars"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/DeveloperNameTextStyle"
+        android:id="@+id/tvDeveloperName"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/value_8"
+        app:layout_constraintTop_toTopOf="@id/ivDeveloperAvatar"
+        app:layout_constraintStart_toEndOf="@id/ivDeveloperAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Иванов Иван"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/DeveloperInfoTextStyle"
+        android:id="@+id/tvDeveloperRole"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_2"
+        app:layout_constraintTop_toBottomOf="@id/tvDeveloperName"
+        app:layout_constraintStart_toStartOf="@id/tvDeveloperName"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Android разработчик"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/DeveloperInfoTextStyle"
+        android:id="@+id/tvDeveloperTechnologies"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_2"
+        app:layout_constraintTop_toBottomOf="@id/tvDeveloperRole"
+        app:layout_constraintStart_toStartOf="@id/tvDeveloperName"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Технологии: Java, Kotlin, Jetpack Compose"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/DeveloperInfoTextStyle"
+        android:id="@+id/tvDeveloperTelegramProfile"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_2"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/tvDeveloperTechnologies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvDeveloperName"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Телеграм: @ivanov_ivan"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
