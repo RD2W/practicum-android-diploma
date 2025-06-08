@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="TextBold32">
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:fontWeight">700</item>
+    </style>
+
+    <style name="TextMedium22">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:fontWeight">500</item>
+    </style>
+
+    <style name="TextMedium16" parent="TextMedium22">
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="TextRegular16" parent="TextMedium16">
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <style name="TextRegular12" parent="TextRegular16">
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="CustomToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/background</item>
+        <item name="navigationIconTint">@color/text</item>
+        <item name="titleTextAppearance">@style/TextMedium22</item>
+    </style>
+
     <style name="CustomBottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
         <item name="android:background">@color/background</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
@@ -7,4 +40,32 @@
         <item name="itemTextColor">@drawable/bottom_nav_color_selector</item>
         <item name="itemIconTint">@drawable/bottom_nav_color_selector</item>
     </style>
+
+    <style name="DeveloperAvatarStyle">
+        <item name="shapeAppearance">@style/DeveloperAvatarStyle.CornerSize</item>
+    </style>
+
+    <style name="DeveloperAvatarStyle.CornerSize">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/value_8</item>
+    </style>
+
+    <style name="DeveloperTitleTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/TextBold32</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="DeveloperNameTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">@style/TextMedium16</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="DeveloperInfoTextStyle" parent="DeveloperNameTextStyle">
+        <item name="android:textAppearance">@style/TextRegular12</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>
