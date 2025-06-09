@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.team.data.repository.DevTeamRepositoryImpl
 import ru.practicum.android.diploma.team.domain.repository.DevTeamRepository
 
 val dataModule = module {
+    /** Developers Team Repository */
     factoryOf(::DevTeamRepositoryImpl) { bind<DevTeamRepository>() }
     factoryOf(::VacanciesGetterImpl) { bind<VacanciesGetter>() }
     factoryOf(::CountriesListGetterImpl) { bind<CountriesListGetter>() }
