@@ -40,4 +40,14 @@
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="something_went_wrong">Произошла ошибка</string>
 
+    <!-- Экран вакансия -->
+    <string name="vacancy_title">Название вакансии</string>
+    <string name="vacancy_salary">Заработная плата</string>
+    <string name="vacancy_sphere">Сфера вакансии</string>
+    <string name="vacancy_city">Город вакансии</string>
+    <string name="vacancy_experience_title">Заголовок опыта вакансии</string>
+    <string name="vacancy_experience_numbers">Цифры опыта вакансии</string>
+    <string name="vacancy_employment">Занятость вакансии</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+
 </resources>
