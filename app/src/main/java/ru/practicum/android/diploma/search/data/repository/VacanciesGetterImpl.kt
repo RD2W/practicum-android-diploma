@@ -2,11 +2,18 @@ package ru.practicum.android.diploma.search.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
 import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.BAD_REQUEST
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.FORBIDDEN
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.NETWORK_ERROR
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.NOT_FOUND
 import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.OK
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.SERVER_ERROR
+import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.UNAUTHORIZED
 import ru.practicum.android.diploma.search.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.search.domain.repository.VacanciesGetter
 
@@ -17,14 +24,27 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
     ): Flow<SearchVacanciesResult> = flow {
         val response = networkClient.doRequest(HHApiRequest.Vacancies(getOptions(filter)))
 
-        if (response.responseCode == OK) {
-            val vacancies = response.
-
-            emit(SearchVacanciesResult.Success(v))
-        } else {
-            emit(HHApiResponse.BadResponse())
+        when (response.responseCode) {
+            OK -> {
+                val vacancies = (response as HHApiResponse.Vacancies).items.map {
+                    Vacancy(
+                        id = it.id,
+                        titleOfVacancy = it.name,
+                        regionName = it.area.name,
+                        salary = it.salary.from.toString(),
+                        employerName = it.employer.name,
+                        employerLogoUrl = it.employer.logoUrls?.size90,
+                    )
+                }
+                emit(SearchVacanciesResult.Success(vacancies))
+            }
+            NETWORK_ERROR -> {}
+            BAD_REQUEST -> {}
+            UNAUTHORIZED -> {}
+            FORBIDDEN -> {}
+            NOT_FOUND -> {}
+            SERVER_ERROR -> {}
         }
-
     }
 
     private fun getOptions(filter: Filter): Map<String, String> {
