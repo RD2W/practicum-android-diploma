@@ -1,7 +1,8 @@
 package ru.practicum.android.diploma.filter.domain.repository
 
-import ru.practicum.android.diploma.region.domain.model.Country
+import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.filter.domain.model.GetCountriesListResult
 
 interface CountriesListGetter {
-    fun getCountriesList(): List<Country>
+    fun getCountriesList(): Flow<GetCountriesListResult>
 }

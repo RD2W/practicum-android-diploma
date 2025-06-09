@@ -37,6 +37,7 @@ class AreasListGetterImpl(private val networkClient: NetworkClient) : AreasListG
                     emit(GetAreasListResult.Success(areas))
                 }
             }
+
             else -> {
                 emit(GetAreasListResult.Problem)
             }
