@@ -22,20 +22,11 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
         vacancyExpression: String,
         filter: Filter
     ): Flow<SearchVacanciesResult> = flow {
-        val response = networkClient.doRequest(HHApiRequest.Vacancies(getOptions(vacancyExpression, filter)))
-
+        val response =
+            networkClient.doRequest(HHApiRequest.Vacancies(getOptions(vacancyExpression, filter)))
         when (response.responseCode) {
             OK -> {
-                val vacancies = (response as HHApiResponse.Vacancies).items.map {
-                    Vacancy(
-                        id = it.id,
-                        titleOfVacancy = it.name,
-                        regionName = it.area.name,
-                        salary = it.salary.from.toString(),
-                        employerName = it.employer.name,
-                        employerLogoUrl = it.employer.logoUrls?.size90,
-                    )
-                }
+                val vacancies = vacanciesMapper(response)
                 if (vacancies.isEmpty()) {
                     emit(SearchVacanciesResult.NoVacancies)
                 } else {
@@ -43,17 +34,42 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
                 }
             }
 
-            NETWORK_ERROR -> { emit(SearchVacanciesResult.NetworkError((response as HHApiResponse.BadResponse).errorMessage)) }
+            NETWORK_ERROR -> {
+                emit(SearchVacanciesResult.NetworkError((response as HHApiResponse.BadResponse).errorMessage))
+            }
 
-            BAD_REQUEST -> { emit(SearchVacanciesResult.BadRequest((response as HHApiResponse.BadResponse).errorMessage)) }
+            BAD_REQUEST -> {
+                emit(SearchVacanciesResult.BadRequest((response as HHApiResponse.BadResponse).errorMessage))
+            }
 
-            UNAUTHORIZED -> { emit(SearchVacanciesResult.Unauthorized((response as HHApiResponse.BadResponse).errorMessage)) }
+            UNAUTHORIZED -> {
+                emit(SearchVacanciesResult.Unauthorized((response as HHApiResponse.BadResponse).errorMessage))
+            }
 
-            FORBIDDEN -> { emit(SearchVacanciesResult.Forbidden((response as HHApiResponse.BadResponse).errorMessage)) }
+            FORBIDDEN -> {
+                emit(SearchVacanciesResult.Forbidden((response as HHApiResponse.BadResponse).errorMessage))
+            }
 
-            NOT_FOUND -> { emit(SearchVacanciesResult.NoVacancies) }
+            NOT_FOUND -> {
+                emit(SearchVacanciesResult.NoVacancies)
+            }
 
-            SERVER_ERROR -> { emit(SearchVacanciesResult.ServerError((response as HHApiResponse.BadResponse).errorMessage)) }
+            SERVER_ERROR -> {
+                emit(SearchVacanciesResult.ServerError((response as HHApiResponse.BadResponse).errorMessage))
+            }
+        }
+    }
+
+    private fun vacanciesMapper(response: HHApiResponse): List<Vacancy> {
+        return (response as HHApiResponse.Vacancies).items.map {
+            Vacancy(
+                id = it.id,
+                titleOfVacancy = it.name,
+                regionName = it.area.name,
+                salary = it.salary.from.toString(),
+                employerName = it.employer.name,
+                employerLogoUrl = it.employer.logoUrls?.size90,
+            )
         }
     }
 
