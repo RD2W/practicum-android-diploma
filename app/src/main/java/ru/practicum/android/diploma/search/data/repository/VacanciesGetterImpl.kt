@@ -42,21 +42,27 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
                     emit(SearchVacanciesResult.Success(vacancies))
                 }
             }
+
             NETWORK_ERROR -> {
                 emit(SearchVacanciesResult.NetworkError((response as HHApiResponse.BadResponse).errorMessage))
             }
+
             BAD_REQUEST -> {
                 emit(SearchVacanciesResult.BadRequest((response as HHApiResponse.BadResponse).errorMessage))
             }
+
             UNAUTHORIZED -> {
                 emit(SearchVacanciesResult.Unauthorized((response as HHApiResponse.BadResponse).errorMessage))
             }
+
             FORBIDDEN -> {
                 emit(SearchVacanciesResult.Forbidden((response as HHApiResponse.BadResponse).errorMessage))
             }
+
             NOT_FOUND -> {
                 emit(SearchVacanciesResult.NoVacancies)
             }
+
             SERVER_ERROR -> {
                 emit(SearchVacanciesResult.ServerError((response as HHApiResponse.BadResponse).errorMessage))
             }
