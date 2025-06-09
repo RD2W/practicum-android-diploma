@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Добавила стили для основных элементов -->
-
-    <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:background">@color/black_universal</item>
-        <item name="navigationIconTint">@color/white_universal</item>
-        <item name="titleTextAppearance">@style/ToolbarTitleText</item>
-        <item name="android:layout_height">@dimen/value_64</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="buttonGravity">center_vertical</item>
-    </style>
-
-
     <style name="ToolbarTitleText">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/text_size_22</item>
         <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textFontWeight">500</item>
     </style>
 
     <style name="inputSearch">
@@ -30,6 +19,7 @@
         <item name="android:drawableTint">@color/black_universal</item>
         <item name="background">@color/gray</item>
         <item name="backgroundTint">@color/gray</item>
+        <item name="android:textFontWeight">400</item>
         <item name="android:textColorHint">@color/white_universal</item>
     </style>
 
@@ -41,6 +31,7 @@
         <item name="android:fontFamily">"@font/ys_display_medium"</item>
         <item name="android:background">"@color/black_universal"</item>
         <item name="android:backgroundTint">@color/black_universal</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:maxLines">3</item>
     </style>
 
@@ -53,8 +44,6 @@
         <item name="android:background">"@color/black_universal"</item>
         <item name="android:backgroundTint">@color/black_universal</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textFontWeight">700</item>
     </style>
-
-    <!--    Конец изменений -->
-
 </resources>

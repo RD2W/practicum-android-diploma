@@ -40,5 +40,50 @@
         <item name="android:lineHeight">@dimen/value_16</item>
     </style>
 
+    <style name="ToolbarTitleText">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:textColor">@color/black_universal</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
+    <style name="inputSearch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/value_56</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingHorizontal">@dimen/value_16</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/black_universal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:drawableTint">@color/black_universal</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="background">@color/light_gray</item>
+        <item name="backgroundTint">@color/light_gray</item>
+        <item name="android:textColorHint">@color/gray</item>
+    </style>
+
+    <style name="ErrorsTitlesForSections">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">"@color/black_universal"</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:fontFamily">"@font/ys_display_medium"</item>
+        <item name="android:background">"@color/white_universal"</item>
+        <item name="android:backgroundTint">@color/white_universal</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="BigTitles">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">"@color/black_universal"</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:fontFamily">"@font/ys_display_bold"</item>
+        <item name="android:background">"@color/white_universal"</item>
+        <item name="android:backgroundTint">@color/white_universal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textFontWeight">700</item>
+    </style>
 
 </resources>
