@@ -1,7 +1,8 @@
 package ru.practicum.android.diploma.filter.domain.repository
 
-import ru.practicum.android.diploma.industry.domain.model.Industry
+import kotlinx.coroutines.flow.Flow
+import ru.practicum.android.diploma.filter.domain.model.GetIndustriesListResult
 
 interface IndustriesListGetter {
-    fun getIndustriesList(): List<Industry>
+    fun getIndustriesList(): Flow<GetIndustriesListResult>
 }
