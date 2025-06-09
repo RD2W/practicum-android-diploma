@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.PracticumAndroidDiploma" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="android:statusBarColor">@color/black_universal</item> <!-- Тёмный фон системного статус бара -->
         <item name="android:windowLightStatusBar">false</item> <!-- Светлые иконки в системном статус баре-->
         <item name="android:navigationBarColor">@color/black_universal</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <!-- Customize your dark theme here. -->
     </style>
-
-    <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
 </resources>
