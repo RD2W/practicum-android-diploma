@@ -23,4 +23,14 @@
     <!-- Описание ImageView для accessibility -->
     <string name="team_developer_avatar_description">Фото разработчика приложения</string>
     <string name="team_error_image_description">Ошибка загрузки данных</string>
+    <!-- Экран вакансия -->
+    <string name="vacancy_title">Название вакансии</string>
+    <string name="vacancy_salary">Заработная плата</string>
+    <string name="vacancy_sphere">Сфера вакансии</string>
+    <string name="vacancy_city">Город вакансии</string>
+    <string name="vacancy_experience_title">Заголовок опыта вакансии</string>
+    <string name="vacancy_experience_numbers">Цифры опыта вакансии</string>
+    <string name="vacancy_employment">Занятость вакансии</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+
 </resources>
