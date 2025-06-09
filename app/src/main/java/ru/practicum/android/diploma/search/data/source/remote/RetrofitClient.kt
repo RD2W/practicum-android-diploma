@@ -79,8 +79,6 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     }
 
     companion object {
-        const val BASE_URL = "https://api.hh.ru/"
-
         const val OK = 200
         const val BAD_REQUEST = 400
         const val UNAUTHORIZED = 401
