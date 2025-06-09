@@ -84,11 +84,11 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
             options.put("industry", filter.industryId)
         }
         if (filter.salary != null) {
-            options.put("only_with_salary", true)
+            options.put("only_with_salary", true.toString())
             options.put("currency", filter.salary.currency)
-            options.put("salary", filter.salary.from)
+            options.put("salary", filter.salary.from.toString())
         } else {
-            options.put("only_with_salary", false)
+            options.put("only_with_salary", false.toString())
         }
 
         return options
