@@ -22,7 +22,7 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
         vacancyExpression: String,
         filter: Filter
     ): Flow<SearchVacanciesResult> = flow {
-        val response = networkClient.doRequest(HHApiRequest.Vacancies(getOptions(filter)))
+        val response = networkClient.doRequest(HHApiRequest.Vacancies(getOptions(vacancyExpression, filter)))
 
         when (response.responseCode) {
             OK -> {
@@ -63,8 +63,14 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
         }
     }
 
-    private fun getOptions(filter: Filter): Map<String, String> {
+    private fun getOptions(
+        text: String,
+        filter: Filter
+    ): Map<String, String> {
         val options = mutableMapOf<String, String>()
+        if (text != "") {
+            options.put("text", text)
+        }
         if (filter.areaId != null) {
             options.put("area", filter.areaId)
         }
