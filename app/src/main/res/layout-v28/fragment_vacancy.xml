@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vacancy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".vacancy.presentation.view.VacancyFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder16"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder16"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        style="@style/CustomToolbarStyle"
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/fragment_vacancy_name"
+        app:menu="@menu/top_appbar_menu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/vacancyTitle"
+        style="@style/BigTitles"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_marginTop="@dimen/value_24"
+        android:text="@string/fragment_vacancy_name"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder16"
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
+
+    <TextView
+        android:id="@+id/vacancySalary"
+        style="@style/ErrorsTitlesForSections"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_marginTop="@dimen/value_4"
+        android:text="@string/vacancy_salary"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder16"
+        app:layout_constraintTop_toBottomOf="@+id/vacancyTitle"/>
+
+    <LinearLayout
+        android:id="@+id/linerBackgroundVacancy"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_80"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_radius_12"
+        android:backgroundTint="@color/light_gray"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder16"
+        app:layout_constraintTop_toBottomOf="@+id/vacancySalary">
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/vacancyIcon"
+        android:layout_width="@dimen/value_48"
+        android:layout_height="@dimen/value_48"
+        android:layout_marginStart="@dimen/value_16"
+        android:contentDescription="@string/vacancy_icon"
+        android:src="@drawable/ic_vacancy_placeholder"
+        app:layout_constraintBottom_toBottomOf="@+id/linerBackgroundVacancy"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder16"
+        app:layout_constraintTop_toTopOf="@+id/linerBackgroundVacancy" />
+
+    <TextView
+        android:id="@+id/vacancy_sphere"
+        style="@style/ErrorsTitlesForSections"
+        android:layout_marginStart="@dimen/value_8"
+        android:layout_width="@dimen/zero_dp"
+        android:background="@color/black_transparent"
+        android:text="@string/vacancy_sphere"
+        android:textColor="@color/black_universal"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toEndOf="@+id/vacancyIcon"
+        app:layout_constraintTop_toTopOf="@+id/vacancyIcon"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/vacancy_city"
+        style="@style/StyleForCommonText"
+        android:layout_marginStart="@dimen/value_8"
+        android:text="@string/vacancy_city"
+        android:background="@color/black_transparent"
+        android:textColor="@color/black_universal"
+        android:layout_width="@dimen/zero_dp"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toEndOf="@+id/vacancyIcon"
+        app:layout_constraintTop_toBottomOf="@+id/vacancy_sphere"/>
+
+    <TextView
+        android:id="@+id/vacancy_experience_title"
+        style="@style/StyleForCommonText"
+        android:textFontWeight="500"
+        android:layout_width="@dimen/zero_dp"
+        android:text="@string/vacancy_required_experience"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toEndOf="@+id/leftBorder16"
+        app:layout_constraintTop_toBottomOf="@+id/linerBackgroundVacancy"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
