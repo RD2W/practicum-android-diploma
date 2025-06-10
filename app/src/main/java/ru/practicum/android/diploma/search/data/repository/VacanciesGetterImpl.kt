@@ -61,12 +61,12 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
     }
 
     private fun vacanciesMapper(response: HHApiResponse): List<Vacancy> {
-        return (response as HHApiResponse.Vacancies).searchResult.items.map {
+        return (response as HHApiResponse.Vacancies).items.map {
             Vacancy(
                 id = it.id,
                 titleOfVacancy = it.name,
-                regionName = it.area.name,
-                salary = it.salary.from.toString(),
+                regionName = it.area?.name,
+                salary = it.salary?.from.toString(),
                 employerName = it.employer.name,
                 employerLogoUrl = it.employer.logoUrls?.size90,
             )

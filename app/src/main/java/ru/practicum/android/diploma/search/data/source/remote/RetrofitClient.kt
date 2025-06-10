@@ -58,23 +58,23 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
         }
     }
 
-    private suspend fun getVacancies(options: Map<String, String>): HHApiResponse {
+    private suspend fun getVacancies(options: Map<String, String>): HHApiResponse.Vacancies {
         return hhApiService.searchVacancies(options)
     }
 
-    private suspend fun getVacancyDetails(id: String): HHApiResponse {
+    private suspend fun getVacancyDetails(id: String): HHApiResponse.VacancyDetails {
         return hhApiService.getVacancyDetails(id)
     }
 
-    private suspend fun getCountries(): HHApiResponse {
+    private suspend fun getCountries(): HHApiResponse.Countries {
         return hhApiService.getCountries()
     }
 
-    private suspend fun getAreasByCountry(id: String): HHApiResponse {
+    private suspend fun getAreasByCountry(id: String): HHApiResponse.Areas {
         return hhApiService.getAreasByCountry(id)
     }
 
-    private suspend fun getIndustries(): HHApiResponse {
+    private suspend fun getIndustries(): HHApiResponse.Industries {
         return hhApiService.getIndustries()
     }
 

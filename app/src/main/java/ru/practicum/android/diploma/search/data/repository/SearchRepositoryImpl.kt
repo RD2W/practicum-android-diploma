@@ -17,7 +17,7 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
         val request = HHApiRequest.Vacancies(searchParameters.toMap())
         when (val response = networkClient.doRequest(request)) {
             is HHApiResponse.Vacancies -> {
-                emit(Resource.Success(response.searchResult.toSearchResult()))
+                emit(Resource.Success(response.toSearchResult()))
             }
 
             is HHApiResponse.BadResponse -> {

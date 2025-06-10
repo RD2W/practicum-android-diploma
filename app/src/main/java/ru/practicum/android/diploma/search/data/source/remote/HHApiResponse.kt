@@ -3,15 +3,18 @@ package ru.practicum.android.diploma.search.data.source.remote
 import ru.practicum.android.diploma.search.data.model.dto.AreaDto
 import ru.practicum.android.diploma.search.data.model.dto.CountryDto
 import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
-import ru.practicum.android.diploma.search.data.model.dto.SearchResultDto
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDetailsDto
+import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
 
 sealed class HHApiResponse {
 
     var responseCode: Int = 0
 
     data class Vacancies(
-        val searchResult: SearchResultDto
+        val items: List<VacancyDto>, // Список вакансий
+        val found: Int, // Найдено результатов
+        val page: Int, // Номер страницы
+        val pages: Int, // Всего страниц
     ) : HHApiResponse()
 
     data class VacancyDetails(

@@ -30,6 +30,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setupButtonListeners() {
+        // Кнопка для проверки работы API
+        binding.searchButton.setOnClickListener {
+            viewModel.doSearch()
+        }
+
         // Обработка первой кнопки
         binding.firstButton.setOnClickListener {
             findNavController().navigate(

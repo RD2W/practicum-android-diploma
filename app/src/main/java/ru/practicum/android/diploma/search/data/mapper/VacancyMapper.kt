@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
 fun VacancyDto.toVacancy() = Vacancy(
     id = this.id,
     titleOfVacancy = this.name,
-    regionName = this.area.name,
+    regionName = this.area?.name,
     salary = FormatStrings.formatSalary(this.salary),
     employerName = this.employer.name,
     employerLogoUrl = this.employer.logoUrls?.size90
