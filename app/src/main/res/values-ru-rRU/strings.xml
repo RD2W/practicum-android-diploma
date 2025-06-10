@@ -29,4 +29,10 @@
     <string name="team_error_image_description">Ошибка загрузки данных</string>
     <string name="error_placeholder_description">Плейсхолдер ошибки или пустого списка вакансий</string>
     <string name="company_logo_description">Логотип компании</string>
+    <!-- Названия в поле поиска -->
+    <string name="search_vacancies_hint">Введите запрос</string>
+    <string name="search_region_hint">Введите регион</string>
+    <!-- Экран поиска -->
+    <string name="no_internet">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
 </resources>
