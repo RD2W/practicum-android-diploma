@@ -10,7 +10,7 @@ import kotlin.collections.map
  *
  * @return FavoriteVacancyEntity Сущность для хранения в базе данных
  */
-fun VacancyDetails.toFavouriteVacancyEntity() = FavoriteVacancyEntity(
+fun VacancyDetails.toFavoriteVacancyEntity() = FavoriteVacancyEntity(
     id = this.id,
     pictureOfCompanyLogoUri = this.employerLogoUrl,
     titleOfVacancy = this.titleOfVacancy,

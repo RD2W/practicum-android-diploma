@@ -3,7 +3,7 @@ package ru.practicum.android.diploma.favorites.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.practicum.android.diploma.common.domain.model.Vacancy
-import ru.practicum.android.diploma.favorites.data.mapper.toFavouriteVacancyEntity
+import ru.practicum.android.diploma.favorites.data.mapper.toFavoriteVacancyEntity
 import ru.practicum.android.diploma.favorites.data.mapper.toVacancyDetails
 import ru.practicum.android.diploma.favorites.data.mapper.toVacancyList
 import ru.practicum.android.diploma.favorites.data.source.local.db.dao.FavoriteVacancyDao
@@ -27,7 +27,7 @@ class FavoriteVacanciesRepositoryImpl(
      * @param vacancyDetails Вакансия для добавления в избранное
      */
     override suspend fun insertFavoriteVacancy(vacancyDetails: VacancyDetails) {
-        favoriteVacancyDao.insertFavoriteVacancy(vacancyDetails.toFavouriteVacancyEntity())
+        favoriteVacancyDao.insertFavoriteVacancy(vacancyDetails.toFavoriteVacancyEntity())
     }
 
     /**
