@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vacancyLinearItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/value_8">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        style="@style/CompanyLogoStyle"
+        android:id="@+id/ivCompanyLogo"
+        android:layout_width="@dimen/value_48"
+        android:layout_height="@dimen/value_48"
+        android:contentDescription="@string/company_logo_description"
+        android:src="@drawable/ic_vacancy_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/VacancyNameTextStyle"
+        android:id="@+id/tvVacancyName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/value_12"
+        app:layout_constraintStart_toEndOf="@id/ivCompanyLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivCompanyLogo"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Android-разработчик, Курск" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/VacancyInfoTextStyle"
+        android:id="@+id/tvCompanyName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tvVacancyName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvVacancyName"
+        tools:text="Если не лучшая компания в мире, но в России так точно." />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/VacancyInfoTextStyle"
+        android:id="@+id/tvVacancySalary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="@id/tvVacancyName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCompanyName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Зарплата не указана, но очень достойная без сомнения" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

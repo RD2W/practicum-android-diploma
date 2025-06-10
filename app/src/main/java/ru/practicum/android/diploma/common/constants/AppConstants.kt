@@ -6,4 +6,6 @@ object AppConstants {
     const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
     const val SHARED_PREFERENCES = "app_preferences"
     const val BASE_URL = "https://api.hh.ru/"
+    const val DATABASE_NAME = "app_database.db"
+    const val DATABASE_VERSION = 1
 }
