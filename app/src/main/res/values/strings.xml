@@ -28,8 +28,11 @@
     <string name="vacancy_salary">Vacancy salary</string>
     <string name="vacancy_sphere">Vacancy sphere</string>
     <string name="vacancy_city">Vacancy city</string>
-    <string name="vacancy_experience_title">Vacancy experience title</string>
-    <string name="vacancy_experience_numbers">Vacancy experience numbers</string>
-    <string name="vacancy_employment">Vacancy employment</string>
-    <string name="vacancy_description_title">Vacancy description title</string>
+    <string name="vacancy_required_experience">Required experience</string>
+    <string name="vacancy_experience_meaning">Vacancy experience meaning</string>
+    <string name="vacancy_schedule">Vacancy schedule</string>
+    <string name="vacancy_description_title">Vacancy description</string>
+    <string name="share_button">Share</string>
+    <string name="favorite_button">Favorite</string>
+    <string name="vacancy_icon">Vacancy icon</string>
 </resources>

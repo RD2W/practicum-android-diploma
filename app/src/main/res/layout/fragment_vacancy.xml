@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Base.Theme.PracticumAndroidDiploma">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/vacancy"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background"
     tools:context=".vacancy.presentation.view.VacancyFragment">
 
@@ -24,24 +31,25 @@
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.appbar.MaterialToolbar
-        style="@style/CustomToolbarStyle"
         android:id="@+id/topAppBar"
+        style="@style/ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginHorizontal="@dimen/value_4"
         android:background="@color/background"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/fragment_vacancy_name"
-        app:menu="@menu/top_appbar_menu"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/top_appbar_menu"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/fragment_vacancy_name" />
 
     <TextView
         android:id="@+id/vacancyTitle"
         style="@style/BigTitles"
         android:layout_width="@dimen/zero_dp"
         android:layout_marginTop="@dimen/value_24"
-        android:text="@string/fragment_vacancy_name"
+        android:text="@string/vacancy_title"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toStartOf="@+id/leftBorder16"
         app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
@@ -75,6 +83,7 @@
         android:layout_width="@dimen/value_48"
         android:layout_height="@dimen/value_48"
         android:layout_marginStart="@dimen/value_16"
+        android:contentDescription="@string/vacancy_icon"
         android:src="@drawable/ic_vacancy_placeholder"
         app:layout_constraintBottom_toBottomOf="@+id/linerBackgroundVacancy"
         app:layout_constraintStart_toStartOf="@+id/leftBorder16"
@@ -95,7 +104,7 @@
 
     <TextView
         android:id="@+id/vacancy_city"
-        style="@style/StyleForCommonText"
+        style="@style/StyleForCommonTextThin"
         android:layout_marginStart="@dimen/value_8"
         android:text="@string/vacancy_city"
         android:background="@color/black_transparent"
@@ -110,30 +119,30 @@
         style="@style/StyleForCommonTextBold"
         android:layout_marginTop="@dimen/value_24"
         android:layout_width="@dimen/zero_dp"
-        android:text="@string/vacancy_experience_title"
+        android:text="@string/vacancy_required_experience"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toEndOf="@+id/leftBorder16"
         app:layout_constraintTop_toBottomOf="@+id/linerBackgroundVacancy"/>
 
     <TextView
-        android:id="@+id/vacancy_experience_numbers"
+        android:id="@+id/vacancy_experience_meaning"
         style="@style/StyleForCommonTextThin"
         android:layout_marginTop="@dimen/value_4"
         android:layout_width="@dimen/zero_dp"
-        android:text="@string/vacancy_experience_numbers"
+        android:text="@string/vacancy_experience_meaning"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toEndOf="@+id/leftBorder16"
         app:layout_constraintTop_toBottomOf="@+id/vacancy_experience_title"/>
 
     <TextView
-        android:id="@+id/vacancy_employment"
+        android:id="@+id/vacancy_schedule"
         style="@style/StyleForCommonTextThin"
         android:layout_marginTop="@dimen/value_8"
         android:layout_width="@dimen/zero_dp"
-        android:text="@string/vacancy_employment"
+        android:text="@string/vacancy_schedule"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-        app:layout_constraintTop_toBottomOf="@+id/vacancy_experience_numbers"/>
+        app:layout_constraintTop_toBottomOf="@+id/vacancy_experience_meaning"/>
 
     <TextView
         android:id="@+id/vacancy_description_title"
@@ -143,6 +152,23 @@
         android:text="@string/vacancy_description_title"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-        app:layout_constraintTop_toBottomOf="@+id/vacancy_employment" />
+        app:layout_constraintTop_toBottomOf="@+id/vacancy_schedule" />
+
+    <TextView
+        android:id="@+id/vacancy_description"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_16"
+        app:layout_constraintTop_toBottomOf="@+id/vacancy_description_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
+        app:layout_constraintStart_toEndOf="@+id/leftBorder16"
+        android:text="@string/vacancy_description_title">
+
+    </TextView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
