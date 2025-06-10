@@ -33,14 +33,16 @@
         <item name="titleTextAppearance">@style/TextMedium22</item>
     </style>
 
-    <style name="CustomBottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
+    <style name="CustomBottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:background">@color/background</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:textSize">@dimen/text_size_12</item>
         <item name="itemTextColor">@drawable/bottom_nav_color_selector</item>
         <item name="itemIconTint">@drawable/bottom_nav_color_selector</item>
+        <item name="itemTextAppearanceActiveBoldEnabled">false</item>
     </style>
 
+    <!-- Стили для экрана "Команда" и элемента списка разработчиков (item_developer.xml) [START] -->
     <style name="DeveloperAvatarStyle">
         <item name="shapeAppearance">@style/DeveloperAvatarStyle.CornerSize</item>
     </style>
@@ -67,6 +69,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
+    <!-- Стили для экрана "Команда" и элемента списка разработчиков (item_developer.xml) [END] -->
 
     <!-- Добавила стили для основных элементов -->
 
@@ -125,5 +128,32 @@
     </style>
 
     <!--    Конец изменений -->
+
+    <!-- item_vacancy.xml - Стили для элемента списка вакансий [START] -->
+    <!-- Стиль для логотипа компании с закругленными углами -->
+    <style name="CompanyLogoStyle">
+        <item name="shapeAppearance">@style/CompanyLogoStyle.CornerSize</item>
+    </style>
+
+    <!-- Параметры скругления углов (12dp) -->
+    <style name="CompanyLogoStyle.CornerSize">
+        <item name="cornerFamily">rounded</item>  <!-- Скругленный стиль -->
+        <item name="cornerSize">@dimen/value_12</item>  <!-- Радиус скругления -->
+    </style>
+
+    <!-- Стиль для названия вакансии (основной заголовок) -->
+    <style name="VacancyNameTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">@style/TextMedium22</item>  <!-- Средний шрифт 22sp -->
+        <item name="android:maxLines">3</item>  <!-- Макс 3 строки -->
+        <item name="android:ellipsize">end</item>  <!-- Многоточие в конце при обрезке -->
+    </style>
+
+    <!-- Стиль для дополнительной информации (наследуется от VacancyNameTextStyle) -->
+    <style name="VacancyInfoTextStyle" parent="VacancyNameTextStyle">
+        <item name="android:textAppearance">@style/TextRegular16</item>  <!-- Обычный шрифт 16sp -->
+        <item name="android:maxLines">1</item>  <!-- Только 1 строка -->
+    </style>
+    <!-- Стиль для элемента списка вакансий -->
+    <!-- item_vacancy.xml - Стили для элемента списка вакансий [END] -->
 
 </resources>
