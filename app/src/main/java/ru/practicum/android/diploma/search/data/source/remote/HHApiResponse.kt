@@ -1,23 +1,17 @@
 package ru.practicum.android.diploma.search.data.source.remote
 
-import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.search.data.model.dto.AreaDto
 import ru.practicum.android.diploma.search.data.model.dto.CountryDto
 import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
+import ru.practicum.android.diploma.search.data.model.dto.SearchResultDto
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDetailsDto
-import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
 
 sealed class HHApiResponse {
 
     var responseCode: Int = 0
 
     data class Vacancies(
-        val items: List<VacancyDto>, // Список вакансий
-        val found: Int, // Найдено результатов
-        val page: Int, // Номер страницы
-        val pages: Int, // Всего страниц
-        @SerializedName("per_page")
-        val perPage: Int, // Результатов на странице
+        val searchResult: SearchResultDto
     ) : HHApiResponse()
 
     data class VacancyDetails(

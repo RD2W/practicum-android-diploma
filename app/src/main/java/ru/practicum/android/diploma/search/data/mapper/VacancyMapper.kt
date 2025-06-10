@@ -4,15 +4,11 @@ import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.utils.FormatStrings
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
 
-class VacancyMapper {
-    fun toDomain(dto: VacancyDto): Vacancy {
-        return Vacancy(
-            id = dto.id,
-            titleOfVacancy = dto.name,
-            regionName = dto.area.name,
-            salary = FormatStrings.formatSalary(dto.salary),
-            employerName = dto.employer.name,
-            employerLogoUrl = dto.employer.logoUrls?.size90,
-        )
-    }
-}
+fun VacancyDto.toVacancy() = Vacancy(
+    id = this.id,
+    titleOfVacancy = this.name,
+    regionName = this.area.name,
+    salary = FormatStrings.formatSalary(this.salary),
+    employerName = this.employer.name,
+    employerLogoUrl = this.employer.logoUrls?.size90
+)
