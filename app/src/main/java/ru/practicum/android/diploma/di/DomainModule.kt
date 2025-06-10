@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.filter.domain.usecase.GetAreasListUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.search.domain.usecase.GetVacanciesUseCase
+import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase
 import ru.practicum.android.diploma.team.domain.usecase.OpenGithubProfileUseCase
 
@@ -17,4 +18,6 @@ val domainModule = module {
     factoryOf(::GetCountriesListUseCase)
     factoryOf(::GetAreasListUseCase)
     factoryOf(::GetIndustriesListUseCase)
+    /** Search Vacancies UseCases */
+    factoryOf(::SearchUseCase)
 }
