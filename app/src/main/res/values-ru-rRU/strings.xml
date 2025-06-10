@@ -45,9 +45,12 @@
     <string name="vacancy_salary">Заработная плата</string>
     <string name="vacancy_sphere">Сфера вакансии</string>
     <string name="vacancy_city">Город вакансии</string>
-    <string name="vacancy_experience_title">Заголовок опыта вакансии</string>
-    <string name="vacancy_experience_numbers">Цифры опыта вакансии</string>
-    <string name="vacancy_employment">Занятость вакансии</string>
+    <string name="vacancy_required_experience">Требуемый опыт</string>
+    <string name="vacancy_experience_meaning">Значение опыта вакансии</string>
+    <string name="vacancy_schedule">Занятость вакансии</string>
     <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="share_button">Поделиться</string>
+    <string name="favorite_button">Избранное</string>
+    <string name="vacancy_icon">Иконка вакансии</string>
 
 </resources>
