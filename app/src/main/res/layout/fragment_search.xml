@@ -84,7 +84,7 @@
     <!-- Количество результатов вакансий, пока просто поле, будет дорабатываться-->
     <TextView
         android:id="@+id/foundedVacancy"
-        android:layout_width="@dimen/value_180"
+        android:layout_width="@dimen/value_190"
         android:layout_height="@dimen/value_28"
         android:layout_gravity="center|top"
         android:layout_marginVertical="@dimen/value_8"
