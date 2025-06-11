@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.country.domain.model.Country
 import ru.practicum.android.diploma.country.domain.model.GetCountriesListResult
 import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
@@ -17,6 +18,7 @@ class CountryViewModel(
     fun observeCountryFragmentState(): LiveData<CountryFragmentState> = countryFragmentStateLiveData
 
     fun getCountries() {
+        /*
         viewModelScope.launch {
             getCountriesUseCase.execute().collect { result ->
                 when (result) {
@@ -30,6 +32,12 @@ class CountryViewModel(
                 }
             }
         }
+
+         */
+        val c1 = Country("1", "Заглушка1")
+        val c2 = Country("2", "Заглушка2")
+        val list = listOf(c1, c2)
+        renderCountryFragment(CountryFragmentState.Content(list))
     }
 
     private fun renderCountryFragment(state: CountryFragmentState) {
