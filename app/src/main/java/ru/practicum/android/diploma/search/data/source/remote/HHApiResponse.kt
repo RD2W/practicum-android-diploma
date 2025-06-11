@@ -1,10 +1,16 @@
 package ru.practicum.android.diploma.search.data.source.remote
 
+import com.google.gson.annotations.SerializedName
+import ru.practicum.android.diploma.search.data.model.dto.AddressDto
 import ru.practicum.android.diploma.search.data.model.dto.AreaDto
 import ru.practicum.android.diploma.search.data.model.dto.CountryDto
+import ru.practicum.android.diploma.search.data.model.dto.EmployerDto
+import ru.practicum.android.diploma.search.data.model.dto.EmploymentDto
+import ru.practicum.android.diploma.search.data.model.dto.ExperienceDto
 import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
-import ru.practicum.android.diploma.search.data.model.dto.VacancyDetailsDto
+import ru.practicum.android.diploma.search.data.model.dto.SalaryDto
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
+import ru.practicum.android.diploma.search.data.model.dto.WorkFormatDto
 
 sealed class HHApiResponse {
 
@@ -18,7 +24,23 @@ sealed class HHApiResponse {
     ) : HHApiResponse()
 
     data class VacancyDetails(
-        val vacancyDetails: VacancyDetailsDto
+        val id: String, // Идентификатор вакансии
+        val area: AreaDto, // Регион
+        val address: AddressDto? = null, // Адрес
+        val description: String, // Описание в html
+        val employer: EmployerDto? = null, // Поля работодателя в вакансии
+        @SerializedName("employment_form")
+        val employmentForm: EmploymentDto? = null, // Тип занятости
+        val experience: ExperienceDto? = null, // Опыт работы
+        @SerializedName("key_skills")
+        val keySkills: List<String>? = null, // Список ключевых навыков
+        val name: String, // Название
+        @SerializedName("salary_range")
+        val salaryRange: SalaryDto? = null, // Зарплата
+        @SerializedName("work_format")
+        val workFormat: List<WorkFormatDto?> = emptyList(), // Формат работы
+        @SerializedName("alternate_url")
+        val alternateUrl: String? = null, // Ссылка на представление вакансии на сайте
     ) : HHApiResponse()
 
     data class Countries(

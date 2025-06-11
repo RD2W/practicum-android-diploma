@@ -9,7 +9,6 @@ import timber.log.Timber
 
 class SearchViewModel(private val searchUseCase: SearchUseCase) : ViewModel() {
     private val testQuery = SearchParameters("android разработчик")
-    private val testAbracadabraQuery = SearchParameters("qwepoiakjdhvfiacwa")
 
     fun doSearch() {
         viewModelScope.launch {
@@ -18,5 +17,4 @@ class SearchViewModel(private val searchUseCase: SearchUseCase) : ViewModel() {
             }
         }
     }
-
 }

@@ -28,15 +28,15 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     }
 
     private fun preValidation(request: Any): HHApiResponse? {
-        if (request !is HHApiRequest) {
+        return if (request !is HHApiRequest) {
             Timber.e("[API] Invalid request type: $request")
             HHApiResponse.BadResponse("Invalid request type").apply { responseCode = BAD_REQUEST }
-        }
-        if (!networkUtils.isNetworkAvailable()) {
+        } else if (!networkUtils.isNetworkAvailable()) {
             Timber.e("[API] No Internet connection")
-            HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
+            return HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
+        } else {
+            null
         }
-        return null
     }
 
     private suspend fun executeRequest(request: HHApiRequest): HHApiResponse {
