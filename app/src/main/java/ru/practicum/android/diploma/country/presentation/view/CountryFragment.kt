@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 import ru.practicum.android.diploma.country.presentation.viewmodel.CountryViewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
 import kotlin.getValue
@@ -21,6 +22,7 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCountryBinding.bind(view)
 
+        setupLiveDataObservers()
         viewModel.getCountries()
     }
 
@@ -28,4 +30,15 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun setupLiveDataObservers() {
+        viewModel.observeCountryFragmentState().observe(viewLifecycleOwner) {
+            renderState(it)
+        }
+    }
+
+    private fun renderState(state: CountryFragmentState) {
+
+    }
+
 }

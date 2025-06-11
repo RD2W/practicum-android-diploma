@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.filter.data.repository
+package ru.practicum.android.diploma.region.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.filter.domain.model.GetAreasListResult
-import ru.practicum.android.diploma.filter.domain.repository.AreasListGetter
+import ru.practicum.android.diploma.region.domain.model.GetAreasListResult
+import ru.practicum.android.diploma.region.domain.repository.AreasListGetter
 import ru.practicum.android.diploma.region.domain.model.Area
 import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
 import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse

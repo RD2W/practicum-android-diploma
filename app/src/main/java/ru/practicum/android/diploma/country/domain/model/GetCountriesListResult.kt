@@ -1,6 +1,4 @@
-package ru.practicum.android.diploma.filter.domain.model
-
-import ru.practicum.android.diploma.region.domain.model.Country
+package ru.practicum.android.diploma.country.domain.model
 
 sealed interface GetCountriesListResult {
     data class Success(val countries: List<Country>) : GetCountriesListResult
