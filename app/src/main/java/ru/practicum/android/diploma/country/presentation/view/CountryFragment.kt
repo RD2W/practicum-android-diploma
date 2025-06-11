@@ -20,6 +20,8 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCountryBinding.bind(view)
+
+        viewModel.getCountries()
     }
 
     override fun onDestroyView() {
