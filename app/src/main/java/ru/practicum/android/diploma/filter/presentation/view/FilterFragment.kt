@@ -30,15 +30,14 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun setupButtonListeners() {
-        // Обработка первой кнопки - переход к выбору страны
-        binding.firstButton.setOnClickListener {
+
+        binding.industryButton.setOnClickListener {
             findNavController().navigate(
                 FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
             )
         }
 
-        // Обработка второй кнопки - переход к выбору региона
-        binding.secondButton.setOnClickListener {
+        binding.workPlaceButton.setOnClickListener {
             findNavController().navigate(
                 FilterFragmentDirections.actionFilterFragmentToWorkplaceFragment()
             )

@@ -30,17 +30,15 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     }
 
     private fun setupButtonListeners() {
-        // Обработка первой кнопки
-        binding.firstButton.setOnClickListener {
+        binding.countryButton.setOnClickListener {
             findNavController().navigate(
-                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToCountryFragment()
             )
         }
 
-        // Обработка второй кнопки
-        binding.secondButton.setOnClickListener {
+        binding.regionButton.setOnClickListener {
             findNavController().navigate(
-                WorkplaceFragmentDirections.actionWorkplaceFragmentToCountryFragment()
+                WorkplaceFragmentDirections.actionWorkplaceFragmentToRegionFragment()
             )
         }
     }
