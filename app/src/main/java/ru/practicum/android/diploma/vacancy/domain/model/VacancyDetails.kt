@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.common.domain.model
+package ru.practicum.android.diploma.vacancy.domain.model
 
 /**
  * Модель данных вакансии.
@@ -42,5 +42,5 @@ data class VacancyDetails(
     val scheduleType: String? = null,
     val keySkills: String? = null,
     val description: String? = null,
-    val alternateUrl: String? = null
+    val alternateUrl: String? = null,
 )

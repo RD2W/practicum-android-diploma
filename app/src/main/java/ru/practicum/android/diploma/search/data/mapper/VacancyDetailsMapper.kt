@@ -1,11 +1,10 @@
 package ru.practicum.android.diploma.search.data.mapper
 
-import ru.practicum.android.diploma.common.domain.model.VacancyDetails
 import ru.practicum.android.diploma.common.utils.FormatStrings
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDetailsDto
+import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 
 class VacancyDetailsMapper {
-
     fun toDomain(dto: VacancyDetailsDto): VacancyDetails {
         return VacancyDetails(
             id = dto.id,

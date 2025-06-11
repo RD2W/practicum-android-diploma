@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -11,7 +12,9 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.common.constants.AppConstants.BASE_URL
+import ru.practicum.android.diploma.common.constants.AppConstants.DATABASE_NAME
 import ru.practicum.android.diploma.common.constants.AppConstants.SHARED_PREFERENCES
+import ru.practicum.android.diploma.favorites.data.source.local.db.AppDatabase
 import ru.practicum.android.diploma.search.data.source.remote.HHApiHeadersInterceptor
 import ru.practicum.android.diploma.search.data.source.remote.HHApiLoggingInterceptor
 import ru.practicum.android.diploma.search.data.source.remote.HHApiService
@@ -23,7 +26,7 @@ import ru.practicum.android.diploma.team.data.source.local.LocalDataSource
 /**
  * Модуль зависимостей приложения, предоставляющий:
  * - Работу с сетью (Retrofit, OkHttp)
- * - Локальное хранилище (SharedPreferences)
+ * - Локальное хранилище (SharedPreferences, Room Database)
  * - Конвертацию данных (Gson)
  */
 val sourceModule = module {
@@ -34,6 +37,34 @@ val sourceModule = module {
             Context.MODE_PRIVATE // Режим доступа (только для этого приложения)
         )
     }
+
+    /**
+     * Настройка Room Database
+     *
+     * Создает экземпляр базы данных с именем "app_database.db"
+     * Включает автоматическую миграцию при изменении схемы
+     *
+     * @return Экземпляр AppDatabase
+     */
+    single {
+        Room.databaseBuilder(
+            get(), // Контекст приложения
+            AppDatabase::class.java, // Класс базы данных
+            DATABASE_NAME, // Имя файла базы данных
+        ).build()
+    }
+
+    /**
+     * DAO (Data Access Object) для работы с избранными вакансиями
+     *
+     * Предоставляет методы для CRUD операций:
+     * - Добавление/удаление вакансий
+     * - Получение списка избранного
+     * - Проверка наличия вакансии в избранном
+     *
+     * @return Экземпляр FavoriteVacancyDao
+     */
+    single { get<AppDatabase>().favoriteVacancyDao() }
 
     // HTTP-клиент с кастомным интерцептором для добавления заголовков
     single {
