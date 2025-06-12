@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 import ru.practicum.android.diploma.country.presentation.viewmodel.CountryViewModel
 import ru.practicum.android.diploma.databinding.FragmentCountryBinding
+import timber.log.Timber
 import kotlin.getValue
 
 class CountryFragment : Fragment(R.layout.fragment_country) {
@@ -38,7 +39,7 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
     }
 
     private fun renderState(state: CountryFragmentState) {
-        // TODO:  
+        Timber.d("CountryFragmentPosting")
     }
 
 }

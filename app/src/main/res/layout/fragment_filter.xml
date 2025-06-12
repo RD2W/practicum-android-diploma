@@ -71,15 +71,15 @@
     <!-- Поле ввода "Ожидаемая зарплата" -->
     <EditText
         android:id="@+id/desiredSalaryEdit"
-        android:layout_width="0dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_52"
+        android:layout_marginTop="@dimen/value_24"
         android:background="@drawable/shape_edit_salary_background"
         android:gravity="bottom"
         android:hint="@string/edit_hint_desired_salary_input"
         android:maxLines="1"
-        android:paddingStart="16dp"
-        android:paddingBottom="8dp"
+        android:paddingStart="@dimen/value_16"
+        android:paddingBottom="@dimen/value_8"
         android:textColorHint="@color/edit_text_hint_color"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
@@ -89,19 +89,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingBottom="27dp"
+        android:paddingStart="@dimen/value_16"
+        android:paddingBottom="@dimen/value_28"
         android:text="@string/edit_desired_salary_headline"
         android:textColor="@color/edit_text_hint_color"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_12"
         app:layout_constraintBottom_toBottomOf="@id/desiredSalaryEdit"
         app:layout_constraintStart_toStartOf="@id/desiredSalaryEdit"
         app:layout_constraintTop_toTopOf="@id/desiredSalaryEdit" />
 
     <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_56"
+        android:layout_marginTop="@dimen/value_24"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
@@ -116,7 +116,7 @@
 
         <CheckBox
             android:id="@+id/checkerUnknownSalaryHide"
-            android:layout_width="20dp"
+            android:layout_width="@dimen/value_20"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
 
@@ -128,8 +128,8 @@
     <Button
         android:id="@+id/applyFilterButton"
         style="@style/FilterApplymentButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="59dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="58dp"
         android:text="@string/button_apply_filter"
         app:layout_constraintBottom_toTopOf="@id/skipFilterButton"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
@@ -139,8 +139,8 @@
     <Button
         android:id="@+id/skipFilterButton"
         style="@style/FilterSkipmentButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="59dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="58dp"
         android:text="@string/button_skip_filter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"

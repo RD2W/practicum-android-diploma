@@ -25,12 +25,12 @@
     <!-- Поле ввода "Регион" -->
     <EditText
         android:id="@+id/desiredSalaryEdit"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:layout_marginTop="@dimen/value_24"
         android:background="@drawable/shape_edit_salary_background"
         android:hint="@string/edit_hint_industry_input"
-        android:paddingStart="16dp"
+        android:paddingStart="@dimen/value_16"
         android:textColorHint="@color/edit_text_hint_color"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
@@ -40,8 +40,8 @@
     <Button
         android:id="@+id/chooseWorkPlaceButton"
         style="@style/FilterApplymentButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="59dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
         android:text="@string/button_choose_work_place"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"

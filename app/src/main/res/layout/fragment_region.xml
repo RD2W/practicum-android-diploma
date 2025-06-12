@@ -13,34 +13,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="@dimen/value_16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightBorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="@dimen/value_16" />
 
     <!-- Поле ввода "Регион" -->
     <EditText
         android:id="@+id/desiredSalaryEdit"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:layout_marginTop="@dimen/value_24"
         android:background="@drawable/shape_edit_salary_background"
         android:drawableEnd="@drawable/ic_search"
         android:hint="@string/edit_hint_region_input"
         android:maxLines="1"
-        android:padding="16dp"
+        android:padding="@dimen/value_16"
         android:textColorHint="@color/edit_text_hint_color"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/zero_dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
