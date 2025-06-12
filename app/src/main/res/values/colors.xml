@@ -16,4 +16,12 @@
     <color name="gray_logo">@color/gray</color>
     <color name="background">@color/white_universal</color>
     <color name="text">@color/black_universal</color>
+
+    <!-- Цвета для экрана "Фильтры" -->
+    <color name="edit_shape_color">#E6E8EB</color>
+    <color name="button_item_text_color">#AEAFB4</color>
+    <color name="edit_text_hint_color">#AEAFB4</color>
+    <color name="ic_forward_color">#1A1B22</color>
+    <color name="salary_cb_text_color">#1A1B22</color>
+    <color name="button_applyment_text_color">#FDFDFD</color>
 </resources>

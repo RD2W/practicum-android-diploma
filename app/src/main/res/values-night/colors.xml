@@ -2,4 +2,10 @@
 <resources>
     <color name="background">@color/black_universal</color>
     <color name="text">@color/white_universal</color>
+
+    <!-- Цвета для экрана "Фильтры" -->
+    <color name="edit_shape_color">#AEAFB4</color>
+    <color name="edit_text_hint_color">#FDFDFD</color>
+    <color name="ic_forward_color">#FDFDFD</color>
+    <color name="salary_cb_text_color">#FDFDFD</color>
 </resources>
