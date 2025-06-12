@@ -26,14 +26,11 @@
     <!-- Кнопка "Страна" -->
     <Button
         android:id="@+id/countryButton"
+        style="@style/FilterItemButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/shape_filter_button"
         android:text="@string/button_country_name"
-        android:gravity="left|bottom"
-        android:drawableEnd="@drawable/ic_forward"
-        android:textColor="@color/text"
         app:layout_constraintBottom_toTopOf="@id/regionButton"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
@@ -53,13 +50,10 @@
     <!-- Кнопка "Регион" -->
     <Button
         android:id="@+id/regionButton"
+        style="@style/FilterItemButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_filter_button"
         android:text="@string/button_region_name"
-        android:gravity="left|bottom"
-        android:drawableEnd="@drawable/ic_forward"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/countryButton" />
@@ -78,11 +72,10 @@
     <!-- Кнопка "Выбрать" -->
     <Button
         android:id="@+id/chooseWorkPlaceButton"
+        style="@style/FilterApplymentButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
         android:text="@string/button_choose_work_place"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintBottom_toBottomOf="parent" />

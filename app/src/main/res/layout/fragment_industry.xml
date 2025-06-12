@@ -39,11 +39,10 @@
     <!-- Кнопка "Выбрать" -->
     <Button
         android:id="@+id/chooseWorkPlaceButton"
+        style="@style/FilterApplymentButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
         android:text="@string/button_choose_work_place"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintBottom_toBottomOf="parent" />

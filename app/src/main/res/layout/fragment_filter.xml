@@ -25,14 +25,11 @@
     <!-- Кнопка "Место работы" -->
     <Button
         android:id="@+id/workPlaceButton"
+        style="@style/FilterItemButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/shape_filter_button"
         android:text="@string/button_work_place_name"
-        android:gravity="left|bottom"
-        android:drawableEnd="@drawable/ic_forward"
-        android:textColor="@color/text"
         app:layout_constraintBottom_toTopOf="@id/industryButton"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
@@ -52,13 +49,10 @@
     <!-- Кнопка "Отрасль" -->
     <Button
         android:id="@+id/industryButton"
+        style="@style/FilterItemButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_filter_button"
         android:text="@string/button_industry_name"
-        android:gravity="left|bottom"
-        android:drawableEnd="@drawable/ic_forward"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/workPlaceButton"
@@ -116,11 +110,10 @@
     <!-- Кнопка "Применить" -->
     <Button
         android:id="@+id/applyFilterButton"
+        style="@style/FilterApplymentButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
         android:text="@string/button_apply_filter"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintBottom_toTopOf="@id/skipFilterButton" />
@@ -128,11 +121,10 @@
     <!-- Кнопка "Сбросить" -->
     <Button
         android:id="@+id/skipFilterButton"
+        style="@style/FilterSkipmentButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/background"
         android:text="@string/button_skip_filter"
-        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -156,4 +156,41 @@
     <!-- Стиль для элемента списка вакансий -->
     <!-- item_vacancy.xml - Стили для элемента списка вакансий [END] -->
 
+    <!-- Стили для экрана "Фильтры" -->
+    <style name="FilterItemButtonStyle">
+        <item name="shapeAppearance">@style/DeveloperAvatarStyle.CornerSize</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:gravity">left|bottom</item>
+        <item name="android:drawableEnd">@drawable/ic_forward</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:background">@drawable/shape_filter_button</item>
+    </style>
+
+    <style name="FilterApplymentButtonStyle">
+        <item name="shapeAppearance">@style/DeveloperAvatarStyle.CornerSize</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:backgroundTint">@color/blue</item>
+    </style>
+
+    <style name="FilterSkipmentButtonStyle">
+        <item name="shapeAppearance">@style/DeveloperAvatarStyle.CornerSize</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:background">@drawable/shape_filter_button</item>
+    </style>
+
+
 </resources>

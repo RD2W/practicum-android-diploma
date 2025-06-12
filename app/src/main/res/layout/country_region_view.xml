@@ -7,13 +7,11 @@
     <!-- Кнопка "Страна" -->
     <Button
         android:id="@+id/countryItemButton"
+        style="@style/FilterItemButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_filter_button"
-        android:text="Название страны"
+        android:text="Название страны/региона"
         android:gravity=""
-        android:drawableEnd="@drawable/ic_forward"
-        android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
