@@ -29,11 +29,11 @@
         android:layout_height="72dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/shape_edit_salary_background"
+        android:drawableEnd="@drawable/ic_search"
         android:hint="@string/edit_hint_region_input"
         android:maxLines="1"
         android:padding="16dp"
         android:textColorHint="@color/edit_text_hint_color"
-        android:drawableEnd="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,31 +42,31 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/desiredSalaryEdit"
-        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/desiredSalaryEdit">
 
         <ImageView
             android:id="@+id/region_search_placeholder_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/image_placeholder_not_found"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Такого региона нет"
-            android:fontFamily="@font/ys_display_medium"
-            android:textSize="22sp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/regions_search_placeholder_text_color"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/region_search_placeholder_pic"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="Такого региона нет"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/region_search_placeholder_pic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,10 +3,7 @@ package ru.practicum.android.diploma.country.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.country.domain.model.Country
-import ru.practicum.android.diploma.country.domain.model.GetCountriesListResult
 import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 

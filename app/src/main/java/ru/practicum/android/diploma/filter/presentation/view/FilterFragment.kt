@@ -30,7 +30,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun setupButtonListeners() {
-
         binding.industryButton.setOnClickListener {
             findNavController().navigate(
                 FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
