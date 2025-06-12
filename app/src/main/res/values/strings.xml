@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">Practicum-Android-Diploma</string>
+    <!-- Название приложения -->
+    <string name="app_name">Vacancy aggregator</string>
+    <!-- Названия фрагментов -->
+    <string name="fragment_search_name">Search Vacancy</string>
+    <string name="fragment_favorites_name">Favorites</string>
+    <string name="fragment_team_name">Team</string>
+    <string name="fragment_vacancy_name">Vacancy</string>
+    <string name="fragment_filter_name">Filter Settings</string>
+    <string name="fragment_workplace_name">Select Workplace</string>
+    <string name="fragment_country_name">Select Country</string>
+    <string name="fragment_region_name">Select Region</string>
+    <string name="fragment_industry_name">Select Industry</string>
+    <!-- Названия пунктов для bottom navigation меню -->
+    <string name="tab_main_title">Main</string>
+    <string name="tab_favorites_title">@string/fragment_favorites_name</string>
+    <string name="tab_team_title">@string/fragment_team_name</string>
+    <!-- Экран "Команда" -->
+    <string name="credits_developed_by">App developed by</string>
+    <string name="technologies_format">Technologies: %s</string>
+    <string name="telegram_format">Telegram: %s</string>
+    <string name="not_specified">not specified</string>
+    <!-- Экран "Вакансия" -->
+    <string name="vacancy_empty_list">The list is empty</string>
+    <string name="vacancy_not_found">Oops!n\Could\'t load vacancies</string>
+    <string name="vacancy_salary_not_specified">Salary not specified</string>
+    <!-- Описание ImageView для accessibility -->
+    <string name="team_developer_avatar_description">Photo of the app\'s developer</string>
+    <string name="team_error_image_description">Data loading error</string>
+    <string name="error_placeholder_description">Error or empty favorites list placeholder</string>
+    <string name="company_logo_description">Company logo</string>
 </resources>

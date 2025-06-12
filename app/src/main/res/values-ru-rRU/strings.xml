@@ -1,0 +1,32 @@
+<resources>
+    <!-- Название приложения -->
+    <string name="app_name">Агрегатор вакансий</string>
+    <!-- Названия фрагментов -->
+    <string name="fragment_search_name">Поиск вакансий</string>
+    <string name="fragment_favorites_name">Избранное</string>
+    <string name="fragment_team_name">Команда</string>
+    <string name="fragment_vacancy_name">Вакансия</string>
+    <string name="fragment_filter_name">Настройки фильтрации</string>
+    <string name="fragment_workplace_name">Выбор места работы</string>
+    <string name="fragment_country_name">Выбор страны</string>
+    <string name="fragment_region_name">Выбор региона</string>
+    <string name="fragment_industry_name">Выбор отрасли</string>
+    <!-- Названия пунктов для bottom navigation меню -->
+    <string name="tab_main_title">Главная</string>
+    <string name="tab_favorites_title">@string/fragment_favorites_name</string>
+    <string name="tab_team_title">@string/fragment_team_name</string>
+    <!-- Экран "Команда" -->
+    <string name="credits_developed_by">Над приложением работали</string>
+    <string name="technologies_format">Технологии: %s</string>
+    <string name="telegram_format">Телеграм: %s</string>
+    <string name="not_specified">не указано</string>
+    <!-- Экран "Вакансия" -->
+    <string name="vacancy_empty_list">Список пуст</string>
+    <string name="vacancy_not_found">Не удалось получить\nсписок вакансий</string>
+    <string name="vacancy_salary_not_specified">Зарплата не указана</string>
+    <!-- Описание ImageView для accessibility -->
+    <string name="team_developer_avatar_description">Фото разработчика приложения</string>
+    <string name="team_error_image_description">Ошибка загрузки данных</string>
+    <string name="error_placeholder_description">Плейсхолдер ошибки или пустого списка вакансий</string>
+    <string name="company_logo_description">Логотип компании</string>
+</resources>

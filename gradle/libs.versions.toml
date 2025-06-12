@@ -1,18 +1,59 @@
 [versions]
-
-java = "VERSION_1_8"
+java = "VERSION_21"
 
 # Build constants
 minSdk = "26"
-compileSdk = "34"
-targetSdk = "33"
+compileSdk = "35"
+targetSdk = "34"
 
 # Detekt
-detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detekt = "1.23.8"
+
+# Build tools
+agp = "8.10.1"
+kotlin = "2.1.21"
+ksp = "2.1.21-2.0.1"
+devprop = "1.0.0"
+
+# AndroidX Core
+coreKtx = "1.16.0"
+appcompat = "1.7.1"
+activity = "1.10.1"
+fragmentKtx = "1.8.8"
+
+# UI
+material = "1.12.0"
+constraintlayout = "2.2.1"
+preference = "1.2.1"
+
+# Navigation
+navigationFragment = "2.9.0"
+
+# Lifecycle
+lifecycle = "2.9.1"
+
+# Room
+room = "2.7.1"
+
+# Network
+retrofit = "3.0.0"
+gson = "2.13.1"
+
+# DI
+koin = "4.0.4"
+
+# Image loading
+glide = "4.16.0"
+
+# Logging
+timber = "5.0.1"
+
+# Testing
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 
 [libraries]
-
 # Detekt
 staticAnalysis-detektPlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
@@ -20,21 +61,62 @@ staticAnalysis-detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", 
 staticAnalysis-detektTest = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
 staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
-staticAnalysis-detektTwitterComposeRules = { module = "com.twitter.compose.rules:detekt", version.ref = "detektTwitterComposeRules" }
 
-# AndroidX
-androidX-core = "androidx.core:core-ktx:1.12.0"
-androidX-appCompat = "androidx.appcompat:appcompat:1.6.1"
+# AndroidX Core
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 
-# UI layer libraries
-ui-material = "com.google.android.material:material:1.10.0"
-ui-constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+# UI
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 
-# Unit tests
-unitTests-junit = "junit:junit:4.13.2"
+# Navigation
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragment" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationFragment" }
 
-# UI tests
-uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
-uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+# Lifecycle
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 
-[bundles]
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+
+# Network
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+# DI
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+
+# Image loading
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+
+# Logging
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+[plugins]
+# Build tools
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "kotlin-parcelize" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+# Navigation
+navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigationFragment" }
+
+# Develop properties
+developproperties = { id = "ru.practicum.android.diploma.plugins.developproperties", version.ref = "devprop" }

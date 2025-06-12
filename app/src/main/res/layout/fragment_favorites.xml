@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorites"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingTop="@dimen/value_16"
+    android:paddingHorizontal="@dimen/value_16"
+    tools:context=".favorites.presentation.view.FavoritesFragment">
+
+    <!-- Group для объединения ShapeableImageView и MaterialTextView заглушки -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="ivPlaceholder,tvPlaceholder"
+        />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavoriteVacancies"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/value_24"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_vacancy"
+        android:visibility="gone" />
+
+    <!-- Прогрессбар загрузки -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/blue"
+        app:trackThickness="@dimen/value_6"
+        app:layout_constraintVertical_bias="0.40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
+
+    <!-- ShapeableImageView для заглушки -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_placeholder_no_favorites"
+        android:contentDescription="@string/error_placeholder_description"
+        app:layout_constraintVertical_bias="0.40"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- MaterialTextView для заглушки -->
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextMedium22"
+        android:id="@+id/tvPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancy_empty_list"
+        app:layout_constraintTop_toBottomOf="@id/ivPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/ivPlaceholder"
+        app:layout_constraintEnd_toEndOf="@id/ivPlaceholder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
