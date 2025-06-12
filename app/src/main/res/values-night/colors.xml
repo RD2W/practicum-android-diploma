@@ -8,4 +8,5 @@
     <color name="edit_text_hint_color">#FDFDFD</color>
     <color name="ic_forward_color">#FDFDFD</color>
     <color name="salary_cb_text_color">#FDFDFD</color>
+    <color name="regions_search_placeholder_text_color">#FDFDFD</color>
 </resources>
