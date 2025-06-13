@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.search.data.model.HHApiRequest
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import timber.log.Timber
 import java.io.IOException
+import java.net.HttpURLConnection
 
 class RetrofitClient(private val hhApiService: HHApiService, private val networkUtils: NetworkUtils) : NetworkClient {
     override suspend fun doRequest(request: Any): HHApiResponse {
@@ -18,7 +19,7 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
                 Timber.d("[API] Search request: $request")
                 val response = executeRequest(request as HHApiRequest)
                 Timber.d("[API] Get response: $response")
-                response.apply { responseCode = OK }
+                response.apply { responseCode = HttpURLConnection.HTTP_OK }
             } catch (e: HttpException) {
                 Timber.e("[API] HTTP error occurred: ${e.code()}")
                 handleHttpExceptions(e)
@@ -32,7 +33,8 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     private fun preValidation(request: Any): HHApiResponse? {
         return if (request !is HHApiRequest) {
             Timber.e("[API] Invalid request type: $request")
-            HHApiResponse.BadResponse("Invalid request type").apply { responseCode = BAD_REQUEST }
+            HHApiResponse.BadResponse("Invalid request type")
+                .apply { responseCode = HttpURLConnection.HTTP_BAD_REQUEST }
         } else if (!networkUtils.isNetworkAvailable()) {
             Timber.e("[API] No Internet connection")
             return HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
@@ -53,10 +55,17 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
     private fun handleHttpExceptions(e: HttpException): HHApiResponse {
         return when (e.code()) {
-            UNAUTHORIZED -> HHApiResponse.BadResponse("Unauthorized").apply { responseCode = UNAUTHORIZED }
-            FORBIDDEN -> HHApiResponse.BadResponse("Forbidden").apply { responseCode = FORBIDDEN }
-            NOT_FOUND -> HHApiResponse.BadResponse("Nothing found").apply { responseCode = NOT_FOUND }
-            else -> HHApiResponse.BadResponse("HTTP error: ${e.message}").apply { responseCode = SERVER_ERROR }
+            HttpURLConnection.HTTP_UNAUTHORIZED -> HHApiResponse.BadResponse("Unauthorized")
+                .apply { responseCode = HttpURLConnection.HTTP_UNAUTHORIZED }
+
+            HttpURLConnection.HTTP_FORBIDDEN -> HHApiResponse.BadResponse("Forbidden")
+                .apply { responseCode = HttpURLConnection.HTTP_FORBIDDEN }
+
+            HttpURLConnection.HTTP_NOT_FOUND -> HHApiResponse.BadResponse("Nothing found")
+                .apply { responseCode = HttpURLConnection.HTTP_NOT_FOUND }
+
+            else -> HHApiResponse.BadResponse("HTTP error: ${e.message}")
+                .apply { responseCode = HttpURLConnection.HTTP_INTERNAL_ERROR }
         }
     }
 
@@ -81,12 +90,6 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     }
 
     companion object {
-        const val OK = 200
-        const val BAD_REQUEST = 400
-        const val UNAUTHORIZED = 401
-        const val FORBIDDEN = 403 // captcha
-        const val NOT_FOUND = 404
-        const val SERVER_ERROR = 500
         const val NETWORK_ERROR = -1
     }
 
