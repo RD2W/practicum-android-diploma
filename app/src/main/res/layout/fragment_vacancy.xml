@@ -3,18 +3,14 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/Base.Theme.PracticumAndroidDiploma">
+    android:layout_height="wrap_content">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/vacancy"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/background"
-    tools:context=".vacancy.presentation.view.VacancyFragment">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftBorder16"
@@ -48,11 +44,14 @@
         android:id="@+id/vacancyTitle"
         style="@style/BigTitles"
         android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/value_24"
         android:text="@string/vacancy_title"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
         app:layout_constraintStart_toStartOf="@+id/leftBorder16"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+
+        />
 
     <TextView
         android:id="@+id/vacancySalary"
@@ -166,7 +165,6 @@
         android:text="@string/vacancy_description_title">
 
     </TextView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
