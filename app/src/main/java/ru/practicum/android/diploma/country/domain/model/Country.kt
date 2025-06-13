@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.region.domain.model
+package ru.practicum.android.diploma.country.domain.model
 
 data class Country(
     val id: String,

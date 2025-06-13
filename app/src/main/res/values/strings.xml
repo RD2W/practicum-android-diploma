@@ -11,6 +11,19 @@
     <string name="fragment_country_name">Select Country</string>
     <string name="fragment_region_name">Select Region</string>
     <string name="fragment_industry_name">Select Industry</string>
+    <!-- Названия кнопок для экрана фильтров -->
+    <string name="button_work_place_name">Work Place</string>
+    <string name="button_industry_name">Industry</string>
+    <string name="edit_hint_desired_salary_input">Input salary</string>
+    <string name="edit_desired_salary_headline">Desired salary</string>
+    <string name="check_without_salary_hide">Hide without salary</string>
+    <string name="button_country_name">Country</string>
+    <string name="button_region_name">Region</string>
+    <string name="edit_hint_region_input">Input region</string>
+    <string name="button_choose_work_place">Choose</string>
+    <string name="button_apply_filter">Apply</string>
+    <string name="button_skip_filter">Skip</string>
+    <string name="edit_hint_industry_input">Input industry</string>
     <!-- Названия пунктов для bottom navigation меню -->
     <string name="tab_main_title">Main</string>
     <string name="tab_favorites_title">@string/fragment_favorites_name</string>

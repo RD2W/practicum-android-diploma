@@ -28,4 +28,5 @@
     <dimen name="value_160">160dp</dimen>
     <dimen name="value_190">190dp</dimen>
     <dimen name="value_512">512dp</dimen>
+    <dimen name="value_minus12">-12dp</dimen>
 </resources>

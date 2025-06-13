@@ -11,6 +11,19 @@
     <string name="fragment_country_name">Выбор страны</string>
     <string name="fragment_region_name">Выбор региона</string>
     <string name="fragment_industry_name">Выбор отрасли</string>
+    <!-- Названия кнопок для экрана фильтров -->
+    <string name="button_work_place_name">Место работы</string>
+    <string name="button_industry_name">Отрасль</string>
+    <string name="edit_hint_desired_salary_input">Введите сумму</string>
+    <string name="edit_desired_salary_headline">Ожидаемая зарплата</string>
+    <string name="check_without_salary_hide">Не показывать без зарплаты</string>
+    <string name="button_country_name">Страна</string>
+    <string name="button_region_name">Регион</string>
+    <string name="edit_hint_region_input">Введите регион</string>
+    <string name="button_choose_work_place">Выбрать</string>
+    <string name="button_apply_filter">Применить</string>
+    <string name="button_skip_filter">Сбросить</string>
+    <string name="edit_hint_industry_input">Введите отрасль</string>
     <!-- Названия пунктов для bottom navigation меню -->
     <string name="tab_main_title">Главная</string>
     <string name="tab_favorites_title">@string/fragment_favorites_name</string>

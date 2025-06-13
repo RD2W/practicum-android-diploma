@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/industry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="16dp"
     tools:context=".industry.presentation.view.IndustryFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <!-- Поле ввода "Регион" -->
+    <EditText
+        android:id="@+id/desiredSalaryEdit"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:layout_marginTop="@dimen/value_24"
+        android:background="@drawable/shape_edit_salary_background"
+        android:hint="@string/edit_hint_industry_input"
+        android:paddingStart="@dimen/value_16"
+        android:textColorHint="@color/edit_text_hint_color"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Кнопка "Выбрать" -->
+    <Button
+        android:id="@+id/chooseWorkPlaceButton"
+        style="@style/FilterApplymentButtonStyle"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:text="@string/button_choose_work_place"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
