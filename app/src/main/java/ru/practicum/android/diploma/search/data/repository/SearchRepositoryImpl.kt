@@ -22,11 +22,9 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                 emit(RequestResult.Success(response.toSearchResult()))
             }
 
-            is HHApiResponse.BadResponse -> {
+            else -> {
                 emit(RequestResult.Error(response.responseCode))
             }
-
-            else -> {}
         }
     }
 
@@ -37,11 +35,9 @@ class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRep
                 emit(RequestResult.Success(response.toVacancyDetails()))
             }
 
-            is HHApiResponse.BadResponse -> {
+            else -> {
                 emit(RequestResult.Error(response.responseCode))
             }
-
-            else -> {}
         }
     }
 }
