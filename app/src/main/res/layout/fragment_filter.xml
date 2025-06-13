@@ -78,6 +78,7 @@
         android:gravity="bottom"
         android:hint="@string/edit_hint_desired_salary_input"
         android:maxLines="1"
+        android:inputType="number"
         android:paddingStart="@dimen/value_16"
         android:paddingBottom="@dimen/value_8"
         android:textColorHint="@color/edit_text_hint_color"
