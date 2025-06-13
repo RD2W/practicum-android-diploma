@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.search.data.mapper
 
-import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.domain.model.SearchResult
 
 fun HHApiResponse.Vacancies.toSearchResult() = SearchResult(

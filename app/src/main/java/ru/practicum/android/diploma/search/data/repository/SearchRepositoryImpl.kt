@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.search.data.mapper.toMap
 import ru.practicum.android.diploma.search.data.mapper.toSearchResult
 import ru.practicum.android.diploma.search.data.mapper.toVacancyDetails
-import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
-import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import ru.practicum.android.diploma.search.domain.model.Resource
 import ru.practicum.android.diploma.search.domain.model.SearchParameters

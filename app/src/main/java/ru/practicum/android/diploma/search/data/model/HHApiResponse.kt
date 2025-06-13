@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.search.data.source.remote
+package ru.practicum.android.diploma.search.data.model
 
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.search.data.model.dto.AddressDto

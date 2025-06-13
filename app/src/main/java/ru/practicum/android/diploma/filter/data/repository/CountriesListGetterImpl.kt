@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.filter.domain.model.GetCountriesListResult
 import ru.practicum.android.diploma.filter.domain.repository.CountriesListGetter
 import ru.practicum.android.diploma.region.domain.model.Country
-import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
-import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.OK
 

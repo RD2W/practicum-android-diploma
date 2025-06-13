@@ -4,6 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.utils.NetworkUtils
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import timber.log.Timber
 import java.io.IOException
 
