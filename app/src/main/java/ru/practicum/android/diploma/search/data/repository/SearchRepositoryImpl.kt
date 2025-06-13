@@ -8,37 +8,37 @@ import ru.practicum.android.diploma.search.data.mapper.toVacancyDetails
 import ru.practicum.android.diploma.search.data.model.HHApiRequest
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
-import ru.practicum.android.diploma.search.domain.model.Resource
+import ru.practicum.android.diploma.common.domain.model.RequestResult
 import ru.practicum.android.diploma.search.domain.model.SearchParameters
 import ru.practicum.android.diploma.search.domain.model.SearchResult
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 
 class SearchRepositoryImpl(private val networkClient: NetworkClient) : SearchRepository {
-    override suspend fun searchVacancies(searchParameters: SearchParameters): Flow<Resource<SearchResult>> = flow {
+    override suspend fun searchVacancies(searchParameters: SearchParameters): Flow<RequestResult<SearchResult>> = flow {
         val request = HHApiRequest.Vacancies(searchParameters.toMap())
         when (val response = networkClient.doRequest(request)) {
             is HHApiResponse.Vacancies -> {
-                emit(Resource.Success(response.toSearchResult()))
+                emit(RequestResult.Success(response.toSearchResult()))
             }
 
             is HHApiResponse.BadResponse -> {
-                emit(Resource.Error(response.responseCode))
+                emit(RequestResult.Error(response.responseCode))
             }
 
             else -> {}
         }
     }
 
-    override suspend fun getVacancyDetails(vacancyId: String): Flow<Resource<VacancyDetails>> = flow {
+    override suspend fun getVacancyDetails(vacancyId: String): Flow<RequestResult<VacancyDetails>> = flow {
         val request = HHApiRequest.VacancyDetails(vacancyId)
         when (val response = networkClient.doRequest(request)) {
             is HHApiResponse.VacancyDetails -> {
-                emit(Resource.Success(response.toVacancyDetails()))
+                emit(RequestResult.Success(response.toVacancyDetails()))
             }
 
             is HHApiResponse.BadResponse -> {
-                emit(Resource.Error(response.responseCode))
+                emit(RequestResult.Error(response.responseCode))
             }
 
             else -> {}
