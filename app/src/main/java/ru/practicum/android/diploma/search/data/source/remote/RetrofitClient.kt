@@ -4,8 +4,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.utils.NetworkUtils
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import timber.log.Timber
 import java.io.IOException
+import java.net.HttpURLConnection
 
 class RetrofitClient(private val hhApiService: HHApiService, private val networkUtils: NetworkUtils) : NetworkClient {
     override suspend fun doRequest(request: Any): HHApiResponse {
@@ -16,7 +19,7 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
                 Timber.d("[API] Search request: $request")
                 val response = executeRequest(request as HHApiRequest)
                 Timber.d("[API] Get response: $response")
-                response.apply { responseCode = OK }
+                response.apply { responseCode = HttpURLConnection.HTTP_OK }
             } catch (e: HttpException) {
                 Timber.e("[API] HTTP error occurred: ${e.code()}")
                 handleHttpExceptions(e)
@@ -28,15 +31,16 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     }
 
     private fun preValidation(request: Any): HHApiResponse? {
-        if (request !is HHApiRequest) {
+        return if (request !is HHApiRequest) {
             Timber.e("[API] Invalid request type: $request")
-            HHApiResponse.BadResponse("Invalid request type").apply { responseCode = BAD_REQUEST }
-        }
-        if (!networkUtils.isNetworkAvailable()) {
+            HHApiResponse.BadResponse("Invalid request type")
+                .apply { responseCode = HttpURLConnection.HTTP_BAD_REQUEST }
+        } else if (!networkUtils.isNetworkAvailable()) {
             Timber.e("[API] No Internet connection")
-            HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
+            return HHApiResponse.BadResponse("No Internet connection").apply { responseCode = NETWORK_ERROR }
+        } else {
+            null
         }
-        return null
     }
 
     private suspend fun executeRequest(request: HHApiRequest): HHApiResponse {
@@ -51,40 +55,41 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
     private fun handleHttpExceptions(e: HttpException): HHApiResponse {
         return when (e.code()) {
-            UNAUTHORIZED -> HHApiResponse.BadResponse("Unauthorized").apply { responseCode = UNAUTHORIZED }
-            FORBIDDEN -> HHApiResponse.BadResponse("Forbidden").apply { responseCode = FORBIDDEN }
-            NOT_FOUND -> HHApiResponse.BadResponse("Nothing found").apply { responseCode = NOT_FOUND }
-            else -> HHApiResponse.BadResponse("HTTP error: ${e.message}").apply { responseCode = SERVER_ERROR }
+            HttpURLConnection.HTTP_UNAUTHORIZED -> HHApiResponse.BadResponse("Unauthorized")
+                .apply { responseCode = HttpURLConnection.HTTP_UNAUTHORIZED }
+
+            HttpURLConnection.HTTP_FORBIDDEN -> HHApiResponse.BadResponse("Forbidden")
+                .apply { responseCode = HttpURLConnection.HTTP_FORBIDDEN }
+
+            HttpURLConnection.HTTP_NOT_FOUND -> HHApiResponse.BadResponse("Nothing found")
+                .apply { responseCode = HttpURLConnection.HTTP_NOT_FOUND }
+
+            else -> HHApiResponse.BadResponse("HTTP error: ${e.message}")
+                .apply { responseCode = HttpURLConnection.HTTP_INTERNAL_ERROR }
         }
     }
 
-    private suspend fun getVacancies(options: Map<String, String>): HHApiResponse {
+    private suspend fun getVacancies(options: Map<String, String>): HHApiResponse.Vacancies {
         return hhApiService.searchVacancies(options)
     }
 
-    private suspend fun getVacancyDetails(id: String): HHApiResponse {
+    private suspend fun getVacancyDetails(id: String): HHApiResponse.VacancyDetails {
         return hhApiService.getVacancyDetails(id)
     }
 
-    private suspend fun getCountries(): HHApiResponse {
+    private suspend fun getCountries(): HHApiResponse.Countries {
         return hhApiService.getCountries()
     }
 
-    private suspend fun getAreasByCountry(id: String): HHApiResponse {
+    private suspend fun getAreasByCountry(id: String): HHApiResponse.Areas {
         return hhApiService.getAreasByCountry(id)
     }
 
-    private suspend fun getIndustries(): HHApiResponse {
+    private suspend fun getIndustries(): HHApiResponse.Industries {
         return hhApiService.getIndustries()
     }
 
     companion object {
-        const val OK = 200
-        const val BAD_REQUEST = 400
-        const val UNAUTHORIZED = 401
-        const val FORBIDDEN = 403 // captcha
-        const val NOT_FOUND = 404
-        const val SERVER_ERROR = 500
         const val NETWORK_ERROR = -1
     }
 
