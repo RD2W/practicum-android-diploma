@@ -4,18 +4,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.filter.domain.model.Filter
-import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
-import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.BAD_REQUEST
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.FORBIDDEN
 import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.NETWORK_ERROR
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.NOT_FOUND
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.OK
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.SERVER_ERROR
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.UNAUTHORIZED
 import ru.practicum.android.diploma.search.domain.model.SearchVacanciesResult
 import ru.practicum.android.diploma.search.domain.repository.VacanciesGetter
+import java.net.HttpURLConnection
 
 class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesGetter {
     override fun getVacancies(
@@ -25,7 +20,7 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
         val response =
             networkClient.doRequest(HHApiRequest.Vacancies(getOptions(vacancyExpression, filter)))
         when (response.responseCode) {
-            OK -> {
+            HttpURLConnection.HTTP_OK -> {
                 val vacancies = vacanciesMapper(response)
                 if (vacancies.isEmpty()) {
                     emit(SearchVacanciesResult.NoVacancies)
@@ -38,23 +33,23 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
                 emit(SearchVacanciesResult.NetworkError((response as HHApiResponse.BadResponse).errorMessage))
             }
 
-            BAD_REQUEST -> {
+            HttpURLConnection.HTTP_BAD_REQUEST -> {
                 emit(SearchVacanciesResult.BadRequest((response as HHApiResponse.BadResponse).errorMessage))
             }
 
-            UNAUTHORIZED -> {
+            HttpURLConnection.HTTP_UNAUTHORIZED -> {
                 emit(SearchVacanciesResult.Unauthorized((response as HHApiResponse.BadResponse).errorMessage))
             }
 
-            FORBIDDEN -> {
+            HttpURLConnection.HTTP_FORBIDDEN -> {
                 emit(SearchVacanciesResult.Forbidden((response as HHApiResponse.BadResponse).errorMessage))
             }
 
-            NOT_FOUND -> {
+            HttpURLConnection.HTTP_NOT_FOUND -> {
                 emit(SearchVacanciesResult.NoVacancies)
             }
 
-            SERVER_ERROR -> {
+            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
                 emit(SearchVacanciesResult.ServerError((response as HHApiResponse.BadResponse).errorMessage))
             }
         }
@@ -65,8 +60,8 @@ class VacanciesGetterImpl(private val networkClient: NetworkClient) : VacanciesG
             Vacancy(
                 id = it.id,
                 titleOfVacancy = it.name,
-                regionName = it.area.name,
-                salary = it.salary.from.toString(),
+                regionName = it.area?.name,
+                salary = it.salary?.from.toString(),
                 employerName = it.employer.name,
                 employerLogoUrl = it.employer.logoUrls?.size90,
             )

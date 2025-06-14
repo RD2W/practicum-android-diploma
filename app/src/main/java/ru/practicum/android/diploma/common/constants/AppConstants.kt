@@ -8,4 +8,5 @@ object AppConstants {
     const val BASE_URL = "https://api.hh.ru/"
     const val DATABASE_NAME = "app_database.db"
     const val DATABASE_VERSION = 1
+    const val PAGE_SIZE = 20
 }

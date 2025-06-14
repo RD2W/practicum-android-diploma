@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.common.constants.AppConstants.DATABASE_NAME
 import ru.practicum.android.diploma.common.constants.AppConstants.SHARED_PREFERENCES
 import ru.practicum.android.diploma.favorites.data.source.local.db.AppDatabase
 import ru.practicum.android.diploma.search.data.source.remote.HHApiHeadersInterceptor
+import ru.practicum.android.diploma.search.data.source.remote.HHApiLoggingInterceptor
 import ru.practicum.android.diploma.search.data.source.remote.HHApiService
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient
@@ -69,6 +70,7 @@ val sourceModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(HHApiHeadersInterceptor()) // Добавляем интерцептор для API hh.ru
+            .addInterceptor(HHApiLoggingInterceptor()) // Логирование запросов к API hh.ru
             .build()
     }
 

@@ -5,16 +5,16 @@ import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.filter.domain.model.GetAreasListResult
 import ru.practicum.android.diploma.filter.domain.repository.AreasListGetter
 import ru.practicum.android.diploma.region.domain.model.Area
-import ru.practicum.android.diploma.search.data.source.remote.HHApiRequest
-import ru.practicum.android.diploma.search.data.source.remote.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.HHApiRequest
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
-import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient.Companion.OK
+import java.net.HttpURLConnection
 
 class AreasListGetterImpl(private val networkClient: NetworkClient) : AreasListGetter {
     override fun getAreasList(countryId: String): Flow<GetAreasListResult> = flow {
         val response = networkClient.doRequest(HHApiRequest.Areas(countryId))
         when (response.responseCode) {
-            OK -> {
+            HttpURLConnection.HTTP_OK -> {
                 val areaCountry = (response as HHApiResponse.Areas).areas.map {
                     Area(
                         id = it.id,
