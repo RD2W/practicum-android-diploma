@@ -24,6 +24,8 @@
     <string name="button_apply_filter">Применить</string>
     <string name="button_skip_filter">Сбросить</string>
     <string name="edit_hint_industry_input">Введите отрасль</string>
+    <string name="list_problem_placeholder_text">Не удалось получить список</string>
+    <string name="industry_absent_placeholder_text">Такой отрасли нет</string>
     <!-- Названия пунктов для bottom navigation меню -->
     <string name="tab_main_title">Главная</string>
     <string name="tab_favorites_title">@string/fragment_favorites_name</string>

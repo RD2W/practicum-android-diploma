@@ -1,12 +1,17 @@
 package ru.practicum.android.diploma.workplace.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
+import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
+import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.workplace.presentation.viewmodel.WorkplaceViewModel
 import kotlin.getValue
 
@@ -21,6 +26,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWorkplaceBinding.bind(view)
+
         setupButtonListeners()
     }
 
@@ -28,6 +34,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         super.onDestroyView()
         _binding = null
     }
+
 
     private fun setupButtonListeners() {
         binding.countryButton.setOnClickListener {

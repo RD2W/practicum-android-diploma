@@ -27,6 +27,7 @@
         android:id="@+id/desiredSalaryEdit"
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/value_64"
+        android:inputType="text"
         android:layout_marginTop="@dimen/value_24"
         android:background="@drawable/shape_edit_salary_background"
         android:hint="@string/edit_hint_industry_input"
@@ -36,13 +37,94 @@
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/zero_dp"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/value_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/desiredSalaryEdit">
+
+        <!-- Industries RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/industries_recycler"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- ProblemPlaceholderPicture -->
+        <ImageView
+            android:id="@+id/industry_problem_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found_regions"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ProblemPlaceholderText -->
+        <TextView
+            android:id="@+id/industry_problem_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/list_problem_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/industry_problem_placeholder_pic" />
+
+        <!-- AbsentPlaceholderPicture -->
+        <ImageView
+            android:id="@+id/industry_absent_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- AbsentPlaceholderText -->
+        <TextView
+            android:id="@+id/industry_absent_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/industry_absent_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/industry_absent_placeholder_pic" />
+
+        <ProgressBar
+            android:id="@+id/industry_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- Кнопка "Выбрать" -->
     <Button
-        android:id="@+id/chooseWorkPlaceButton"
+        android:id="@+id/chooseIndustryButton"
         style="@style/FilterApplymentButtonStyle"
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/value_64"
         android:text="@string/button_choose_work_place"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder" />

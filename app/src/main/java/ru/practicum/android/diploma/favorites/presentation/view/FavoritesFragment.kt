@@ -79,7 +79,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
      * @param vacancies Список вакансий для отображения
      */
     private fun showContent(vacancies: List<Vacancy>) {
-        Timber.d("Vacancies: ${vacancies.joinToString { it.titleOfVacancy.toString() }}")
         switchUiMode(showVacancies = true)
         adapter.submitList(vacancies)
     }

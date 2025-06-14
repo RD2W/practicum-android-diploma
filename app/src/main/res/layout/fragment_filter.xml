@@ -37,10 +37,12 @@
 
     <!-- Внутренняя надпись "Место работы" -->
     <TextView
+        android:id="@+id/workplace_inner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="27dp"
         android:text="@string/button_work_place_name"
+        android:visibility="invisible"
         android:textColor="@color/button_item_text_color"
         app:layout_constraintBottom_toBottomOf="@id/workPlaceButton"
         app:layout_constraintStart_toStartOf="@id/workPlaceButton"
@@ -59,10 +61,12 @@
 
     <!-- Внутренняя надпись "Отрасль" -->
     <TextView
+        android:id="@+id/industry_inner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="27dp"
         android:text="@string/button_industry_name"
+        android:visibility="invisible"
         android:textColor="@color/button_item_text_color"
         app:layout_constraintBottom_toBottomOf="@id/industryButton"
         app:layout_constraintStart_toStartOf="@id/industryButton"
@@ -82,12 +86,31 @@
         android:paddingStart="@dimen/value_16"
         android:paddingBottom="@dimen/value_8"
         android:textColorHint="@color/edit_text_hint_color"
+        android:textColor="@color/salary_not_null_text_color"
+        android:textCursorDrawable="@drawable/ic_cursor"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/industryButton" />
 
+    <!-- Кнопка очистки поля ввода зарплаты -->
+    <ImageView
+        android:id="@+id/salary_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_clear"
+        android:layout_marginEnd="@dimen/value_14"
+        android:padding="@dimen/value_4"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/desiredSalaryEdit"
+        app:layout_constraintBottom_toBottomOf="@id/desiredSalaryEdit"
+        app:layout_constraintEnd_toEndOf="@id/desiredSalaryEdit"
+        />
+
     <!-- Внутренняя надпись "Ожидаемая зарплата" -->
     <TextView
+        android:id="@+id/salary_inner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/value_16"
@@ -116,11 +139,10 @@
             android:textColor="@color/salary_cb_text_color" />
 
         <CheckBox
-            android:id="@+id/checkerUnknownSalaryHide"
+            android:id="@+id/unknown_salary_checker"
             android:layout_width="@dimen/value_20"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-
             android:buttonTint="@color/blue" />
 
     </FrameLayout>
@@ -132,6 +154,7 @@
         android:layout_width="@dimen/zero_dp"
         android:layout_height="58dp"
         android:text="@string/button_apply_filter"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/skipFilterButton"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder" />
@@ -143,6 +166,7 @@
         android:layout_width="@dimen/zero_dp"
         android:layout_height="58dp"
         android:text="@string/button_skip_filter"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder" />

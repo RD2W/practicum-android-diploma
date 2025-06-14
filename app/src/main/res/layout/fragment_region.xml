@@ -51,19 +51,19 @@
             android:id="@+id/region_search_placeholder_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/image_placeholder_not_found"
+            android:src="@drawable/image_placeholder_not_found_regions"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/value_16"
             android:fontFamily="@font/ys_display_medium"
             android:gravity="center_horizontal"
-            android:text="Такого региона нет"
+            android:text="Ошибка"
             android:textColor="@color/regions_search_placeholder_text_color"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_size_22"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/region_search_placeholder_pic" />

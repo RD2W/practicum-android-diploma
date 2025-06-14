@@ -24,6 +24,8 @@
     <string name="button_apply_filter">Apply</string>
     <string name="button_skip_filter">Skip</string>
     <string name="edit_hint_industry_input">Input industry</string>
+    <string name="list_problem_placeholder_text">List retrieve failure</string>
+    <string name="industry_absent_placeholder_text">Industry not exists</string>
     <!-- Названия пунктов для bottom navigation меню -->
     <string name="tab_main_title">Main</string>
     <string name="tab_favorites_title">@string/fragment_favorites_name</string>
