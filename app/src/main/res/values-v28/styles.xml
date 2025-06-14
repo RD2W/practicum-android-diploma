@@ -125,7 +125,7 @@
     <style name="StyleForCommonTextBoldTextStyle">
         <item name="android:textColor">"@color/black_universal"</item>
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:fontFamily">"@font/ys_display_regular"</item>
+        <item name="android:fontFamily">"@font/ys_display_bold"</item>
         <item name="android:textFontWeight">500</item>
     </style>
 

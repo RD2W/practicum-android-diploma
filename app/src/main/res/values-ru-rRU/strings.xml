@@ -52,4 +52,11 @@
     <string name="share_button">Поделиться</string>
     <string name="favorite_button">Избранное</string>
     <string name="vacancy_icon">Иконка вакансии</string>
+    <!-- Названия в поле поиска -->
+    <string name="search_vacancies_hint">Введите запрос</string>
+    <string name="search_region_hint">Введите регион</string>
+    <!-- Экран поиска -->
+    <string name="no_internet">Нет интернета</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="key_skills">Ключевые навыки</string>
 </resources>
