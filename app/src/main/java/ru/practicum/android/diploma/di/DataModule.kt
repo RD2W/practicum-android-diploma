@@ -17,6 +17,8 @@ import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.search.domain.repository.VacanciesGetter
 import ru.practicum.android.diploma.team.data.repository.DevTeamRepositoryImpl
 import ru.practicum.android.diploma.team.domain.repository.DevTeamRepository
+import ru.practicum.android.diploma.vacancy.data.repository.VacancyDetailsRepositoryImpl
+import ru.practicum.android.diploma.vacancy.domain.repository.VacancyDetailsRepository
 
 val dataModule = module {
     /** Developers Team Repository */
@@ -30,4 +32,6 @@ val dataModule = module {
     factoryOf(::IndustriesListGetterImpl) { bind<IndustriesListGetter>() }
     /** Search Vacancies Repository */
     factoryOf(::SearchRepositoryImpl) { bind<SearchRepository>() }
+    /** Vacancy Repository */
+    factoryOf(::VacancyDetailsRepositoryImpl) { bind<VacancyDetailsRepository>() }
 }
