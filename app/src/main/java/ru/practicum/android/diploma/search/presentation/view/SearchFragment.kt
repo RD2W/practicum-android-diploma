@@ -43,12 +43,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     // Загрузилась ли первая страница
     private var isFirstPageLoaded = false
 
+    // Для красивой загрузки  ресайклера
     private var offset by Delegates.notNull<Int>()
-    private val scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-            updateRecyclerViewPadding(rv, offset)
-        }
-    }
+        private val scrollListener = object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                        updateRecyclerViewPadding(rv, offset)
+                    }
+            }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -140,7 +142,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             binding.rvSearchVacancies.paddingRight,
             binding.rvSearchVacancies.paddingBottom
         )
-
     }
 
     private fun updateRecyclerViewPadding(rv: RecyclerView, offset: Int) {
@@ -266,5 +267,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         if (view is EditText) view.clearFocus()
         if (view != null) imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 }
