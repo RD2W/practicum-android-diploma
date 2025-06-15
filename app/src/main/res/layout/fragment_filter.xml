@@ -43,7 +43,7 @@
         android:paddingBottom="27dp"
         android:text="@string/button_work_place_name"
         android:visibility="invisible"
-        android:textColor="@color/button_item_text_color"
+        android:textColor="@color/inner_text_color"
         app:layout_constraintBottom_toBottomOf="@id/workPlaceButton"
         app:layout_constraintStart_toStartOf="@id/workPlaceButton"
         app:layout_constraintTop_toTopOf="@id/workPlaceButton" />
@@ -67,7 +67,7 @@
         android:paddingBottom="27dp"
         android:text="@string/button_industry_name"
         android:visibility="invisible"
-        android:textColor="@color/button_item_text_color"
+        android:textColor="@color/inner_text_color"
         app:layout_constraintBottom_toBottomOf="@id/industryButton"
         app:layout_constraintStart_toStartOf="@id/industryButton"
         app:layout_constraintTop_toTopOf="@id/industryButton" />

@@ -1,6 +1,9 @@
 package ru.practicum.android.diploma.industry.presentation.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +29,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     private val adapter = IndustriesAdapter()
     private var industry: Industry? = null
+    private var industries = emptyList<Industry>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,12 +71,20 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
             }
             findNavController().navigateUp()
         }
+
+        binding.industryEdit.addTextChangedListener(textWatcherCustom())
+
+        binding.industryClearButton.setOnClickListener {
+            binding.industryEdit.setText("")
+        }
+
     }
 
     private fun renderState(state: IndustryFragmentState) {
         when (state) {
             is IndustryFragmentState.Content -> {
                 showContent(state.industries)
+                industries = state.industries
             }
 
             is IndustryFragmentState.Problem -> {
@@ -82,6 +94,14 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
             is IndustryFragmentState.Loading -> {
                 showLoading()
             }
+        }
+    }
+
+    private fun localRenderState(industries: List<Industry>) {
+        if (industries.isEmpty()) {
+            showAbsent()
+        } else {
+            showContent(industries)
         }
     }
 
@@ -114,6 +134,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
         contentViewsHide()
         problemViewsHide()
         absentViewsShow()
+        applyButtonHide()
     }
 
     private fun contentViewsShow() {
@@ -157,7 +178,35 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
     }
 
     private fun applyButtonHide() {
-        binding.chooseIndustryButton.visibility = View.INVISIBLE
+        binding.chooseIndustryButton.visibility = View.GONE
+    }
+
+    private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            industrySearchButtonSetState(s)
+            filterIndustriesSet(s, industries)
+            adapter.selectedPosition = -1
+        }
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    private fun industrySearchButtonSetState(s: CharSequence?) {
+        if (s.isNullOrEmpty()) {
+            binding.industryClearButton.setImageResource(R.drawable.ic_search)
+            binding.industryClearButton.isEnabled = false
+        } else {
+            binding.industryClearButton.setImageResource(R.drawable.ic_clear)
+            binding.industryClearButton.isEnabled = true
+        }
+    }
+
+    private fun filterIndustriesSet(s: CharSequence?, industries: List<Industry>) {
+        val industriesFiltered = when {
+            !s.isNullOrEmpty() -> industries.filter { industry -> industry.name.contains(s, true) }
+            else -> industries
+        }
+        localRenderState(industriesFiltered)
     }
 
 }

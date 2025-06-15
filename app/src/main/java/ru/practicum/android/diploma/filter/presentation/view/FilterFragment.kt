@@ -30,7 +30,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         _binding = FragmentFilterBinding.bind(view)
 
         setupLiveDataObservers()
-        setupButtonListeners()
+        setupListeners()
     }
 
     override fun onStart() {
@@ -53,7 +53,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
     }
 
-    private fun setupButtonListeners() {
+    private fun setupListeners() {
         binding.industryButton.setOnClickListener {
             findNavController().navigate(
                 FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
@@ -114,28 +114,32 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         skipButtonVisibility: Boolean
     ) {
         binding.workPlaceButton.text = areaName?: resources.getText(R.string.button_work_place_name)
-        workplaceInnerHintVisibilitySet(areaName)
+        workplaceButtonBannersSet(areaName)
         binding.industryButton.text = industryName?: resources.getText(R.string.button_industry_name)
-        industryInnerHintVisibilitySet(industryName)
+        industryButtonBannersSet(industryName)
         binding.desiredSalaryEdit.setText(desiredSalary?.toString())
         binding.unknownSalaryChecker.isChecked = salaryMustHaveFlag
         skipButtonSet(skipButtonVisibility)
         salaryInnerHeadlineOutFocusSetTextColor(desiredSalary?.toString())
     }
 
-    private fun workplaceInnerHintVisibilitySet(value: Any?) {
+    private fun workplaceButtonBannersSet(value: Any?) {
         if (value == null) {
             binding.workplaceInner.visibility = View.INVISIBLE
+            binding.workPlaceButton.setTextColor(resources.getColor(R.color.button_item_empty_text_color))
         } else {
             binding.workplaceInner.visibility = View.VISIBLE
+            binding.workPlaceButton.setTextColor(resources.getColor(R.color.button_item_text_color))
         }
     }
 
-    private fun industryInnerHintVisibilitySet(value: Any?) {
+    private fun industryButtonBannersSet(value: Any?) {
         if (value == null) {
             binding.industryInner.visibility = View.INVISIBLE
+            binding.industryButton.setTextColor(resources.getColor(R.color.button_item_empty_text_color))
         } else {
             binding.industryInner.visibility = View.VISIBLE
+            binding.industryButton.setTextColor(resources.getColor(R.color.button_item_text_color))
         }
     }
 

@@ -38,6 +38,8 @@ class FilterViewModel : ViewModel() {
         if (salaryMustHaveFlag != null) {
             this.salaryMustHaveFlag = salaryMustHaveFlag
         }
+        Log.d("wtf", "Input: "+industry?.name)
+        Log.d("wtf", this.industry?.name.toString())
         updateState()
     }
 
@@ -68,6 +70,7 @@ class FilterViewModel : ViewModel() {
         this.desiredSalary = null
         this.salaryMustHaveFlag = false
         this.filter = null
+        Log.d("wtf", this.industry?.name.toString())
         updateState()
     }
 }

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.industry.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,8 +8,8 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.industry.domain.model.Industry
 
 class IndustriesAdapter() : RecyclerView.Adapter<IndustryViewHolder>() {
-
     var industries = ArrayList<Industry>()
+
     var onItemClickListener: ((Industry) -> Unit)? = null
     var selectedPosition = -1
 

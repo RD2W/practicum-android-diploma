@@ -22,9 +22,9 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <!-- Поле ввода "Регион" -->
+    <!-- Поле ввода "Отрасль" -->
     <EditText
-        android:id="@+id/desiredSalaryEdit"
+        android:id="@+id/industryEdit"
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/value_64"
         android:inputType="text"
@@ -33,19 +33,34 @@
         android:hint="@string/edit_hint_industry_input"
         android:paddingStart="@dimen/value_16"
         android:textColorHint="@color/edit_text_hint_color"
+        android:textColor="@color/salary_not_null_text_color"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Кнопка очистки поля ввода отрасли -->
+    <ImageView
+        android:id="@+id/industry_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        android:layout_marginEnd="@dimen/value_14"
+        android:padding="@dimen/value_4"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/industryEdit"
+        app:layout_constraintBottom_toBottomOf="@id/industryEdit"
+        app:layout_constraintEnd_toEndOf="@id/industryEdit"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/zero_dp"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/value_16"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chooseIndustryButton"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/desiredSalaryEdit">
+        app:layout_constraintTop_toBottomOf="@id/industryEdit">
 
         <!-- Industries RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
@@ -124,7 +139,7 @@
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/value_64"
         android:text="@string/button_choose_work_place"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder" />

@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.industry.presentation.adapter
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView

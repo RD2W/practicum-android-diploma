@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/value_8"
         android:text="Rrrrryyyyyyy"
-        android:textColor="@color/button_item_text_color"
+        android:textColor="@color/industry_item_text_color"
         android:letterSpacing="0"
         android:fontFamily="@font/ys_display_regular"
         android:textSize="@dimen/text_size_16"

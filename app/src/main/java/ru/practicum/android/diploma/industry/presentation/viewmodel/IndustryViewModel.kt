@@ -17,14 +17,14 @@ class IndustryViewModel(
     fun getIndustries() {
         /*
         viewModelScope.launch {
-            getCountriesUseCase.execute().collect { result ->
+            getIndustriesUseCase.execute().collect { result ->
                 when (result) {
-                    is GetCountriesListResult.Success -> {
-                        renderCountryFragment(CountryFragmentState.Content(result.countries))
+                    is GetIndustriesListResult.Success -> {
+                        renderIndustryFragment(IndustryFragmentState.Content(result.industries))
                     }
 
-                    is GetCountriesListResult.Problem -> {
-                        renderCountryFragment(CountryFragmentState.Empty)
+                    is GetIndustriesListResult.Problem -> {
+                        renderUndustryFragment(IndustryFragmentState.Empty)
                     }
                 }
             }
@@ -35,7 +35,15 @@ class IndustryViewModel(
         val i2 = Industry("2", "Отрасль заглушка2")
         val i3 = Industry("3", "Отрасль заглушка3")
         val i4 = Industry("4", "Отрасль заглушка4")
-        val list = listOf(i1, i2, i3, i4)
+        val i5 = Industry("5", "Отрасль заглушка35")
+        val i6 = Industry("6", "Отрасль заглушка53")
+        val i7 = Industry("7", "Отрасль заглушка5")
+        val i8 = Industry("8", "Отрасль заглушка6")
+        val i9 = Industry("9", "Отрасль заглушка7")
+        val i10 = Industry("10", "Отрасль заглушка71")
+        val i11 = Industry("11", "Отрасль заглушка8")
+        val i12 = Industry("12", "Отрасль заглушка9")
+        val list = listOf(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12)
         renderIndustryFragment(IndustryFragmentState.Content(list))
     }
 
