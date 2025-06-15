@@ -78,8 +78,6 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
 
     private fun showVacancy(vacancyDetails: VacancyDetails) {
 
-
-
         with(binding) {
 
             scroll.visibility = View.VISIBLE
