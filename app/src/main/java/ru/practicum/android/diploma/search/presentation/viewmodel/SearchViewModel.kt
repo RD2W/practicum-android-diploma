@@ -2,12 +2,8 @@ package ru.practicum.android.diploma.search.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import ru.practicum.android.diploma.common.constants.AppConstants
@@ -16,18 +12,14 @@ import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.utils.NetworkUtils
 import ru.practicum.android.diploma.common.utils.debounce
 import ru.practicum.android.diploma.filter.domain.model.Filter
-import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import ru.practicum.android.diploma.search.domain.model.SearchParameters
 import ru.practicum.android.diploma.search.domain.model.SearchResult
-import ru.practicum.android.diploma.search.domain.model.SearchVacanciesResult
-import ru.practicum.android.diploma.search.domain.usecase.GetVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import timber.log.Timber
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
-import java.nio.file.DirectoryStream
 
 /**
  * ViewModel для экрана "Поиск вакансии".

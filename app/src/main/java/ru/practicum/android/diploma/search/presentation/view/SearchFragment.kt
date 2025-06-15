@@ -13,6 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import androidx.lifecycle.Lifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.presentation.adapter.VacancyAdapter
@@ -20,6 +22,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import kotlin.getValue
+import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -39,6 +42,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     // Загрузилась ли первая страница
     private var isFirstPageLoaded = false
+
+    // Для красивой загрузки  ресайклера
+    private var offset by Delegates.notNull<Int>()
+        private val scrollListener = object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+                        updateRecyclerViewPadding(rv, offset)
+                    }
+            }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,6 +91,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         inputEditText.text?.clear()
                         // Возвращаем фокус на поле ввода после очистки
                         inputEditText.requestFocus()
+                        // Обнуляем память о RecyclerView
+                        binding.rvSearchVacancies.removeOnScrollListener(scrollListener)
+                        binding.rvSearchVacancies.scrollToPosition(0)
+                        binding.rvSearchVacancies.addOnScrollListener(scrollListener)
                     }
                 }
             }
@@ -117,6 +133,30 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun setupRecyclerView() {
         binding.rvSearchVacancies.adapter = adapter
+
+        offset = resources.getDimensionPixelSize(R.dimen.value_32)
+
+        binding.rvSearchVacancies.setPadding(
+            binding.rvSearchVacancies.paddingLeft,
+            offset,
+            binding.rvSearchVacancies.paddingRight,
+            binding.rvSearchVacancies.paddingBottom
+        )
+    }
+
+    private fun updateRecyclerViewPadding(rv: RecyclerView, offset: Int) {
+        val layoutManager = rv.layoutManager as LinearLayoutManager
+        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+        val newPaddingTop = if (firstVisibleItemPosition == 0) offset else 0
+
+        if (rv.paddingTop != newPaddingTop) {
+            rv.setPadding(
+                rv.paddingLeft,
+                newPaddingTop,
+                rv.paddingRight,
+                rv.paddingBottom
+            )
+        }
     }
 
     /**
@@ -227,5 +267,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         if (view is EditText) view.clearFocus()
         if (view != null) imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 }
