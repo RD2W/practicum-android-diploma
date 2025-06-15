@@ -5,6 +5,7 @@
         <item name="android:statusBarColor">@color/white_universal</item> <!-- Светлый фон системного статус бара -->
         <item name="android:windowLightStatusBar">true</item> <!-- Тёмные иконки в системном статус баре-->
         <item name="android:navigationBarColor">@color/white_universal</item>
+        <item name="android:background">@color/white_universal</item>
 
         <!-- Customize your light theme here. -->
     </style>
