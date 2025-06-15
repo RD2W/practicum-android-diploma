@@ -22,8 +22,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private val binding: FragmentFilterBinding
         get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
 
-    private var lastSalaryInt: Int? = null
-
     private val viewModel: FilterViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
 
@@ -76,7 +74,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
         binding.unknownSalaryChecker.setOnClickListener {
             binding.desiredSalaryEdit.clearFocus()
-            viewModel.updateValues(salaryMustHaveFlag = binding.unknownSalaryChecker.isChecked)
+            skipButtonSet(binding.unknownSalaryChecker.isChecked)
         }
 
         binding.desiredSalaryEdit.setOnFocusChangeListener { view, hasFocus ->
@@ -157,8 +155,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            salaryClearButtonSetState(s)
-            singleInputSalaryUpdateOperator()
+            salaryClearAndSkipButtonSetState(s)
         }
         override fun afterTextChanged(s: Editable?) {
             val textLength = binding.desiredSalaryEdit.text.length
@@ -170,11 +167,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         return binding.desiredSalaryEdit.text.toString().toIntOrNull()
     }
 
-    private fun salaryClearButtonSetState(s: CharSequence?) {
+    private fun salaryClearAndSkipButtonSetState(s: CharSequence?) {
         if (s.isNullOrEmpty()) {
             binding.salaryClearButton.visibility = View.INVISIBLE
+            skipButtonSet(false)
         } else {
             binding.salaryClearButton.visibility = View.VISIBLE
+            skipButtonSet(true)
         }
     }
 
@@ -188,14 +187,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun salaryInnerHeadlineInFocusSetTextColor() {
         binding.salaryInner.setTextColor(resources.getColor(R.color.blue))
-    }
-
-    private fun singleInputSalaryUpdateOperator() {
-        val currentSalaryInt = getSalaryFromEdit()
-        if (currentSalaryInt != lastSalaryInt) {
-            viewModel.updateValues(desiredSalary = getSalaryFromEdit())
-            lastSalaryInt = currentSalaryInt
-        }
     }
 
 }
