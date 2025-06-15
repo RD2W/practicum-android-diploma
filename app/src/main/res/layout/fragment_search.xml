@@ -53,20 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topAppBar" />
 
-    <!-- Первая кнопка (переход на конкретную вакансию - временная кнопка)-->
-    <Button
-        android:id="@+id/firstButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/value_16"
-        android:layout_marginTop="@dimen/value_16"
-        android:backgroundTint="@color/blue"
-        android:text="@string/fragment_vacancy_name"
-        android:textColor="@color/text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchItem" />
-
     <!-- ShapeableImageView для заглушки пока запрос не введен -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/svPlaceholder"
@@ -84,7 +70,7 @@
     <!-- Количество результатов вакансий, пока просто поле, будет дорабатываться-->
     <TextView
         android:id="@+id/foundedVacancy"
-        android:layout_width="@dimen/value_190"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/value_28"
         android:layout_gravity="center|top"
         android:layout_marginVertical="@dimen/value_8"
@@ -95,9 +81,10 @@
         android:textColor="@color/white_universal"
         android:textSize="@dimen/text_size_16"
         android:visibility="gone"
+        android:paddingHorizontal="@dimen/value_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstButton"
+        app:layout_constraintTop_toBottomOf="@+id/searchItem"
         tools:visibility="visible" />
 
     <!-- RecyclerView -->
@@ -105,14 +92,15 @@
         android:id="@+id/rvSearchVacancies"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/value_24"
-        android:visibility="gone"
+        android:paddingTop="@dimen/value_8"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:paddingHorizontal="@dimen/value_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_vacancy" />
+        app:layout_constraintTop_toBottomOf="@+id/foundedVacancy"
+        tools:listitem="@layout/item_vacancy"
+        android:visibility="gone"/>
 
     <!-- Прогрессбар загрузки -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -183,7 +171,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.50" />
 
-    <!-- MaterialTextView для заглушки Нет интернета-->
+    <!-- MaterialTextView для заглушки Не нашлись вакансии-->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/notFoundStringPlaceholder"
         style="@style/TextMedium22"
@@ -191,6 +179,7 @@
         android:layout_height="wrap_content"
         android:text="@string/vacancy_not_found"
         android:visibility="gone"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@id/notFoundPlaceholder"
         app:layout_constraintStart_toStartOf="@id/notFoundPlaceholder"
         app:layout_constraintTop_toBottomOf="@id/notFoundPlaceholder" />

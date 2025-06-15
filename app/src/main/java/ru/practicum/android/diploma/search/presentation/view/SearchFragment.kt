@@ -2,14 +2,20 @@ package ru.practicum.android.diploma.search.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
+import androidx.lifecycle.Lifecycle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.presentation.adapter.VacancyAdapter
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import kotlin.getValue
 
@@ -29,6 +35,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         findNavController().navigate(action)
     }
 
+    // Загрузилась ли первая страница
+    private var isFirstPageLoaded = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
@@ -36,6 +45,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setupSearchField()
         setupButtonListeners()
         setupRecyclerView()
+        observeViewModel()
 
         // Инициализация состояния фильтров
         updateFilterIcons(false) // По умолчанию фильтры не выбраны
@@ -48,22 +58,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setupSearchField() {
         // Получаем доступ к элементам из layout
-        val inputEditText = binding.searchItem.inputEditText
-        val searchIcon = binding.searchItem.searchIcon
-        val clearIcon = binding.searchItem.clearIcon
+        with(binding) {
+            with(searchItem) {  // Дополнительный with для searchItem
+                // Обработка изменений текста
+                inputEditText.doOnTextChanged { text, _, _, _ ->
+                    val isEmpty = text.isNullOrEmpty()
+                    searchIcon.isVisible = isEmpty
+                    clearIcon.isVisible = !isEmpty
 
-        // Обработка изменений текста
-        inputEditText.doOnTextChanged { text, _, _, _ ->
-            val isEmpty = text.isNullOrEmpty()
-            searchIcon.isVisible = isEmpty
-            clearIcon.isVisible = !isEmpty
-        }
-
-        // Обработка клика по иконке очистки
-        clearIcon.setOnClickListener {
-            inputEditText.text.clear()
-            // Возвращаем фокус на поле ввода после очистки
-            inputEditText.requestFocus()
+                    viewModel.onSearchQueryChanged(text?.toString() ?: "")
+                }
+                // Обработка клика по иконке очистки
+                clearIcon.setOnClickListener {
+                    inputEditText.text?.clear()
+                    // Возвращаем фокус на поле ввода после очистки
+                    inputEditText.requestFocus()
+                }
+            }
         }
     }
 
@@ -71,14 +82,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Обработка клика по кнопкам
      */
     private fun setupButtonListeners() {
-        binding.icFilterOff.setOnClickListener { navigateToFilters() }
-        binding.icFilterOn.setOnClickListener { navigateToFilters() }
-
-        // Обработка первой кнопки (на экран вакансии - временная кнопка)
-        binding.firstButton.setOnClickListener {
-            findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToVacancyFragment("your_vacancy_id_here")
-            )
+        with(binding) {
+            icFilterOff.setOnClickListener { navigateToFilters() }
+            icFilterOn.setOnClickListener { navigateToFilters() }
         }
     }
 
@@ -104,5 +110,104 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun setupRecyclerView() {
         binding.rvSearchVacancies.adapter = adapter
+    }
+
+    /**
+     * Подписка на вьюмодель
+     */
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.screenState.collect { state ->
+                    when (state) {
+                        is SearchVacanciesScreenState.Initial -> showInitialState()
+                        is SearchVacanciesScreenState.Loading -> showLoading()
+                        is SearchVacanciesScreenState.Content -> showContent(state)
+                        is SearchVacanciesScreenState.NoResults -> showNoResults()
+                        is SearchVacanciesScreenState.NetworkError -> showNetworkError()
+                        is SearchVacanciesScreenState.ServerError -> showServerError()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun switchUiMode(
+        showLoading: Boolean = false,
+        showContent: Boolean = false,
+        showNoResults: Boolean = false,
+        showNetworkError: Boolean = false,
+        showServerError: Boolean = false,
+        showInitialState: Boolean = false
+    ) {
+        with(binding) {
+            // Управление видимостью основных групп элементов
+            progressIndicator.isVisible = showLoading
+            rvSearchVacancies.isVisible = showContent
+            foundedVacancy.isVisible = showContent || showNoResults
+            svPlaceholder.isVisible = showInitialState
+            groupNoInternetPlaceholder.isVisible = showNetworkError
+            groupNotFoundPlaceholder.isVisible = showNoResults
+            groupServerErrorPlaceholder.isVisible = showServerError
+        }
+    }
+
+    /**
+     * Состояние инициализации
+     */
+    private fun showInitialState() {
+        switchUiMode(showInitialState = true)
+    }
+
+    /**
+     * Состояние загрузки
+     */
+    private fun showLoading() {
+        if (!isFirstPageLoaded) {
+            switchUiMode(showLoading = true)
+            binding.progressIndicator.isIndeterminate = true
+        }
+    }
+
+    /**
+     * Состояние показа найденных вакансий
+     */
+    private fun showContent(state: SearchVacanciesScreenState.Content) {
+        isFirstPageLoaded = true
+        switchUiMode(showContent = true)
+
+        with(binding) {
+            adapter.submitList(state.searchResult.vacancies)
+            foundedVacancy.text = resources.getQuantityString(
+                R.plurals.vacancies_found,
+                state.searchResult.resultsFound,
+                state.searchResult.resultsFound
+            )
+        }
+    }
+
+    /**
+     * Состояние нет найденных вакансий
+     */
+    private fun showNoResults() {
+        isFirstPageLoaded = true
+        switchUiMode(showNoResults = true)
+        binding.foundedVacancy.text = getString(R.string.no_vacancies_found)
+    }
+
+    /**
+     * Состояние нет интернета
+     */
+    private fun showNetworkError() {
+        isFirstPageLoaded = true
+        switchUiMode(showNetworkError = true)
+    }
+
+    /**
+     * Состояние ошибки сервера
+     */
+    private fun showServerError() {
+        isFirstPageLoaded = true
+        switchUiMode(showServerError = true)
     }
 }

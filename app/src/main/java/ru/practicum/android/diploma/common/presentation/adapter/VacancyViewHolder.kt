@@ -35,7 +35,6 @@ class VacancyViewHolder(private val binding: ItemVacancyBinding) :
             .load(vacancy.employerLogoUrl)
             .placeholder(R.drawable.ic_vacancy_placeholder) // Заглушка на время загрузки
             .fitCenter()
-            .centerCrop()
             .into(binding.ivCompanyLogo)
     }
 }

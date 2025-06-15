@@ -10,5 +10,5 @@ fun VacancyDto.toVacancy() = Vacancy(
     regionName = this.area?.name,
     salary = FormatStrings.formatSalary(this.salary),
     employerName = this.employer.name,
-    employerLogoUrl = this.employer.logoUrls?.size90
+    employerLogoUrl = this.employer.logoUrls?.original
 )
