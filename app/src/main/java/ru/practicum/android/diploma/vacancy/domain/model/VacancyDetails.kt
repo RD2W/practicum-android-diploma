@@ -8,6 +8,7 @@ package ru.practicum.android.diploma.vacancy.domain.model
  * @property titleOfVacancy Название вакансии (обязательное поле). Пример: "Android-разработчик"
  * @property regionName Название региона размещения вакансии. Может быть null для вакансий без привязки к региону.
  *                     Пример: "Москва", "Санкт-Петербург"
+ * @property address Адрес компании-работодателя. Может быть null для некоторых вакансий.
  * @property salary Строковое представление зарплаты. Формат зависит от API HeadHunter.
  *                  Может содержать диапазон ("от 100 000 до 150 000 руб.") или конкретное значение.
  *                  Примеры: "от 150 000 руб.", "200 000 - 250 000 руб. до вычета налогов"
@@ -34,6 +35,7 @@ data class VacancyDetails(
     val id: String,
     val titleOfVacancy: String,
     val regionName: String?,
+    val address: String?,
     val salary: String?,
     val employerName: String,
     val employerLogoUrl: String?,

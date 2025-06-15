@@ -8,6 +8,13 @@ fun HHApiResponse.VacancyDetails.toVacancyDetails() = VacancyDetails(
     id = this.id,
     titleOfVacancy = this.name,
     regionName = this.area.name,
+    address = this.address?.let { addressDto ->
+        buildString {
+            append(addressDto.city)
+            addressDto.street?.let { append(", $it") }
+            addressDto.building?.let { append(", $it") }
+        }
+    },
     salary = FormatStrings.formatSalary(this.salaryRange),
     employerName = this.employer?.name.orEmpty(),
     employerLogoUrl = this.employer?.logoUrls?.size90,
