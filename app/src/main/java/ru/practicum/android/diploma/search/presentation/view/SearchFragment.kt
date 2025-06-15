@@ -1,7 +1,10 @@
 package ru.practicum.android.diploma.search.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -169,6 +172,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showLoading() {
             switchUiMode(showLoading = true)
             binding.progressIndicator.isIndeterminate = true
+            hideKeyboardAndCursor()
     }
 
     /**
@@ -212,4 +216,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         isFirstPageLoaded = true
         switchUiMode(showServerError = true)
     }
+
+    /**
+     * Скрыть клавиатуру после поиска
+     */
+    private fun hideKeyboardAndCursor() {
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view: View? = requireView().findFocus()
+        if (view is EditText) view.clearFocus()
+        if (view != null) imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
 }

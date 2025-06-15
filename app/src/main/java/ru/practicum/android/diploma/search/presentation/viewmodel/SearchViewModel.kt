@@ -99,7 +99,6 @@ class SearchViewModel(
     private fun performSearch(query: String, filter: Filter?, isNewSearch: Boolean) {
         if (query.isBlank()) return
 
-        Timber.e("Check state")
         _screenState.value = SearchVacanciesScreenState.Loading
 
         viewModelScope.launch {

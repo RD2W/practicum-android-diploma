@@ -28,7 +28,7 @@ sealed class SearchVacanciesScreenState {
 
     /**
      * Состояние успешной загрузки списка найденных вакансий.
-     * @property vacancies Список объектов Vacancy для отображения.
+     * @property searchResult Список объектов searchResult для отображения.
      */
     data class Content(val searchResult: SearchResult) : SearchVacanciesScreenState()
 
