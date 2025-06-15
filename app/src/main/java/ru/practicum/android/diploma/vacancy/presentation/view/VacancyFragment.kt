@@ -40,7 +40,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
     }
 
     private fun loadVacancyDetails(vacancyId: String) {
-        viewModel.loadVacancyDetails("121510619")
+        viewModel.loadVacancyDetails(vacancyId)
     }
 
     private fun observeViewModel() {
