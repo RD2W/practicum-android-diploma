@@ -77,9 +77,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
     }
 
     private fun showVacancy(vacancyDetails: VacancyDetails) {
-
         with(binding) {
-
             scroll.visibility = View.VISIBLE
             errorContainer.visibility = View.GONE
             progressIndicator.visibility = View.GONE
@@ -105,9 +103,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
     }
 
     private fun showError(vacancyError: VacancyErrorType) {
-
-        with (binding) {
-
+        with(binding) {
             scroll.visibility = View.GONE
             errorContainer.visibility = View.VISIBLE
             progressIndicator.visibility = View.GONE
@@ -121,7 +117,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             )
 
             errorImage.setImageResource(
-                when(vacancyError) {
+                when (vacancyError) {
                     VacancyErrorType.SERVER_ERROR -> R.drawable.image_placeholder_server_error_vacancy
                     VacancyErrorType.NOT_FOUND -> R.drawable.image_placeholder_deleted_vacancy
                     VacancyErrorType.NO_INTERNET -> R.drawable.image_placeholder_no_internet
@@ -129,7 +125,6 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             )
 
         }
-
 
     }
 
