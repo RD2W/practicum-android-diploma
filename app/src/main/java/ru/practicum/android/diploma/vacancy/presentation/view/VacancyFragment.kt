@@ -49,8 +49,12 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
                 viewModel.state.collectLatest { state ->
                     when (state) {
                         is VacancyDetailsState.Loading -> { }
-                        is VacancyDetailsState.Content -> { }
-                        is VacancyDetailsState.Error -> { }
+                        is VacancyDetailsState.Content -> {
+                            updateFavoriteIcon(state.isFavorite)
+                        }
+                        is VacancyDetailsState.Error -> {
+                            updateFavoriteIcon(state.isFavorite)
+                        }
                     }
                 }
             }
@@ -58,9 +62,30 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
     }
 
     private fun setupButtonListeners() {
-        // Обработка кнопки назад
-        binding.topAppBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        with(binding) {
+            topAppBar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+            topAppBar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.icShare -> {
+                        viewModel.shareVacancy()
+                        true
+                    }
+                    R.id.icFavorite -> {
+                        viewModel.toggleFavoriteStatus()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
+        binding.topAppBar.menu.findItem(R.id.icFavorite)?.let { menuItem ->
+            val iconRes = if (isFavorite) R.drawable.ic_favorite_active else R.drawable.ic_favorite_inactive
+            menuItem.setIcon(iconRes)
         }
     }
 }
