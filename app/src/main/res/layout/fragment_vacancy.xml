@@ -221,35 +221,52 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone" />
 
-    <!-- ShapeableImageView для заглушки -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivPlaceholder"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/errorContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        tools:visibility="visible"
-        android:visibility="gone"
-        android:src="@drawable/image_placeholder_no_favorites"
-        android:contentDescription="@string/error_placeholder_description"
-        app:layout_constraintVertical_bias="0.40"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar">
 
-    <!-- MaterialTextView для заглушки -->
-    <com.google.android.material.textview.MaterialTextView
-        style="@style/TextMedium22"
-        android:id="@+id/tvPlaceholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:text="@string/vacancy_empty_list"
-        app:layout_constraintTop_toBottomOf="@id/ivPlaceholder"
-        app:layout_constraintStart_toStartOf="@id/ivPlaceholder"
-        app:layout_constraintEnd_toEndOf="@id/ivPlaceholder" />
+        <!-- ShapeableImageView для заглушки -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/errorImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/error_placeholder_description"
+            android:scaleType="centerInside"
+            android:src="@drawable/image_placeholder_no_favorites"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.40"
+            tools:visibility="visible" />
+
+        <!-- MaterialTextView для заглушки -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textError"
+            style="@style/TextMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/value_16"
+            android:text="@string/vacancy_empty_list"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/errorImage"
+            app:layout_constraintStart_toStartOf="@id/errorImage"
+            app:layout_constraintTop_toBottomOf="@id/errorImage"
+            tools:visibility="visible" />
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
