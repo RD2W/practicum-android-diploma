@@ -22,7 +22,7 @@
     <string name="not_specified">not specified</string>
     <!-- Экран "Вакансия" -->
     <string name="vacancy_empty_list">The list is empty</string>
-    <string name="vacancy_not_found">Oops!n\Could\'t load vacancies</string>
+    <string name="vacancy_not_found">Oops!\nCould\'t load vacancies</string>
     <string name="vacancy_salary_not_specified">Salary not specified</string>
     <string name="vacancy_with_city">%s,\u00A0%s</string>
     <!-- Описание ImageView для accessibility -->

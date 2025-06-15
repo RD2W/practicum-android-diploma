@@ -67,8 +67,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.50" />
 
-    <!-- Количество результатов вакансий, пока просто поле, будет дорабатываться-->
-    <TextView
+    <!-- Количество результатов вакансий -->
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/foundedVacancy"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/value_28"
@@ -77,7 +77,7 @@
         android:background="@drawable/background_blue_radius_12"
         android:fontFamily="@font/ys_display_regular"
         android:gravity="center"
-        android:text="Найдено 100 вакансий"
+        android:text="@string/no_vacancies_found"
         android:textColor="@color/white_universal"
         android:textSize="@dimen/text_size_16"
         android:visibility="gone"
@@ -85,20 +85,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        android:elevation="@dimen/value_4"
         tools:visibility="visible" />
 
     <!-- RecyclerView -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearchVacancies"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/value_8"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:paddingHorizontal="@dimen/value_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foundedVacancy"
+        app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_vacancy"
         android:visibility="gone"/>
 

@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.search.presentation.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -58,21 +57,26 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setupSearchField() {
         // Получаем доступ к элементам из layout
+        var lastText = ""
         with(binding) {
             with(searchItem) {  // Дополнительный with для searchItem
                 // Обработка изменений текста
                 inputEditText.doOnTextChanged { text, _, _, _ ->
-                    val isEmpty = text.isNullOrEmpty()
-                    searchIcon.isVisible = isEmpty
-                    clearIcon.isVisible = !isEmpty
 
-                    viewModel.onSearchQueryChanged(text?.toString() ?: "")
-                }
-                // Обработка клика по иконке очистки
-                clearIcon.setOnClickListener {
-                    inputEditText.text?.clear()
-                    // Возвращаем фокус на поле ввода после очистки
-                    inputEditText.requestFocus()
+                    val newText = text?.toString()?.trim() ?: ""
+
+                    if (newText != lastText) {
+                        lastText = newText
+                        searchIcon.isVisible = newText.isEmpty()
+                        clearIcon.isVisible = newText.isNotEmpty()
+                        viewModel.onSearchQueryChanged(newText)
+                    }
+                    // Обработка клика по иконке очистки
+                    clearIcon.setOnClickListener {
+                        inputEditText.text?.clear()
+                        // Возвращаем фокус на поле ввода после очистки
+                        inputEditText.requestFocus()
+                    }
                 }
             }
         }
@@ -163,10 +167,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Состояние загрузки
      */
     private fun showLoading() {
-        if (!isFirstPageLoaded) {
             switchUiMode(showLoading = true)
             binding.progressIndicator.isIndeterminate = true
-        }
     }
 
     /**

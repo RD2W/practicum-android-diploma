@@ -54,28 +54,26 @@ class SearchViewModel(
     private val loadedPages = mutableSetOf<Int>()
     private var allVacancies = emptyList<Vacancy>()
 
-    private val searchJob = SupervisorJob()
-    private val searchScope = CoroutineScope(Dispatchers.Main + searchJob)
-
     private val debouncedSearch = debounce<String>(
         delayMillis = AppConstants.SEARCH_DEBOUNCE_DELAY_MILLIS,
-        coroutineScope = searchScope,
+        coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
         performSearch(query, currentFilter, isNewSearch = true)
     }
 
     /**
-     * Настройка поиска
+     * Настройка инициализации
      */
     fun onSearchQueryChanged(query: String) {
         currentQuery = query.trim()
-        if (currentQuery.isEmpty()) {
+        if (currentQuery.isBlank()) {
             _screenState.value = SearchVacanciesScreenState.Initial
             loadedPages.clear()
             allVacancies = emptyList()
         } else {
             debouncedSearch(currentQuery)
+            Timber.d("Debounced query received: '%s'", currentQuery)
         }
     }
 
@@ -99,10 +97,13 @@ class SearchViewModel(
     }
 
     private fun performSearch(query: String, filter: Filter?, isNewSearch: Boolean) {
-        if (query.isEmpty()) return
+        if (query.isBlank()) return
+
+        Timber.e("Check state")
+        _screenState.value = SearchVacanciesScreenState.Loading
 
         viewModelScope.launch {
-            _screenState.value = SearchVacanciesScreenState.Loading
+            Timber.d("Starting search: query='%s', filter=%s, isNewSearch=%s", query, filter, isNewSearch)
 
             val pageToLoad = if (isNewSearch) {
                 loadedPages.clear()
@@ -194,10 +195,5 @@ class SearchViewModel(
             is HttpException -> e.code()
             else -> HttpURLConnection.HTTP_INTERNAL_ERROR
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        searchJob.cancel()
     }
 }
