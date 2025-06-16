@@ -115,14 +115,14 @@
     <style name="ErrorsTitlesForSections">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">"@color/white_universal"</item>
+        <item name="android:background">@color/white_universal</item>
         <item name="android:backgroundTint">@color/white_universal</item>
         <item name="android:maxLines">3</item>
         <item name="android:textAppearance">@style/ErrorsTitlesForSectionsTextStyle</item>
     </style>
 
     <style name="ErrorsTitlesForSectionsTextStyle">
-        <item name="android:textColor">"@color/black_universal"</item>
+        <item name="android:textColor">@color/black_universal</item>
         <item name="android:textSize">@dimen/text_size_22</item>
         <item name="android:fontFamily">"@font/ys_display_medium"</item>
     </style>
@@ -130,22 +130,22 @@
     <style name="BigTitles">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">"@color/white_universal"</item>
+        <item name="android:background">@color/white_universal</item>
         <item name="android:backgroundTint">@color/white_universal</item>
         <item name="android:maxLines">1</item>
         <item name="android:textAppearance">@style/BigTitlesTextStyle</item>
     </style>
 
     <style name="BigTitlesTextStyle">
-        <item name="android:textColor">"@color/black_universal"</item>
+        <item name="android:textColor">@color/black_universal</item>
         <item name="android:textSize">@dimen/text_size_32</item>
-        <item name="android:fontFamily">"@font/ys_display_bold"</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
     </style>
 
     <style name="StyleForCommonTextBold">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">"@color/white_universal"</item>
+        <item name="android:background">@color/white_universal</item>
         <item name="android:backgroundTint">@color/white_universal</item>
         <item name="android:textAppearance">@style/StyleForCommonTextBoldTextStyle</item>
     </style>
@@ -161,9 +161,9 @@
     </style>
 
     <style name="StyleForCommonTextThinTextStyle">
-        <item name="android:textColor">"@color/black_universal"</item>
+        <item name="android:textColor">@color/black_universal</item>
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:fontFamily">"@font/ys_display_regular"</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
     </style>
 
     <!--    Конец изменений -->
