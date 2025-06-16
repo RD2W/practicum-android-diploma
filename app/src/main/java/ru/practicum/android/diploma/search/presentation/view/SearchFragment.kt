@@ -102,8 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     // Обработка клика по иконке очистки
                     clearIcon.setOnClickListener {
                         inputEditText.text?.clear()
-                        // Возвращаем фокус на поле ввода после очистки
-                        inputEditText.requestFocus()
+                        // Возвращаем фокус на поле ввода и показываем клавиатуру после очистки
+                        toggleKeyboardAndCursor(show = true, view = inputEditText)
                         // Обнуляем память о RecyclerView
                         binding.rvSearchVacancies.removeOnScrollListener(scrollListener)
                         binding.rvSearchVacancies.scrollToPosition(0)
@@ -231,7 +231,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showLoading() {
         switchUiMode(showLoading = true)
         binding.progressIndicator.isIndeterminate = true
-        hideKeyboardAndCursor()
+        toggleKeyboardAndCursor(show = false)
     }
 
     /**
@@ -289,13 +289,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     /**
-     * Скрыть клавиатуру после поиска
+     * Переключатель видимости клавиатуры и курсора
      */
-    private fun hideKeyboardAndCursor() {
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val view: View? = requireView().findFocus()
-        if (view is EditText) view.clearFocus()
-        if (view != null) imm.hideSoftInputFromWindow(view.windowToken, 0)
+    private fun toggleKeyboardAndCursor(show: Boolean, view: View? = null) {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        if (show) {
+            view?.let {
+                it.requestFocus()
+                imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
+            }
+        } else {
+            val focusedView = view ?: requireView().findFocus()
+            if (focusedView is EditText) focusedView.clearFocus()
+            focusedView?.let {
+                imm.hideSoftInputFromWindow(it.windowToken, 0)
+            }
+        }
     }
 }
