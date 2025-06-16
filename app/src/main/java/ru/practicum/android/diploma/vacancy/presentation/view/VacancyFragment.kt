@@ -90,10 +90,11 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             vacancySchedule.text = vacancyDetails.scheduleType
             vacancyDescription.text = vacancyDetails.description
 
-            if (vacancyDetails.keySkills!=null) {
+            if (vacancyDetails.keySkills != null) {
                 val formatted = vacancyDetails.keySkills.split(",").joinToString(separator = "<br>") { "• $it" }
                 vacancyKeySkills.text = FormatStrings.htmlToFormattedText(formatted)
             }
+
             else {
                 vacancyKeySkillsTitle.visibility = View.GONE
                 vacancyKeySkills.visibility = View.GONE
