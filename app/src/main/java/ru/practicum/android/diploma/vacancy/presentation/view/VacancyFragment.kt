@@ -52,11 +52,15 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collectLatest { state ->
                     when (state) {
-                        is VacancyDetailsState.Loading -> { showLoading() }
+                        is VacancyDetailsState.Loading -> {
+                            showLoading()
+                        }
+
                         is VacancyDetailsState.Content -> {
                             showVacancy(state.vacancy)
                             updateFavoriteIcon(state.isFavorite)
                         }
+
                         is VacancyDetailsState.Error -> {
                             showError(state.errorType)
                             updateFavoriteIcon(state.isFavorite)
@@ -93,9 +97,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             if (vacancyDetails.keySkills != null) {
                 val formatted = vacancyDetails.keySkills.split(",").joinToString(separator = "<br>") { "• $it" }
                 vacancyKeySkills.text = FormatStrings.htmlToFormattedText(formatted)
-            }
-
-            else {
+            } else {
                 vacancyKeySkillsTitle.visibility = View.GONE
                 vacancyKeySkills.visibility = View.GONE
             }
@@ -147,10 +149,12 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
                         viewModel.shareVacancy()
                         true
                     }
+
                     R.id.icFavorite -> {
                         viewModel.toggleFavoriteStatus()
                         true
                     }
+
                     else -> false
                 }
             }
