@@ -24,6 +24,7 @@
     <string name="vacancy_empty_list">Список пуст</string>
     <string name="vacancy_not_found">Не удалось получить\nсписок вакансий</string>
     <string name="vacancy_salary_not_specified">Зарплата не указана</string>
+    <string name="vacancy_with_city">%s,\u00A0%s</string>
     <!-- Описание ImageView для accessibility -->
     <string name="team_developer_avatar_description">Фото разработчика приложения</string>
     <string name="team_error_image_description">Ошибка загрузки данных</string>
@@ -35,4 +36,8 @@
     <!-- Экран поиска -->
     <string name="no_internet">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
+    <string name="no_vacancies_found">Таких вакансий нет</string>
+    <string name="check_internet_connection">Проверьте подключение к интернету</string>
+    <string name="something_went_wrong">Произошла ошибка</string>
+
 </resources>
