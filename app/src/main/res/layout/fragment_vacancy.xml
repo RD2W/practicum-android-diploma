@@ -116,17 +116,20 @@
                 <TextView
                     android:id="@+id/vacancy_city"
                     style="@style/StyleForCommonTextThin"
-                    android:layout_width="86dp"
-                    android:layout_height="23dp"
+                    android:layout_width="@dimen/zero_dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/value_8"
+                    android:layout_marginEnd="@dimen/value_16"
                     android:background="@color/black_transparent"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:text="@string/vacancy_city"
                     android:textColor="@color/black_universal"
                     app:layout_constraintBottom_toTopOf="@+id/linerBackgroundVacancy"
-                    app:layout_constraintEnd_toEndOf="@+id/linerBackgroundVacancy"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/vacancyIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/vacancy_sphere" />
+                    app:layout_constraintTop_toBottomOf="@+id/vacancy_sphere"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -242,7 +245,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/error_placeholder_description"
             android:scaleType="centerInside"
-            android:src="@drawable/image_placeholder_no_favorites"
+            android:src="@drawable/image_placeholder_deleted_vacancy"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -259,7 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/value_16"
-            android:text="@string/vacancy_empty_list"
+            android:text="@string/vacancy_not_found_error"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/errorImage"
             app:layout_constraintStart_toStartOf="@id/errorImage"

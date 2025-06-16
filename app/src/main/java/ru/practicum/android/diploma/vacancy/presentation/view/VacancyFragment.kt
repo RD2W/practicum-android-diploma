@@ -88,9 +88,16 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             vacancyCity.text = vacancyDetails.address ?: vacancyDetails.regionName
             vacancyExperienceMeaning.text = vacancyDetails.experience
             vacancySchedule.text = vacancyDetails.scheduleType
+            vacancyDescription.text = vacancyDetails.description
 
-            vacancyDescription.text = FormatStrings.htmlToFormattedText(vacancyDetails.description.toString())
-            vacancyKeySkills.text = FormatStrings.htmlToFormattedText(vacancyDetails.keySkills.toString())
+            if (vacancyDetails.keySkills!=null) {
+                val formatted = vacancyDetails.keySkills.split(",").joinToString(separator = "<br>") { "• $it" }
+                vacancyKeySkills.text = FormatStrings.htmlToFormattedText(formatted)
+            }
+            else {
+                vacancyKeySkillsTitle.visibility = View.GONE
+                vacancyKeySkills.visibility = View.GONE
+            }
 
             Glide.with(binding.root.context)
                 .load(vacancyDetails.employerLogoUrl)
