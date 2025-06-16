@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -278,6 +279,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showNetworkError() {
         isFirstPageLoaded = true
         switchUiMode(showNetworkError = true)
+        showToast(getString(R.string.check_internet_connection))
     }
 
     /**
@@ -286,6 +288,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showServerError() {
         isFirstPageLoaded = true
         switchUiMode(showServerError = true)
+        showToast(getString(R.string.something_went_wrong))
     }
 
     /**
@@ -306,5 +309,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 imm.hideSoftInputFromWindow(it.windowToken, 0)
             }
         }
+    }
+
+    /**
+     * Показ тоаста
+     */
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

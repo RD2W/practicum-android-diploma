@@ -36,6 +36,11 @@ class SearchViewModel(
     private val networkUtils: NetworkUtils
 ) : ViewModel() {
 
+    companion object {
+        // Константы для поиска
+        const val INITIAL_PAGE = 0
+    }
+
     private val _screenState = MutableStateFlow<SearchVacanciesScreenState>(SearchVacanciesScreenState.Initial)
     val screenState: StateFlow<SearchVacanciesScreenState> = _screenState
 
@@ -46,6 +51,9 @@ class SearchViewModel(
     private val loadedPages = mutableSetOf<Int>()
     private var allVacancies = emptyList<Vacancy>()
 
+    /**
+     * Дебаунс
+     */
     private val debouncedSearch = debounce<String>(
         delayMillis = AppConstants.SEARCH_DEBOUNCE_DELAY_MILLIS,
         coroutineScope = viewModelScope,
@@ -55,17 +63,34 @@ class SearchViewModel(
     }
 
     /**
-     * Настройка инициализации
+     * Обрабатывает изменение поискового запроса
+     * @param query Введенный поисковый запрос
      */
     fun onSearchQueryChanged(query: String) {
-        currentQuery = query.trim()
-        if (currentQuery.isBlank()) {
-            _screenState.value = SearchVacanciesScreenState.Initial
-            loadedPages.clear()
-            allVacancies = emptyList()
-        } else {
-            debouncedSearch(currentQuery)
-            Timber.d("Debounced query received: '%s'", currentQuery)
+        val trimmedQuery = query.trim()
+
+        // Если запрос не изменился - ничего не делаем
+        if (trimmedQuery == currentQuery) {
+            Timber.d("Query didn't change: '$trimmedQuery'")
+            return
+        }
+
+        // Сохраняем новый запрос
+        currentQuery = trimmedQuery
+
+        when {
+            // Если запрос пустой - сбрасываем состояние
+            trimmedQuery.isBlank() -> {
+                Timber.d("Empty query, resetting state")
+                _screenState.value = SearchVacanciesScreenState.Initial
+                loadedPages.clear()
+                allVacancies = emptyList()
+            }
+            // Запускаем поиск с debounce
+            else -> {
+                Timber.d("New search query: '$trimmedQuery'")
+                debouncedSearch(trimmedQuery)
+            }
         }
     }
 
@@ -183,7 +208,7 @@ class SearchViewModel(
     private fun preparePageToLoad(isNewSearch: Boolean) = if (isNewSearch) {
         loadedPages.clear()
         allVacancies = emptyList()
-        0 // дефолтная страница
+        INITIAL_PAGE // дефолтная страница
     } else {
         currentPage + 1
     }

@@ -42,7 +42,6 @@
         <item quantity="many">Found %d vacanciesй</item>
         <item quantity="other">Found %d vacancies</item>
     </plurals>
-
     <string name="no_vacancies_found">No such vacancies</string>
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="something_went_wrong">An error occurred</string>
