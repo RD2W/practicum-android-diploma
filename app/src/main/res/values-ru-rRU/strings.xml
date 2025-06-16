@@ -36,12 +36,6 @@
     <!-- Экран поиска -->
     <string name="no_internet">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
-    <plurals name="vacancies_found">
-        <item quantity="one">Найдена %d вакансия</item>
-        <item quantity="few">Найдено %d вакансии</item>
-        <item quantity="many">Найдено %d вакансий</item>
-        <item quantity="other">Найдено %d вакансий</item>
-    </plurals>
     <string name="no_vacancies_found">Таких вакансий нет</string>
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="something_went_wrong">Произошла ошибка</string>

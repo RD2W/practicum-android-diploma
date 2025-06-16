@@ -36,11 +36,6 @@ class SearchViewModel(
     private val networkUtils: NetworkUtils
 ) : ViewModel() {
 
-    companion object {
-        // Константы для поиска
-        const val INITIAL_PAGE = 0
-    }
-
     private val _screenState = MutableStateFlow<SearchVacanciesScreenState>(SearchVacanciesScreenState.Initial)
     val screenState: StateFlow<SearchVacanciesScreenState> = _screenState
 
@@ -239,5 +234,10 @@ class SearchViewModel(
             is HttpException -> e.code()
             else -> HttpURLConnection.HTTP_INTERNAL_ERROR
         }
+    }
+
+    companion object {
+        // Константы для поиска
+        const val INITIAL_PAGE = 0
     }
 }
