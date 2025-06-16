@@ -85,7 +85,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             vacancyTitle.text = vacancyDetails.titleOfVacancy
             vacancySalary.text = vacancyDetails.salary
             vacancySphere.text = vacancyDetails.employerName
-            vacancyCity.text = vacancyDetails.regionName
+            vacancyCity.text = vacancyDetails.address ?: vacancyDetails.regionName
             vacancyExperienceMeaning.text = vacancyDetails.experience
             vacancySchedule.text = vacancyDetails.scheduleType
 
