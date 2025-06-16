@@ -8,20 +8,20 @@ import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.common.presentation.adapter.VacancyAdapter
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.presentation.adapter.ListItem
+import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
-import kotlin.getValue
 import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -34,7 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModel()
 
     // Адаптер для RecyclerView
-    private val adapter = VacancyAdapter { vacancy ->
+    private val adapter = VacancyLoadMoreAdapter { vacancy ->
         // Логика, исполняемая по нажатию на элемент списка вакансий
         val action = SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
         findNavController().navigate(action)
@@ -42,15 +42,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     // Загрузилась ли первая страница
     private var isFirstPageLoaded = false
+    private var isLoading = false
 
     // Для красивой загрузки  ресайклера
     private var offset by Delegates.notNull<Int>()
-        private val scrollListener = object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                        updateRecyclerViewPadding(rv, offset)
-                    }
-            }
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(rv, dx, dy)
+            updateRecyclerViewPadding(rv, offset)
 
+            if (dy > 0) {
+                with(binding.rvSearchVacancies) {
+                    val lastVisibleItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val totalItems = adapter!!.itemCount
+                    if (!isLoading && lastVisibleItemPosition >= totalItems - 1) {
+                        isLoading = true
+                        this@SearchFragment.adapter.addLoadingFooter()
+                        viewModel.loadNextPage()
+                    }
+                }
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,7 +87,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         // Получаем доступ к элементам из layout
         var lastText = ""
         with(binding) {
-            with(searchItem) {  // Дополнительный with для searchItem
+            with(searchItem) { // Дополнительный with для searchItem
                 // Обработка изменений текста
                 inputEditText.doOnTextChanged { text, _, _, _ ->
 
@@ -89,8 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     // Обработка клика по иконке очистки
                     clearIcon.setOnClickListener {
                         inputEditText.text?.clear()
-                        // Возвращаем фокус на поле ввода после очистки
-                        inputEditText.requestFocus()
+                        // Возвращаем фокус на поле ввода и показываем клавиатуру после очистки
+                        toggleKeyboardAndCursor(show = true, view = inputEditText)
                         // Обнуляем память о RecyclerView
                         binding.rvSearchVacancies.removeOnScrollListener(scrollListener)
                         binding.rvSearchVacancies.scrollToPosition(0)
@@ -142,6 +155,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             binding.rvSearchVacancies.paddingRight,
             binding.rvSearchVacancies.paddingBottom
         )
+
+        binding.rvSearchVacancies.addOnScrollListener(scrollListener)
     }
 
     private fun updateRecyclerViewPadding(rv: RecyclerView, offset: Int) {
@@ -169,6 +184,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     when (state) {
                         is SearchVacanciesScreenState.Initial -> showInitialState()
                         is SearchVacanciesScreenState.Loading -> showLoading()
+                        is SearchVacanciesScreenState.Pagination -> showLoadingPagination()
                         is SearchVacanciesScreenState.Content -> showContent(state)
                         is SearchVacanciesScreenState.NoResults -> showNoResults()
                         is SearchVacanciesScreenState.NetworkError -> showNetworkError()
@@ -185,13 +201,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         showNoResults: Boolean = false,
         showNetworkError: Boolean = false,
         showServerError: Boolean = false,
-        showInitialState: Boolean = false
+        showInitialState: Boolean = false,
+        keepVisible: Boolean = false,
     ) {
         with(binding) {
             // Управление видимостью основных групп элементов
             progressIndicator.isVisible = showLoading
-            rvSearchVacancies.isVisible = showContent
-            foundedVacancy.isVisible = showContent || showNoResults
+            if (!keepVisible) {
+                rvSearchVacancies.isVisible = showContent
+                foundedVacancy.isVisible = showContent || showNoResults
+            }
             svPlaceholder.isVisible = showInitialState
             groupNoInternetPlaceholder.isVisible = showNetworkError
             groupNotFoundPlaceholder.isVisible = showNoResults
@@ -210,9 +229,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Состояние загрузки
      */
     private fun showLoading() {
-            switchUiMode(showLoading = true)
-            binding.progressIndicator.isIndeterminate = true
-            hideKeyboardAndCursor()
+        switchUiMode(showLoading = true)
+        binding.progressIndicator.isIndeterminate = true
+        toggleKeyboardAndCursor(show = false)
+    }
+
+    /**
+     * Состояние загрузки при пагинации
+     */
+    private fun showLoadingPagination() {
+        switchUiMode(showLoading = false, keepVisible = true)
     }
 
     /**
@@ -222,8 +248,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         isFirstPageLoaded = true
         switchUiMode(showContent = true)
 
+        adapter.removeLoadingFooter()
+        isLoading = false
+
+        val listItems = state.searchResult.vacancies.map { ListItem.VacancyItem(it) }
+        adapter.submitList(listItems)
+
         with(binding) {
-            adapter.submitList(state.searchResult.vacancies)
             foundedVacancy.text = resources.getQuantityString(
                 R.plurals.vacancies_found,
                 state.searchResult.resultsFound,
@@ -258,13 +289,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     /**
-     * Скрыть клавиатуру после поиска
+     * Переключатель видимости клавиатуры и курсора
      */
-    private fun hideKeyboardAndCursor() {
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val view: View? = requireView().findFocus()
-        if (view is EditText) view.clearFocus()
-        if (view != null) imm.hideSoftInputFromWindow(view.windowToken, 0)
+    private fun toggleKeyboardAndCursor(show: Boolean, view: View? = null) {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        if (show) {
+            view?.let {
+                it.requestFocus()
+                imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
+            }
+        } else {
+            val focusedView = view ?: requireView().findFocus()
+            if (focusedView is EditText) focusedView.clearFocus()
+            focusedView?.let {
+                imm.hideSoftInputFromWindow(it.windowToken, 0)
+            }
+        }
     }
 }

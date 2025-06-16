@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.search.presentation.state
 
-import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.search.domain.model.SearchResult
 
 /**
@@ -25,6 +24,11 @@ sealed class SearchVacanciesScreenState {
      * Используется при первоначальной загрузке или обновлении списка.
      */
     data object Loading : SearchVacanciesScreenState()
+
+    /**
+     * Используется при пагинации.
+     */
+    data object Pagination : SearchVacanciesScreenState()
 
     /**
      * Состояние успешной загрузки списка найденных вакансий.
