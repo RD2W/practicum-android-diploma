@@ -26,7 +26,8 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
                 handleHttpExceptions(e)
             } catch (e: JsonParseException) {
                 Timber.e("[API] Json parsing problems: ${e.message}")
-                HHApiResponse.BadResponse("Json parse error: ${e.message}").apply { responseCode = HttpURLConnection.HTTP_BAD_REQUEST }
+                HHApiResponse.BadResponse("Json parse error: ${e.message}")
+                    .apply { responseCode = HttpURLConnection.HTTP_BAD_REQUEST }
             } catch (e: IOException) {
                 Timber.e("[API] Network problems: ${e.message}")
                 HHApiResponse.BadResponse("Network error: ${e.message}").apply { responseCode = NETWORK_ERROR }

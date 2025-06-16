@@ -8,6 +8,6 @@ import ru.practicum.android.diploma.region.domain.model.Area
 
 class GetAreasUseCaseImpl(
     private val repository: FilterRepository,
-): GetAreasUseCase {
+) : GetAreasUseCase {
     override suspend fun invoke(id: String?): Flow<RequestResult<List<Area>>> = repository.getAreas(id)
 }

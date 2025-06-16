@@ -8,6 +8,6 @@ import ru.practicum.android.diploma.region.domain.model.Country
 
 class GetCountriesUseCaseImpl(
     private val repository: FilterRepository,
-): GetCountriesUseCase {
+) : GetCountriesUseCase {
     override suspend operator fun invoke(): Flow<RequestResult<List<Country>>> = repository.getCountries()
 }

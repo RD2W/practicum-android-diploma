@@ -8,6 +8,6 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 
 class GetIndustriesUseCaseImpl(
     private val repository: FilterRepository,
-): GetIndustriesUseCase {
+) : GetIndustriesUseCase {
     override suspend operator fun invoke(): Flow<RequestResult<List<Industry>>> = repository.getIndustries()
 }
