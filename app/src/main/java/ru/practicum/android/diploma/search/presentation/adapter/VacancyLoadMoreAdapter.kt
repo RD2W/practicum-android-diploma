@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.practicum.android.diploma.common.domain.model.Vacancy
-import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.presentation.adapter.VacancyViewHolder
+import ru.practicum.android.diploma.databinding.ItemVacancyBinding
 
 class VacancyLoadMoreAdapter(
     private val onVacancyClick: (Vacancy) -> Unit

@@ -91,79 +91,102 @@ class SearchViewModel(
     private fun performSearch(query: String, filter: Filter?, isNewSearch: Boolean) {
         if (query.isBlank()) return
 
-        if (isNewSearch) {
-            _screenState.value = SearchVacanciesScreenState.Loading
-        } else {
-            _screenState.value = SearchVacanciesScreenState.Pagination
-        }
+        updateScreenStateBeforeSearch(isNewSearch)
 
         viewModelScope.launch {
             Timber.d("Starting search: query='%s', filter=%s, isNewSearch=%s", query, filter, isNewSearch)
 
-            val pageToLoad = if (isNewSearch) {
-                loadedPages.clear()
-                allVacancies = emptyList()
-                0 // дефолтная страница
+            val pageToLoad = preparePageToLoad(isNewSearch)
+            if (!shouldLoadPage(pageToLoad)) {
+                Timber.d("Page $pageToLoad was already loaded, skipping search")
             } else {
-                currentPage + 1
-            }
+                try {
+                    val searchParameters = SearchParameters(
+                        query = query,
+                        page = pageToLoad,
+                        filter = filter
+                    )
 
-            if (loadedPages.contains(pageToLoad)) return@launch
-
-            try {
-                val searchParameters = SearchParameters(
-                    query = query,
-                    page = pageToLoad,
-                    filter = filter
-                )
-
-                searchUseCase(searchParameters).collect { result ->
-                    when (result) {
-                        is RequestResult.Success -> {
-                            result.searchResult?.let { searchResult ->
-                                loadedPages.add(pageToLoad)
-                                currentPage = searchResult.currentPage
-                                totalPages = searchResult.totalPages
-
-                                allVacancies = if (isNewSearch) {
-                                    searchResult.vacancies
-                                } else {
-                                    (allVacancies + searchResult.vacancies).distinctBy { it.id }
-                                }
-
-                                _screenState.value = if (allVacancies.isEmpty()) {
-                                    SearchVacanciesScreenState.NoResults
-                                } else {
-                                    SearchVacanciesScreenState.Content(
-                                        searchResult = SearchResult(
-                                            resultsFound = searchResult.resultsFound,
-                                            totalPages = totalPages,
-                                            currentPage = currentPage,
-                                            vacancies = allVacancies
-                                        )
-                                    )
-
-                                }
-                            } ?: run {
-                                _screenState.value = SearchVacanciesScreenState.ServerError
-                            }
-                        }
-                        is RequestResult.Error -> {
-                            handleError(result.errorType ?: HttpURLConnection.HTTP_INTERNAL_ERROR)
-                        }
+                    searchUseCase(searchParameters).collect { result ->
+                        handleSearchResult(result, pageToLoad, isNewSearch)
                     }
-                }
-            } catch (e: Exception) {
-                Timber.e(e, "Search error")
-                _screenState.value = when (getErrorCodeFromException(e)) {
-                    HttpURLConnection.HTTP_UNAVAILABLE,
-                    HttpURLConnection.HTTP_CLIENT_TIMEOUT -> SearchVacanciesScreenState.NetworkError
-                    else -> SearchVacanciesScreenState.ServerError
+                } catch (e: IOException) {
+                    Timber.e(e, "Network error")
+                    _screenState.value = SearchVacanciesScreenState.NetworkError
+                } catch (e: HttpException) {
+                    Timber.e(e, "HTTP error")
+                    _screenState.value = mapExceptionToScreenState(e)
                 }
             }
         }
     }
 
+    private fun mapExceptionToScreenState(e: Exception) = when (getErrorCodeFromException(e)) {
+        HttpURLConnection.HTTP_UNAVAILABLE,
+        HttpURLConnection.HTTP_CLIENT_TIMEOUT -> SearchVacanciesScreenState.NetworkError
+
+        else -> SearchVacanciesScreenState.ServerError
+    }
+
+    private fun shouldLoadPage(page: Int): Boolean = !loadedPages.contains(page)
+
+    private fun updateScreenStateBeforeSearch(isNewSearch: Boolean) {
+        if (isNewSearch) {
+            _screenState.value = SearchVacanciesScreenState.Loading
+        } else {
+            _screenState.value = SearchVacanciesScreenState.Pagination
+        }
+    }
+
+    private fun handleSearchResult(
+        result: RequestResult<SearchResult>,
+        pageToLoad: Int,
+        isNewSearch: Boolean
+    ) {
+        when (result) {
+            is RequestResult.Success -> {
+                result.searchResult?.let { searchResult ->
+                    loadedPages.add(pageToLoad)
+                    currentPage = searchResult.currentPage
+                    totalPages = searchResult.totalPages
+
+                    allVacancies = if (isNewSearch) {
+                        searchResult.vacancies
+                    } else {
+                        (allVacancies + searchResult.vacancies).distinctBy { it.id }
+                    }
+
+                    _screenState.value = if (allVacancies.isEmpty()) {
+                        SearchVacanciesScreenState.NoResults
+                    } else {
+                        SearchVacanciesScreenState.Content(
+                            searchResult = SearchResult(
+                                resultsFound = searchResult.resultsFound,
+                                totalPages = totalPages,
+                                currentPage = currentPage,
+                                vacancies = allVacancies
+                            )
+                        )
+
+                    }
+                } ?: run {
+                    _screenState.value = SearchVacanciesScreenState.ServerError
+                }
+            }
+
+            is RequestResult.Error -> {
+                handleError(result.errorType ?: HttpURLConnection.HTTP_INTERNAL_ERROR)
+            }
+        }
+    }
+
+    private fun preparePageToLoad(isNewSearch: Boolean) = if (isNewSearch) {
+        loadedPages.clear()
+        allVacancies = emptyList()
+        0 // дефолтная страница
+    } else {
+        currentPage + 1
+    }
 
     private fun handleError(errorCode: Int) {
         _screenState.value = when {
@@ -173,7 +196,7 @@ class SearchViewModel(
                 SearchVacanciesScreenState.ServerError
             errorCode == HttpURLConnection.HTTP_NOT_FOUND ->
                 SearchVacanciesScreenState.NoResults
-            !networkUtils.isNetworkAvailable() ->  // Используется NetworkUtils
+            !networkUtils.isNetworkAvailable() -> // Используется NetworkUtils
                 SearchVacanciesScreenState.NetworkError
             else ->
                 SearchVacanciesScreenState.ServerError

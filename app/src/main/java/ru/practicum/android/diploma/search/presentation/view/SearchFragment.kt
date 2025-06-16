@@ -8,13 +8,13 @@ import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.launch
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -22,7 +22,6 @@ import ru.practicum.android.diploma.search.presentation.adapter.ListItem
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
-import kotlin.getValue
 import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -88,7 +87,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         // Получаем доступ к элементам из layout
         var lastText = ""
         with(binding) {
-            with(searchItem) {  // Дополнительный with для searchItem
+            with(searchItem) { // Дополнительный with для searchItem
                 // Обработка изменений текста
                 inputEditText.doOnTextChanged { text, _, _, _ ->
 
