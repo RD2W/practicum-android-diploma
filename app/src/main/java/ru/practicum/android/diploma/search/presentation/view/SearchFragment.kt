@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.common.presentation.adapter.VacancyAdapter
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.search.presentation.adapter.ListItem
+import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
 import kotlin.getValue
@@ -34,7 +35,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModel()
 
     // Адаптер для RecyclerView
-    private val adapter = VacancyAdapter { vacancy ->
+    private val adapter = VacancyLoadMoreAdapter { vacancy ->
         // Логика, исполняемая по нажатию на элемент списка вакансий
         val action = SearchFragmentDirections.actionSearchFragmentToVacancyFragment(vacancy.id)
         findNavController().navigate(action)
@@ -42,15 +43,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     // Загрузилась ли первая страница
     private var isFirstPageLoaded = false
+    private var isLoading = false
 
     // Для красивой загрузки  ресайклера
     private var offset by Delegates.notNull<Int>()
-        private val scrollListener = object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
-                        updateRecyclerViewPadding(rv, offset)
-                    }
-            }
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(rv, dx, dy)
+            updateRecyclerViewPadding(rv, offset)
 
+            if (dy > 0) {
+                with(binding.rvSearchVacancies) {
+                    val lastVisibleItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val totalItems = adapter!!.itemCount
+                    if (!isLoading && lastVisibleItemPosition >= totalItems - 1) {
+                        isLoading = true
+                        this@SearchFragment.adapter.addLoadingFooter()
+                        viewModel.loadNextPage()
+                    }
+                }
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -142,6 +156,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             binding.rvSearchVacancies.paddingRight,
             binding.rvSearchVacancies.paddingBottom
         )
+
+        binding.rvSearchVacancies.addOnScrollListener(scrollListener)
     }
 
     private fun updateRecyclerViewPadding(rv: RecyclerView, offset: Int) {
@@ -169,6 +185,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     when (state) {
                         is SearchVacanciesScreenState.Initial -> showInitialState()
                         is SearchVacanciesScreenState.Loading -> showLoading()
+                        is SearchVacanciesScreenState.Pagination -> showLoadingPagination()
                         is SearchVacanciesScreenState.Content -> showContent(state)
                         is SearchVacanciesScreenState.NoResults -> showNoResults()
                         is SearchVacanciesScreenState.NetworkError -> showNetworkError()
@@ -185,13 +202,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         showNoResults: Boolean = false,
         showNetworkError: Boolean = false,
         showServerError: Boolean = false,
-        showInitialState: Boolean = false
+        showInitialState: Boolean = false,
+        keepVisible: Boolean = false,
     ) {
         with(binding) {
             // Управление видимостью основных групп элементов
             progressIndicator.isVisible = showLoading
-            rvSearchVacancies.isVisible = showContent
-            foundedVacancy.isVisible = showContent || showNoResults
+            if (!keepVisible) {
+                rvSearchVacancies.isVisible = showContent
+                foundedVacancy.isVisible = showContent || showNoResults
+            }
             svPlaceholder.isVisible = showInitialState
             groupNoInternetPlaceholder.isVisible = showNetworkError
             groupNotFoundPlaceholder.isVisible = showNoResults
@@ -210,9 +230,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Состояние загрузки
      */
     private fun showLoading() {
-            switchUiMode(showLoading = true)
-            binding.progressIndicator.isIndeterminate = true
-            hideKeyboardAndCursor()
+        switchUiMode(showLoading = true)
+        binding.progressIndicator.isIndeterminate = true
+        hideKeyboardAndCursor()
+    }
+
+    /**
+     * Состояние загрузки при пагинации
+     */
+    private fun showLoadingPagination() {
+        switchUiMode(showLoading = false, keepVisible = true)
     }
 
     /**
@@ -222,8 +249,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         isFirstPageLoaded = true
         switchUiMode(showContent = true)
 
+        adapter.removeLoadingFooter()
+        isLoading = false
+
+        val listItems = state.searchResult.vacancies.map { ListItem.VacancyItem(it) }
+        adapter.submitList(listItems)
+
         with(binding) {
-            adapter.submitList(state.searchResult.vacancies)
             foundedVacancy.text = resources.getQuantityString(
                 R.plurals.vacancies_found,
                 state.searchResult.resultsFound,

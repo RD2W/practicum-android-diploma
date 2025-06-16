@@ -91,7 +91,11 @@ class SearchViewModel(
     private fun performSearch(query: String, filter: Filter?, isNewSearch: Boolean) {
         if (query.isBlank()) return
 
-        _screenState.value = SearchVacanciesScreenState.Loading
+        if (isNewSearch) {
+            _screenState.value = SearchVacanciesScreenState.Loading
+        } else {
+            _screenState.value = SearchVacanciesScreenState.Pagination
+        }
 
         viewModelScope.launch {
             Timber.d("Starting search: query='%s', filter=%s, isNewSearch=%s", query, filter, isNewSearch)
@@ -138,6 +142,7 @@ class SearchViewModel(
                                             vacancies = allVacancies
                                         )
                                     )
+
                                 }
                             } ?: run {
                                 _screenState.value = SearchVacanciesScreenState.ServerError
