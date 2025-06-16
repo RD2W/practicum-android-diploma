@@ -32,9 +32,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun setupButtonListeners() {
         // Обработка первой кнопки - переход к выбору страны
         binding.firstButton.setOnClickListener {
-            findNavController().navigate(
-                FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
-            )
+//            findNavController().navigate(
+//                FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
+//            )
+            viewModel.doSearch()
         }
 
         // Обработка второй кнопки - переход к выбору региона

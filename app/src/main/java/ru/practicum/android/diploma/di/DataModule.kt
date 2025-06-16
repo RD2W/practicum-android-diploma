@@ -7,9 +7,11 @@ import ru.practicum.android.diploma.favorites.data.repository.FavoriteVacanciesR
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
 import ru.practicum.android.diploma.filter.data.repository.AreasListGetterImpl
 import ru.practicum.android.diploma.filter.data.repository.CountriesListGetterImpl
+import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
 import ru.practicum.android.diploma.filter.data.repository.IndustriesListGetterImpl
 import ru.practicum.android.diploma.filter.domain.repository.AreasListGetter
 import ru.practicum.android.diploma.filter.domain.repository.CountriesListGetter
+import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 import ru.practicum.android.diploma.filter.domain.repository.IndustriesListGetter
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.data.repository.VacanciesGetterImpl
@@ -34,4 +36,6 @@ val dataModule = module {
     factoryOf(::SearchRepositoryImpl) { bind<SearchRepository>() }
     /** Vacancy Repository */
     factoryOf(::VacancyDetailsRepositoryImpl) { bind<VacancyDetailsRepository>() }
+    /** Filter Repository */
+    factoryOf(::FilterRepositoryImpl) { bind<FilterRepository>() }
 }

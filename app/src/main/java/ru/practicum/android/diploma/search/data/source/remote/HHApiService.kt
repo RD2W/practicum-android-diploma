@@ -4,6 +4,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.dto.AreaDto
+import ru.practicum.android.diploma.search.data.model.dto.CountryDto
+import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
 
 /**
  * Документация к API [по ссылке](https://api.hh.ru/openapi/redoc)
@@ -26,18 +29,18 @@ interface HHApiService {
     /**
      * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-countries)
      */
-    suspend fun getCountries(): HHApiResponse.Countries
+    suspend fun getCountries(): List<CountryDto>
 
     @GET("/areas/{id}")
     /**
      * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-areas-from-specified)
      */
-    suspend fun getAreasByCountry(@Path("id") countryId: String): HHApiResponse.Areas
+    suspend fun getAreasByCountry(@Path("id") countryId: String): List<AreaDto>
 
     @GET("/industries")
     /**
      * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-industries)
      */
-    suspend fun getIndustries(): HHApiResponse.Industries
+    suspend fun getIndustries(): List<IndustryDto>
 
 }
