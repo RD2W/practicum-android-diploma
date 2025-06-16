@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.source.remote
 
+import com.google.gson.JsonParseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -23,6 +24,9 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
             } catch (e: HttpException) {
                 Timber.e("[API] HTTP error occurred: ${e.code()}")
                 handleHttpExceptions(e)
+            } catch (e: JsonParseException) {
+                Timber.e("[API] Json parsing problems: ${e.message}")
+                HHApiResponse.BadResponse("Json parse error: ${e.message}").apply { responseCode = HttpURLConnection.HTTP_BAD_REQUEST }
             } catch (e: IOException) {
                 Timber.e("[API] Network problems: ${e.message}")
                 HHApiResponse.BadResponse("Network error: ${e.message}").apply { responseCode = NETWORK_ERROR }
@@ -78,15 +82,18 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
     }
 
     private suspend fun getCountries(): HHApiResponse.Countries {
-        return hhApiService.getCountries()
+        val response = hhApiService.getCountries()
+        return HHApiResponse.Countries(countries = response)
     }
 
     private suspend fun getAreasByCountry(id: String): HHApiResponse.Areas {
-        return hhApiService.getAreasByCountry(id)
+        val response = hhApiService.getAreasByCountry(id)
+        return HHApiResponse.Areas(areas = response)
     }
 
     private suspend fun getIndustries(): HHApiResponse.Industries {
-        return hhApiService.getIndustries()
+        val response = hhApiService.getIndustries()
+        return HHApiResponse.Industries(industries = response)
     }
 
     companion object {
