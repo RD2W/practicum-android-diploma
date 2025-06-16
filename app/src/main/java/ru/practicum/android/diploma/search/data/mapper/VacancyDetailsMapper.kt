@@ -21,7 +21,7 @@ fun HHApiResponse.VacancyDetails.toVacancyDetails() = VacancyDetails(
     experience = this.experience?.name,
     employmentType = this.employmentForm?.name,
     scheduleType = this.workFormat.firstOrNull()?.name,
-    keySkills = this.keySkills?.joinToString(", "),
+    keySkills = this.keySkills?.joinToString(separator = ", ") { it.name },
     description = this.description,
     alternateUrl = this.alternateUrl,
 )

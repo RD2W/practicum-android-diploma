@@ -87,19 +87,23 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             progressIndicator.visibility = View.GONE
 
             vacancyTitle.text = vacancyDetails.titleOfVacancy
-            vacancySalary.text = vacancyDetails.salary
+
+            if (vacancyDetails.salary?.isBlank() == false) {
+                vacancySalary.text = vacancyDetails.salary
+            }
+
             vacancySphere.text = vacancyDetails.employerName
             vacancyCity.text = vacancyDetails.address ?: vacancyDetails.regionName
             vacancyExperienceMeaning.text = vacancyDetails.experience
             vacancySchedule.text = vacancyDetails.scheduleType
-            vacancyDescription.text = vacancyDetails.description
+            vacancyDescription.text = vacancyDetails.description?.let { FormatStrings.htmlToFormattedText(it) }
 
-            if (vacancyDetails.keySkills != null) {
-                val formatted = vacancyDetails.keySkills.split(",").joinToString(separator = "<br>") { "• $it" }
-                vacancyKeySkills.text = FormatStrings.htmlToFormattedText(formatted)
-            } else {
+            val keySkillsInHtml = FormatStrings.keySkillsToHtmlList(vacancyDetails.keySkills)
+            if (vacancyDetails.keySkills?.isBlank() == true) {
                 vacancyKeySkillsTitle.visibility = View.GONE
                 vacancyKeySkills.visibility = View.GONE
+            } else {
+                vacancyKeySkills.text = FormatStrings.htmlToFormattedText(keySkillsInHtml)
             }
 
             Glide.with(binding.root.context)

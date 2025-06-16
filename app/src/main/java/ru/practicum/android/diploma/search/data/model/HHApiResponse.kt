@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.search.data.model.dto.EmploymentDto
 import ru.practicum.android.diploma.search.data.model.dto.ExperienceDto
 import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
 import ru.practicum.android.diploma.search.data.model.dto.SalaryDto
+import ru.practicum.android.diploma.search.data.model.dto.SkillDto
 import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
 import ru.practicum.android.diploma.search.data.model.dto.WorkFormatDto
 
@@ -33,7 +34,7 @@ sealed class HHApiResponse {
         val employmentForm: EmploymentDto? = null, // Тип занятости
         val experience: ExperienceDto? = null, // Опыт работы
         @SerializedName("key_skills")
-        val keySkills: List<String>? = null, // Список ключевых навыков
+        val keySkills: List<SkillDto>? = null, // Список ключевых навыков
         val name: String, // Название
         @SerializedName("salary_range")
         val salaryRange: SalaryDto? = null, // Зарплата

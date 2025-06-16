@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_4"
-                android:text="@string/vacancy_salary"
+                android:text="@string/vacancy_salary_not_specified"
                 app:layout_constraintTop_toBottomOf="@+id/vacancyTitle"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,6 +87,7 @@
                     app:shapeAppearance="@style/CompanyLogoStyle.CornerSize" />
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    style="@style/DeveloperAvatarStyle"
                     android:id="@+id/vacancyIcon"
                     android:layout_width="@dimen/value_48"
                     android:layout_height="@dimen/value_48"
