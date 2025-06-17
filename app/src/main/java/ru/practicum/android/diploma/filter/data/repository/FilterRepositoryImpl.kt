@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.filter.data.mapper.toIndustry
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
 import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.region.domain.model.Area
-import ru.practicum.android.diploma.region.domain.model.Country
 import ru.practicum.android.diploma.search.data.model.HHApiRequest
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient

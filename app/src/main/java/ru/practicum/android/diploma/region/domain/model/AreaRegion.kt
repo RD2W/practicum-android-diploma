@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.region.domain.model
 
-data class Country(
+data class AreaRegion(
     val id: String,
-    val name: String
+    val name:  String
 )
