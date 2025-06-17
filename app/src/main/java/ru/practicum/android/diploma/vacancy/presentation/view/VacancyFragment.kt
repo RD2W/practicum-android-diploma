@@ -87,22 +87,18 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             progressIndicator.visibility = View.GONE
 
             vacancyTitle.text = vacancyDetails.titleOfVacancy
-
-            if (vacancyDetails.salary?.isBlank() == false) {
-                vacancySalary.text = vacancyDetails.salary
-            }
-
+            vacancySalary.text = vacancyDetails.salary ?: getString(R.string.vacancy_salary_not_specified)
             vacancySphere.text = vacancyDetails.employerName
             vacancyCity.text = vacancyDetails.address ?: vacancyDetails.regionName
             vacancyExperienceMeaning.text = vacancyDetails.experience
             vacancySchedule.text = vacancyDetails.scheduleType
             vacancyDescription.text = vacancyDetails.description?.let { FormatStrings.htmlToFormattedText(it) }
 
-            val keySkillsInHtml = FormatStrings.keySkillsToHtmlList(vacancyDetails.keySkills)
-            if (vacancyDetails.keySkills?.isBlank() == true) {
+            if (vacancyDetails.keySkills.isNullOrBlank()) {
                 vacancyKeySkillsTitle.visibility = View.GONE
                 vacancyKeySkills.visibility = View.GONE
             } else {
+                val keySkillsInHtml = FormatStrings.keySkillsToHtmlList(vacancyDetails.keySkills)
                 vacancyKeySkills.text = FormatStrings.htmlToFormattedText(keySkillsInHtml)
             }
 
