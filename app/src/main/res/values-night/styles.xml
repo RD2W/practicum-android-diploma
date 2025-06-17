@@ -6,55 +6,90 @@
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:background">@color/black_universal</item>
         <item name="navigationIconTint">@color/white_universal</item>
-        <item name="titleTextAppearance">@style/ToolbarTitleText</item>
+        <item name="titleTextAppearance">@style/ToolbarTitleTextStyle</item>
         <item name="android:layout_height">@dimen/value_64</item>
         <item name="android:layout_width">match_parent</item>
         <item name="buttonGravity">center_vertical</item>
     </style>
 
 
-    <style name="ToolbarTitleText">
+    <style name="ToolbarTitleTextStyle">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textSize">@dimen/text_size_22</item>
         <item name="android:textColor">@color/white_universal</item>
     </style>
 
-    <style name="inputSearch">
+    <style name="inputSearch" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/value_56</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingHorizontal">@dimen/value_16</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@color/black_universal</item>
-        <item name="android:fontFamily">@font/ys_display_regular</item>
         <item name="android:drawableTint">@color/black_universal</item>
         <item name="android:background">@color/gray</item>
         <item name="android:backgroundTint">@color/gray</item>
-        <item name="android:textColorHint">@color/white_universal</item>
+        <item name="android:textAppearance">@style/inputSearchTextStyle</item>
+    </style>
+
+    <style name="inputSearchTextStyle">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/black_universal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColorHint">@color/black_universal</item>
     </style>
 
     <style name="ErrorsTitlesForSections">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">"@color/white_universal"</item>
-        <item name="android:textSize">@dimen/text_size_22</item>
-        <item name="android:fontFamily">"@font/ys_display_medium"</item>
-        <item name="android:background">"@color/black_universal"</item>
+        <item name="android:background">@color/black_universal</item>
         <item name="android:backgroundTint">@color/black_universal</item>
         <item name="android:maxLines">3</item>
+        <item name="android:textAppearance">@style/ErrorsTitlesForSectionsTextStyle</item>
+    </style>
+
+    <style name="ErrorsTitlesForSectionsTextStyle">
+        <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textSize">@dimen/text_size_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
     </style>
 
     <style name="BigTitles">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">"@color/white_universal"</item>
-        <item name="android:textSize">@dimen/text_size_32</item>
-        <item name="android:fontFamily">"@font/ys_display_bold"</item>
-        <item name="android:background">"@color/black_universal"</item>
+        <item name="android:background">@color/black_universal</item>
         <item name="android:backgroundTint">@color/black_universal</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/BigTitlesTextStyle</item>
     </style>
 
+    <style name="BigTitlesTextStyle">
+        <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="StyleForCommonTextBold">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/black_universal</item>
+        <item name="android:backgroundTint">@color/black_universal</item>
+        <item name="android:textAppearance">@style/StyleForCommonTextBoldTextStyle</item>
+    </style>
+
+    <style name="StyleForCommonTextBoldTextStyle">
+        <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_bold</item>
+    </style>
+
+    <style name="StyleForCommonTextThin" parent="StyleForCommonTextBold">
+        <item name="android:textAppearance">@style/StyleForCommonTextThinTextStyle</item>
+    </style>
+
+    <style name="StyleForCommonTextThinTextStyle">
+        <item name="android:textColor">@color/white_universal</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
     <!--    Конец изменений -->
 
 </resources>

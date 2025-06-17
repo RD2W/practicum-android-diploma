@@ -33,11 +33,27 @@
     <!-- Названия в поле поиска -->
     <string name="search_vacancies_hint">Введите запрос</string>
     <string name="search_region_hint">Введите регион</string>
+    <!-- Экран вакансия -->
+    <string name="vacancy_title">Название вакансии</string>
+    <string name="vacancy_salary">Заработная плата</string>
+    <string name="vacancy_sphere">Сфера вакансии</string>
+    <string name="vacancy_city">Город вакансии</string>
+    <string name="vacancy_required_experience">Требуемый опыт</string>
+    <string name="vacancy_experience_meaning">Значение опыта вакансии</string>
+    <string name="vacancy_schedule">Занятость вакансии</string>
+    <string name="vacancy_description_title">Описание вакансии</string>
+    <string name="vacancy_icon">Иконка вакансии</string>
+    <string name="vacancy_experience_title">Требуемый опыт</string>
+    <string name="vacancy_experience_numbers">Значение опыта</string>
+    <string name="vacancy_employment">Занятость</string>
+    <string name="vacancy_not_found_error">Вакансия не найдена или удалена</string>
+    <string name="share_button">Поделиться</string>
+    <string name="favorite_button">Избранное</string>
+    <string name="key_skills">Ключевые навыки</string>
     <!-- Экран поиска -->
     <string name="no_internet">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
     <string name="no_vacancies_found">Таких вакансий нет</string>
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="something_went_wrong">Произошла ошибка</string>
-
 </resources>
