@@ -78,7 +78,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
      * @param developers Список разработчиков для отображения
      */
     private fun showContent(developers: List<Developer>) {
-        Timber.d("Developers: ${developers.joinToString { it.fullName.toString() }}")
+        Timber.d("Developers: ${developers.joinToString { it.fullName }}")
         switchUiMode(showDevelopers = true)
         adapter.submitList(developers)
     }

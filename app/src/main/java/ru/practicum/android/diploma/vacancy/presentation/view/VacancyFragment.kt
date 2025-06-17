@@ -60,7 +60,8 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
 
                         is VacancyDetailsState.Content -> {
                             Timber.d(
-                                "%snull", "State: Content | Вакансия ID=${state.vacancy.id} " +
+                                "%snull",
+                                "State: Content | Вакансия ID=${state.vacancy.id} " +
                                     "| isFavorite=${state.isFavorite} "
                             )
                             showVacancy(state.vacancy)
