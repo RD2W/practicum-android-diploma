@@ -43,15 +43,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun setupLiveDataObservers() {
-        sharedFilterViewModel.getWorkplace().observe(viewLifecycleOwner) { updatedWorkplace ->
-            viewModel.synchronizeState(workplace = updatedWorkplace)
-        }
-
-        sharedFilterViewModel.getIndustry().observe(viewLifecycleOwner) { updatedIndustry ->
-            viewModel.synchronizeState(industry = updatedIndustry)
-            viewModel.checkUpdates()
-        }
-
         viewModel.observeFilterFragmentState().observe(viewLifecycleOwner) {
             renderState(it)
         }
@@ -62,6 +53,15 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
         viewModel.observeFilterSkipButtonState().observe(viewLifecycleOwner) {
             renderFilterSkipButtonState(it)
+        }
+
+        sharedFilterViewModel.getWorkplace().observe(viewLifecycleOwner) { updatedWorkplace ->
+            viewModel.synchronizeState(workplace = updatedWorkplace)
+        }
+
+        sharedFilterViewModel.getIndustry().observe(viewLifecycleOwner) { updatedIndustry ->
+            viewModel.synchronizeState(industry = updatedIndustry)
+            viewModel.checkUpdates()
         }
     }
 
