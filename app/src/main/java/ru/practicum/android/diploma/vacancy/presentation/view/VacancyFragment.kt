@@ -26,7 +26,7 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
 
     private var _binding: FragmentVacancyBinding? = null
     private val binding: FragmentVacancyBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private val viewModel: VacancyViewModel by viewModel()
     private val args: VacancyFragmentArgs by navArgs()
