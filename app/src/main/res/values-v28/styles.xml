@@ -64,6 +64,7 @@
         <item name="android:drawableTint">@color/black_universal</item>
         <item name="android:backgroundTint">@color/light_gray</item>
         <item name="android:background">@color/light_gray</item>
+        <item name="android:textAppearance">@style/inputSearchTextStyle</item>
     </style>
 
 
