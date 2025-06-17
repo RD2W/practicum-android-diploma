@@ -64,6 +64,7 @@
         <item name="android:drawableTint">@color/black_universal</item>
         <item name="android:backgroundTint">@color/light_gray</item>
         <item name="android:background">@color/light_gray</item>
+        <item name="android:textAppearance">@style/inputSearchTextStyle</item>
     </style>
 
 
@@ -96,7 +97,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/white_universal</item>
         <item name="android:backgroundTint">@color/white_universal</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textAppearance">@style/BigTitlesTextStyle</item>
 
     </style>

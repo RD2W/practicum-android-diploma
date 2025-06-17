@@ -24,7 +24,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     // ViewBinding
     private var _binding: FragmentFavoritesBinding? = null
     private val binding: FragmentFavoritesBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initiliazed!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     // ViewModel
     private val viewModel: FavoritesViewModel by viewModel()
@@ -39,7 +39,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFavoritesBinding.bind(view)
-
+        viewModel.loadFavorites()
         setupRecyclerView()
         observeViewModel()
     }
