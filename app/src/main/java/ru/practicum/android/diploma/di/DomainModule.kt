@@ -18,8 +18,8 @@ import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetAreasUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetCountriesUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetIndustriesUseCaseImpl
-import ru.practicum.android.diploma.search.domain.usecase.GetVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
+import ru.practicum.android.diploma.search.domain.usecase.impl.SearchUseCaseImpl
 import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase
 import ru.practicum.android.diploma.team.domain.usecase.OpenGithubProfileUseCase
 import ru.practicum.android.diploma.team.domain.usecase.impl.GetDevTeamUseCaseImpl
@@ -41,12 +41,11 @@ val domainModule = module {
     factoryOf(::RemoveFromFavoriteUseCase)
     factoryOf(::ToggleFavoriteStatusUseCase)
     /** Any UseCases */
-    factoryOf(::GetVacanciesUseCase)
     factoryOf(::GetCountriesListUseCase)
     factoryOf(::GetAreasListUseCase)
     factoryOf(::GetIndustriesListUseCase)
     /** Search Vacancies UseCases */
-    factoryOf(::SearchUseCase)
+    factoryOf(::SearchUseCaseImpl) { bind<SearchUseCase>() }
     /** Get Vacancy Details UseCases */
     factoryOf(::GetVacancyDetailsByIdUseCaseImpl) { bind<GetVacancyDetailsByIdUseCase>() }
     factoryOf(::ShareVacancyUseCaseImpl) { bind<ShareVacancyUseCase>() }
