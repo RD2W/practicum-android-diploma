@@ -1,23 +1,27 @@
 package ru.practicum.android.diploma.search.data.mapper
 
 import ru.practicum.android.diploma.common.utils.FormatStrings
-import ru.practicum.android.diploma.search.data.model.dto.VacancyDetailsDto
+import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 
-class VacancyDetailsMapper {
-    fun toDomain(dto: VacancyDetailsDto): VacancyDetails {
-        return VacancyDetails(
-            id = dto.id,
-            titleOfVacancy = dto.name,
-            regionName = dto.area.name,
-            salary = FormatStrings.formatSalary(dto.salaryRange),
-            employerName = dto.employer?.name.orEmpty(),
-            employerLogoUrl = dto.employer?.logoUrls?.size90,
-            experience = dto.experience?.name,
-            employmentType = dto.employmentForm?.name,
-            scheduleType = dto.workFormat?.name,
-            keySkills = dto.keySkills?.joinToString(", "),
-            alternateUrl = dto.alternateUrl
-        )
-    }
-}
+fun HHApiResponse.VacancyDetails.toVacancyDetails() = VacancyDetails(
+    id = this.id,
+    titleOfVacancy = this.name,
+    regionName = this.area.name,
+    address = this.address?.let { addressDto ->
+        buildString {
+            append(addressDto.city)
+            addressDto.street?.let { append(", $it") }
+            addressDto.building?.let { append(", $it") }
+        }
+    },
+    salary = FormatStrings.formatSalary(this.salaryRange),
+    employerName = this.employer?.name.orEmpty(),
+    employerLogoUrl = this.employer?.logoUrls?.size90,
+    experience = this.experience?.name,
+    employmentType = this.employmentForm?.name,
+    scheduleType = this.workFormat.firstOrNull()?.name,
+    keySkills = this.keySkills?.joinToString(separator = ", ") { it.name },
+    description = this.description,
+    alternateUrl = this.alternateUrl,
+)

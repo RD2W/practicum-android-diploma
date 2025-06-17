@@ -39,17 +39,11 @@ class FavoritesViewModel(
      */
     val state: StateFlow<FavoriteVacanciesScreenState> = _state.asStateFlow()
 
-    // Инициализация ViewModel - загружаем данные при создании
-    init {
-        Timber.d("ViewModel initialized")
-        loadFavorites()
-    }
-
     /**
      * Загружает список избранных вакансий и обновляет состояние UI.
      * Логирует ключевые этапы загрузки.
      */
-    private fun loadFavorites() {
+    fun loadFavorites() {
         Timber.d("Starting to load favorite vacancies")
         viewModelScope.launch {
             getFavoritesUseCase()

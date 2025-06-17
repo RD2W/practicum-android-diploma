@@ -5,6 +5,9 @@
         <item name="android:statusBarColor">@color/black_universal</item> <!-- Тёмный фон системного статус бара -->
         <item name="android:windowLightStatusBar">false</item> <!-- Светлые иконки в системном статус баре-->
         <item name="android:navigationBarColor">@color/black_universal</item>
+        <item name="android:background">@color/black_universal</item>
+        <!-- цвет активного курсора -->
+        <item name="colorControlActivated" type="color">@color/blue</item>
         <!-- Customize your dark theme here. -->
     </style>
 

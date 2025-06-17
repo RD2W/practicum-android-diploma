@@ -26,7 +26,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     // ViewBinding
     private var _binding: FragmentTeamBinding? = null
     private val binding: FragmentTeamBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initiliazed!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     // ViewModel
     private val viewModel: TeamViewModel by viewModel()
@@ -39,6 +39,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTeamBinding.bind(view)
+        viewModel.loadDevTeam()
         setupRecyclerView()
         observeViewModel()
     }
@@ -77,7 +78,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
      * @param developers Список разработчиков для отображения
      */
     private fun showContent(developers: List<Developer>) {
-        Timber.d("Developers: ${developers.joinToString { it.fullName.toString() }}")
+        Timber.d("Developers: ${developers.joinToString { it.fullName }}")
         switchUiMode(showDevelopers = true)
         adapter.submitList(developers)
     }

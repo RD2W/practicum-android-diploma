@@ -51,6 +51,7 @@ object FormatStrings {
         "USD" to "$",
         "UZS" to "сўм",
     )
+
     private fun replaceCurrencyWithSymbol(currency: String?): String {
         if (currency == null) return ""
         return currencySymbols[currency] ?: ""
@@ -59,5 +60,14 @@ object FormatStrings {
     // преобразует HTML-разметку в текст с применёнными стилями (жирный, курсив, списки, ссылки и т.д.) для вставки в TextView
     fun htmlToFormattedText(html: String): Spanned {
         return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+    }
+
+    fun keySkillsToHtmlList(keySkills: String?): String {
+        return keySkills?.split(",")
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() }
+            ?.joinToString(prefix = "<ul>", postfix = "</ul>", separator = "") { skill ->
+                "<li>&nbsp;$skill</li>"
+            } ?: ""
     }
 }

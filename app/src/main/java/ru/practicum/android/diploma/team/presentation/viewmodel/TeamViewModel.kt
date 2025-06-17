@@ -47,16 +47,10 @@ class TeamViewModel(
         isClickAllowed.set(true)
     }
 
-    // Инициализация ViewModel - загружаем данные при создании
-    init {
-        Timber.d("ViewModel initialized")
-        loadDevTeam()
-    }
-
     /**
      * Загружает список разработчиков команды
      */
-    private fun loadDevTeam() {
+    fun loadDevTeam() {
         _state.value = TeamScreenState.Loading
         viewModelScope.launch {
             try {

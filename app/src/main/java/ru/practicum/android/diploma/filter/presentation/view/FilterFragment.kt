@@ -14,7 +14,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private var _binding: FragmentFilterBinding? = null
     private val binding: FragmentFilterBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private val viewModel: FilterViewModel by viewModel()
 
@@ -32,9 +32,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun setupButtonListeners() {
         // Обработка первой кнопки - переход к выбору страны
         binding.firstButton.setOnClickListener {
-            findNavController().navigate(
-                FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
-            )
+//            findNavController().navigate(
+//                FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
+//            )
+            viewModel.doSearch()
         }
 
         // Обработка второй кнопки - переход к выбору региона

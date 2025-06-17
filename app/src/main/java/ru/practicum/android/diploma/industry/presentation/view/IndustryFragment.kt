@@ -13,7 +13,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
 
     private var _binding: FragmentIndustryBinding? = null
     private val binding: FragmentIndustryBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private val viewModel: IndustryViewModel by viewModel()
 
