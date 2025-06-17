@@ -5,14 +5,14 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.data.repository.FavoriteVacanciesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
-import ru.practicum.android.diploma.filter.data.repository.AreasListGetterImpl
-import ru.practicum.android.diploma.filter.data.repository.CountriesListGetterImpl
+import ru.practicum.android.diploma.region.data.repository.GetAreasListRepositoryImpl
+import ru.practicum.android.diploma.country.data.repository.GetCountriesListRepositoryImpl
 import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
-import ru.practicum.android.diploma.filter.data.repository.IndustriesListGetterImpl
-import ru.practicum.android.diploma.filter.domain.repository.AreasListGetter
-import ru.practicum.android.diploma.filter.domain.repository.CountriesListGetter
+import ru.practicum.android.diploma.industry.data.repository.GetIndustriesListRepositoryImpl
+import ru.practicum.android.diploma.region.domain.repository.GetAreasListRepository
+import ru.practicum.android.diploma.country.domain.repository.GetCountriesListRepository
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
-import ru.practicum.android.diploma.filter.domain.repository.IndustriesListGetter
+import ru.practicum.android.diploma.industry.domain.repository.GetIndustriesListRepository
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.team.data.repository.DevTeamRepositoryImpl
@@ -26,9 +26,9 @@ val dataModule = module {
     /** Favorite Vacancies Repository */
     factoryOf(::FavoriteVacanciesRepositoryImpl) { bind<FavoriteVacanciesRepository>() }
     /** Any Repository */
-    factoryOf(::CountriesListGetterImpl) { bind<CountriesListGetter>() }
-    factoryOf(::AreasListGetterImpl) { bind<AreasListGetter>() }
-    factoryOf(::IndustriesListGetterImpl) { bind<IndustriesListGetter>() }
+    factoryOf(::GetCountriesListRepositoryImpl) { bind<GetCountriesListRepository>() }
+    factoryOf(::GetAreasListRepositoryImpl) { bind<GetAreasListRepository>() }
+    factoryOf(::GetIndustriesListRepositoryImpl) { bind<GetIndustriesListRepository>() }
     /** Search Vacancies Repository */
     factoryOf(::SearchRepositoryImpl) { bind<SearchRepository>() }
     /** Vacancy Repository */

@@ -9,4 +9,5 @@ object AppConstants {
     const val DATABASE_NAME = "app_database.db"
     const val DATABASE_VERSION = 1
     const val PAGE_SIZE = 20
+    const val FILTER_KEY = "filter"
 }

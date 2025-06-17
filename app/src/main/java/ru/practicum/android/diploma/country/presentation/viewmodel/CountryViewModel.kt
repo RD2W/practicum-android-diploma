@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.country.domain.model.Country
-import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 
 class CountryViewModel(

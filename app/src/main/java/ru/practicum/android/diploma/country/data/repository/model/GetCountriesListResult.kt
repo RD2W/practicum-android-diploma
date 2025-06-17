@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.filter.domain.model
+package ru.practicum.android.diploma.country.data.repository.model
 
 import ru.practicum.android.diploma.region.domain.model.Country
 
