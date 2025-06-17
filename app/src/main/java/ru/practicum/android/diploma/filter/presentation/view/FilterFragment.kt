@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.filter.presentation.view
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -44,13 +43,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun setupLiveDataObservers() {
+        sharedFilterViewModel.getWorkplace().observe(viewLifecycleOwner) { updatedWorkplace ->
+            viewModel.synchronizeState(workplace = updatedWorkplace)
+        }
+
         sharedFilterViewModel.getIndustry().observe(viewLifecycleOwner) { updatedIndustry ->
             viewModel.synchronizeState(industry = updatedIndustry)
             viewModel.checkUpdates()
-        }
-
-        sharedFilterViewModel.getWorkplace().observe(viewLifecycleOwner) { updatedWorkplace ->
-            viewModel.synchronizeState(workplace = updatedWorkplace)
         }
 
         viewModel.observeFilterFragmentState().observe(viewLifecycleOwner) {
