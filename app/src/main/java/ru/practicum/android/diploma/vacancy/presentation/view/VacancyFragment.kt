@@ -122,7 +122,6 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
                 .load(vacancyDetails.employerLogoUrl)
                 .placeholder(R.drawable.ic_vacancy_placeholder)
                 .fitCenter()
-                .centerCrop()
                 .into(binding.vacancyIcon)
         }
 

@@ -91,6 +91,7 @@
                     android:layout_width="@dimen/value_48"
                     android:layout_height="@dimen/value_48"
                     android:layout_marginStart="@dimen/value_16"
+                    android:background="@drawable/ic_background_vacancy"
                     android:contentDescription="@string/vacancy_icon"
                     android:src="@drawable/ic_vacancy_placeholder"
                     app:layout_constraintBottom_toBottomOf="parent"
