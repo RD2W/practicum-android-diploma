@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vacancy"
@@ -57,9 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_24"
                 android:text="@string/vacancy_title"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toStartOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toStartOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/topAppBar" />
 
             <TextView
                 android:id="@+id/vacancySalary"
@@ -68,21 +69,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_4"
                 android:text="@string/vacancy_salary_not_specified"
-                app:layout_constraintTop_toBottomOf="@+id/vacancyTitle" />
+                app:layout_constraintTop_toBottomOf="@id/vacancyTitle" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/value_80"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_20">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/linerBackgroundVacancy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/zero_dp"
+                    android:layout_height="@dimen/zero_dp"
                     android:background="@color/light_gray"
-                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearance="@style/CompanyLogoStyle.CornerSize" />
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -101,17 +103,19 @@
                 <TextView
                     android:id="@+id/vacancy_sphere"
                     style="@style/ErrorsTitlesForSections"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/zero_dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/value_8"
                     android:background="@color/black_transparent"
+                    android:paddingTop="@dimen/value_16"
                     android:text="@string/vacancy_sphere"
                     android:textColor="@color/black_universal"
-                    app:layout_constraintBottom_toTopOf="@+id/vacancy_city"
-                    app:layout_constraintEnd_toEndOf="@+id/linerBackgroundVacancy"
+                    android:ellipsize="end"
+                    app:layout_constraintBottom_toTopOf="@id/vacancy_city"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/vacancyIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/linerBackgroundVacancy"
+                    app:layout_constraintStart_toEndOf="@id/vacancyIcon"
+                    app:layout_constraintTop_toBottomOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
@@ -121,16 +125,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/value_8"
                     android:layout_marginEnd="@dimen/value_16"
+                    android:paddingBottom="@dimen/value_16"
                     android:background="@color/black_transparent"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@string/vacancy_city"
                     android:textColor="@color/black_universal"
-                    app:layout_constraintBottom_toTopOf="@+id/linerBackgroundVacancy"
+                    app:layout_constraintBottom_toTopOf="@id/linerBackgroundVacancy"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/vacancyIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/vacancy_sphere" />
+                    app:layout_constraintStart_toEndOf="@id/vacancyIcon"
+                    app:layout_constraintTop_toBottomOf="@id/vacancy_sphere" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,9 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/value_4"
                 android:text="@string/vacancy_experience_meaning"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_experience_title" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_experience_title" />
 
             <TextView
                 android:id="@+id/vacancy_schedule"
@@ -160,9 +165,9 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/value_8"
                 android:text="@string/vacancy_schedule"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_experience_meaning" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_experience_meaning" />
 
             <TextView
                 android:id="@+id/vacancy_description_title"
@@ -170,9 +175,9 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/value_32"
                 android:text="@string/vacancy_description_title"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_schedule" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_schedule" />
 
             <TextView
                 android:id="@+id/vacancy_description"
@@ -182,9 +187,9 @@
                 android:layout_marginTop="@dimen/value_16"
                 android:text="@string/vacancy_description_title"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_description_title" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_description_title" />
 
             <TextView
                 android:id="@+id/vacancy_key_skills_title"
@@ -192,9 +197,9 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/value_32"
                 android:text="@string/key_skills"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_schedule" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_schedule" />
 
             <TextView
                 android:id="@+id/vacancy_key_skills"
@@ -204,9 +209,9 @@
                 android:layout_marginTop="@dimen/value_16"
                 android:text="@string/key_skills"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/rightBorder16"
-                app:layout_constraintStart_toEndOf="@+id/leftBorder16"
-                app:layout_constraintTop_toBottomOf="@+id/vacancy_description_title" />
+                app:layout_constraintEnd_toStartOf="@id/rightBorder16"
+                app:layout_constraintStart_toEndOf="@id/leftBorder16"
+                app:layout_constraintTop_toBottomOf="@id/vacancy_description_title" />
 
         </LinearLayout>
 
