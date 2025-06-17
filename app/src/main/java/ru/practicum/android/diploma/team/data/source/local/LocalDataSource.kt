@@ -65,32 +65,32 @@ class LocalDataSource : DataSource {
 
     companion object {
         // Константы технологий
-        const val TECH_JAVA = "Java"
-        const val TECH_KOTLIN = "Kotlin"
-        const val TECH_JETPACK_COMPOSE = "Jetpack Compose"
+        private const val TECH_JAVA = "Java"
+        private const val TECH_KOTLIN = "Kotlin"
+        private const val TECH_JETPACK_COMPOSE = "Jetpack Compose"
 
         // Константы ролей
-        const val ROLE_ANDROID_DEV = "Android Developer"
+        private const val ROLE_ANDROID_DEV = "Android Developer"
 
         // Константы URL аватарок
-        const val AVATAR_MAXIM = "https://avatars.githubusercontent.com/u/171777583?v=4"
-        const val AVATAR_ANASTASIA = "https://avatars.githubusercontent.com/u/173624285?v=4"
-        const val AVATAR_ANNA = "https://avatars.githubusercontent.com/u/140705861?v=4"
-        const val AVATAR_SVETLANA = "https://avatars.githubusercontent.com/u/110420215?v=4"
-        const val AVATAR_MIKHAIL = "https://avatars.githubusercontent.com/u/148260834?v=4"
+        private const val AVATAR_MAXIM = "https://avatars.githubusercontent.com/u/171777583?v=4"
+        private const val AVATAR_ANASTASIA = "https://avatars.githubusercontent.com/u/173624285?v=4"
+        private const val AVATAR_ANNA = "https://avatars.githubusercontent.com/u/140705861?v=4"
+        private const val AVATAR_SVETLANA = "https://avatars.githubusercontent.com/u/110420215?v=4"
+        private const val AVATAR_MIKHAIL = "https://avatars.githubusercontent.com/u/148260834?v=4"
 
         // Константы GitHub профилей
-        const val GITHUB_MAXIM = "https://github.com/RD2W"
-        const val GITHUB_ANASTASIA = "https://github.com/nastyavorontsova"
-        const val GITHUB_ANNA = "https://github.com/Annet-Lovett"
-        const val GITHUB_SVETLANA = "https://github.com/onecoffeeplz"
-        const val GITHUB_MIKHAIL = "https://github.com/Michel-mihim"
+        private const val GITHUB_MAXIM = "https://github.com/RD2W"
+        private const val GITHUB_ANASTASIA = "https://github.com/nastyavorontsova"
+        private const val GITHUB_ANNA = "https://github.com/Annet-Lovett"
+        private const val GITHUB_SVETLANA = "https://github.com/onecoffeeplz"
+        private const val GITHUB_MIKHAIL = "https://github.com/Michel-mihim"
 
         // Константы Telegram профилей
-        const val TELEGRAM_MAXIM = "@rd2w_m"
-        const val TELEGRAM_ANASTASIA = "@vorontsovanast"
-        const val TELEGRAM_ANNA = "@Annet_Lovett"
-        const val TELEGRAM_SVETLANA = "@svkarp"
-        const val TELEGRAM_MIKHAIL = "@mihelle"
+        private const val TELEGRAM_MAXIM = "@rd2w_m"
+        private const val TELEGRAM_ANASTASIA = "@vorontsovanast"
+        private const val TELEGRAM_ANNA = "@Annet_Lovett"
+        private const val TELEGRAM_SVETLANA = "@svkarp"
+        private const val TELEGRAM_MIKHAIL = "@mihelle"
     }
 }

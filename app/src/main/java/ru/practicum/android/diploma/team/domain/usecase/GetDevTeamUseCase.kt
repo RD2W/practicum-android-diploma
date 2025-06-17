@@ -1,15 +1,14 @@
 package ru.practicum.android.diploma.team.domain.usecase
 
-import ru.practicum.android.diploma.team.domain.repository.DevTeamRepository
+import ru.practicum.android.diploma.team.domain.model.Developer
 
 /**
- * UseCase для получения списка разработчиков команды
- * @property repository Репозиторий для работы с данными о команде
+ * Интерфейс для UseCase получения списка разработчиков команды
  */
-class GetDevTeamUseCase(private val repository: DevTeamRepository) {
+interface GetDevTeamUseCase {
     /**
      * Получает список разработчиков команды
      * @return List<Developer> - список разработчиков
      */
-    suspend operator fun invoke() = repository.getDevTeam()
+    suspend operator fun invoke(): List<Developer>
 }

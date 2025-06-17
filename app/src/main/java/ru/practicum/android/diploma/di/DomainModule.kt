@@ -22,6 +22,8 @@ import ru.practicum.android.diploma.search.domain.usecase.GetVacanciesUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase
 import ru.practicum.android.diploma.team.domain.usecase.OpenGithubProfileUseCase
+import ru.practicum.android.diploma.team.domain.usecase.impl.GetDevTeamUseCaseImpl
+import ru.practicum.android.diploma.team.domain.usecase.impl.OpenGithubProfileUseCaseImpl
 import ru.practicum.android.diploma.vacancy.domain.usecase.GetVacancyDetailsByIdUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.impl.GetVacancyDetailsByIdUseCaseImpl
@@ -29,8 +31,8 @@ import ru.practicum.android.diploma.vacancy.domain.usecase.impl.ShareVacancyUseC
 
 val domainModule = module {
     /** Developers Team UseCases */
-    factoryOf(::GetDevTeamUseCase)
-    factoryOf(::OpenGithubProfileUseCase)
+    factoryOf(::GetDevTeamUseCaseImpl) { bind<GetDevTeamUseCase>() }
+    factoryOf(::OpenGithubProfileUseCaseImpl) { bind<OpenGithubProfileUseCase>() }
     /** Favorite Vacancies UseCases */
     factoryOf(::AddToFavoriteUseCase)
     factoryOf(::CheckIsFavoriteUseCase)
