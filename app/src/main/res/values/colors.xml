@@ -16,4 +16,21 @@
     <color name="gray_logo">@color/gray</color>
     <color name="background">@color/white_universal</color>
     <color name="text">@color/black_universal</color>
+
+    <!-- Цвета для экрана "Фильтры" -->
+    <color name="edit_shape_color">#E6E8EB</color>
+    <color name="button_item_hint_text_color">#AEAFB4</color>
+    <color name="edit_text_hint_color">#AEAFB4</color>
+    <color name="ic_forward_color">#1A1B22</color>
+    <color name="salary_cb_text_color">#1A1B22</color>
+    <color name="salary_not_null_text_color">#1A1B22</color>
+    <color name="button_applyment_text_color">#FDFDFD</color>
+    <color name="regions_search_placeholder_text_color">#1A1B22</color>
+    <color name="inner_text_color">#1A1B22</color>
+    <color name="button_item_empty_text_color">#AEAFB4</color>
+    <color name="button_item_text_color">#1A1B22</color>
+    <color name="industry_item_text_color">#1A1B22</color>
+    <color name="area_item_text_color">#1A1B22</color>
+    <color name="country_item_text_color">#1A1B22</color>
+    <color name="region_item_text_color">#1A1B22</color>
 </resources>
