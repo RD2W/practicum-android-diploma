@@ -1,44 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/filter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="16dp"
     tools:context=".filter.presentation.view.FilterFragment">
 
-    <!-- Первая кнопка -->
-    <Button
-        android:id="@+id/firstButton"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/fragment_industry_name"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/secondButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_16" />
 
-    <!-- Вторая кнопка -->
-    <Button
-        android:id="@+id/secondButton"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/fragment_workplace_name"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toBottomOf="@id/firstButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_16" />
+
+    <!-- Кнопка "Место работы" -->
+    <Button
+        android:id="@+id/workPlaceButton"
+        style="@style/FilterItemButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/value_48"
+        android:layout_marginTop="@dimen/value_16"
+        android:text="@string/button_work_place_name"
+        app:layout_constraintBottom_toTopOf="@id/industryButton"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Внутренняя надпись "Место работы" -->
+    <TextView
+        android:id="@+id/workplace_inner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/value_28"
+        android:text="@string/button_work_place_name"
+        android:textColor="@color/inner_text_color"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/workPlaceButton"
+        app:layout_constraintStart_toStartOf="@id/workPlaceButton"
+        app:layout_constraintTop_toTopOf="@id/workPlaceButton" />
+
+    <!-- Кнопка "Отрасль" -->
+    <Button
+        android:id="@+id/industryButton"
+        style="@style/FilterItemButtonStyle"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_48"
+        android:text="@string/button_industry_name"
+        app:layout_constraintBottom_toTopOf="@id/desiredSalaryEdit"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/workPlaceButton" />
+
+    <!-- Внутренняя надпись "Отрасль" -->
+    <TextView
+        android:id="@+id/industry_inner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/value_28"
+        android:text="@string/button_industry_name"
+        android:textColor="@color/inner_text_color"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/industryButton"
+        app:layout_constraintStart_toStartOf="@id/industryButton"
+        app:layout_constraintTop_toTopOf="@id/industryButton" />
+
+    <!-- Поле ввода "Ожидаемая зарплата" -->
+    <EditText
+        android:id="@+id/desiredSalaryEdit"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_52"
+        android:layout_marginTop="@dimen/value_24"
+        android:background="@drawable/shape_edit_salary_background"
+        android:gravity="bottom"
+        android:hint="@string/edit_hint_desired_salary_input"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="@dimen/value_16"
+        android:paddingBottom="@dimen/value_8"
+        android:singleLine="true"
+        android:textColor="@color/salary_not_null_text_color"
+        android:textColorHint="@color/edit_text_hint_color"
+        android:textCursorDrawable="@drawable/ic_cursor"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/industryButton" />
+
+    <!-- Кнопка очистки поля ввода зарплаты -->
+    <ImageView
+        android:id="@+id/salary_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/value_14"
+        android:padding="@dimen/value_4"
+        android:src="@drawable/ic_clear"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/desiredSalaryEdit"
+        app:layout_constraintEnd_toEndOf="@id/desiredSalaryEdit"
+        app:layout_constraintTop_toTopOf="@id/desiredSalaryEdit" />
+
+    <!-- Внутренняя надпись "Ожидаемая зарплата" -->
+    <TextView
+        android:id="@+id/salary_inner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/value_16"
+        android:paddingBottom="@dimen/value_28"
+        android:text="@string/edit_desired_salary_headline"
+        android:textColor="@color/edit_text_hint_color"
+        android:textSize="@dimen/text_size_12"
+        app:layout_constraintBottom_toBottomOf="@id/desiredSalaryEdit"
+        app:layout_constraintStart_toStartOf="@id/desiredSalaryEdit"
+        app:layout_constraintTop_toTopOf="@id/desiredSalaryEdit" />
+
+    <FrameLayout
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_56"
+        android:layout_marginTop="@dimen/value_24"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/desiredSalaryEdit">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:text="Не показывать без зарплаты"
+            android:textColor="@color/salary_cb_text_color" />
+
+        <CheckBox
+            android:id="@+id/unknown_salary_checker"
+            android:layout_width="@dimen/value_20"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:buttonTint="@color/blue" />
+
+    </FrameLayout>
+
+    <!-- Кнопка "Применить" -->
+    <Button
+        android:id="@+id/applyFilterButton"
+        style="@style/FilterApplymentButtonStyle"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_56"
+        android:text="@string/button_apply_filter"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/skipFilterButton"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
+
+    <!-- Кнопка "Сбросить" -->
+    <Button
+        android:id="@+id/skipFilterButton"
+        style="@style/FilterSkipmentButtonStyle"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_56"
+        android:text="@string/button_skip_filter"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
