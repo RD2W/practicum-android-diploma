@@ -39,6 +39,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentTeamBinding.bind(view)
+        viewModel.loadDevTeam()
         setupRecyclerView()
         observeViewModel()
     }
