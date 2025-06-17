@@ -1,14 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/region"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="16dp"
     tools:context=".region.presentation.view.RegionFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_16" />
+
+    <!-- Поле ввода "Регион" -->
+    <EditText
+        android:id="@+id/regionEdit"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:layout_marginTop="@dimen/value_24"
+        android:background="@drawable/shape_edit_salary_background"
+        android:hint="@string/edit_hint_region_input"
+        android:maxLines="1"
+        android:padding="@dimen/value_16"
+        android:textColorHint="@color/edit_text_hint_color"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Кнопка очистки поля ввода региона -->
+    <ImageView
+        android:id="@+id/region_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/value_14"
+        android:padding="@dimen/value_4"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/regionEdit"
+        app:layout_constraintEnd_toEndOf="@id/regionEdit"
+        app:layout_constraintTop_toTopOf="@id/regionEdit" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/zero_dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/regionEdit">
+
+        <!-- Regions RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/regions_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
+        <!-- Заставка если не удалось загрузить список регионов -->
+        <ImageView
+            android:id="@+id/region_problem_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found_regions"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Сообщение если не удалось загрузить список регионов -->
+        <TextView
+            android:id="@+id/region_problem_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_16"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/list_problem_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/region_problem_placeholder_pic" />
+
+        <!-- Заставка если не удалось список регионов через быстрый поиск по словам -->
+        <ImageView
+            android:id="@+id/region_absent_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Сообщение если не удалось список регионов через быстрый поиск по словам -->
+        <TextView
+            android:id="@+id/region_absent_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_16"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/region_absent_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/region_absent_placeholder_pic" />
+
+        <ProgressBar
+            android:id="@+id/region_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
