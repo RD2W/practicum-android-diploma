@@ -2,7 +2,8 @@ package ru.practicum.android.diploma.country.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.common.domain.model.RequestResult
+import ru.practicum.android.diploma.country.domain.model.Country
 
-interface GetCountriesUseCase {
+interface GetCountriesListUseCase {
     suspend operator fun invoke(): Flow<RequestResult<List<Country>>>
 }

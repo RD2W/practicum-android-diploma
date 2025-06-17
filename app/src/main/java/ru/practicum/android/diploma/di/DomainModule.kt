@@ -16,10 +16,10 @@ import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVac
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavoriteUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
 import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
-import ru.practicum.android.diploma.country.domain.usecase.GetCountriesUseCase
+import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.region.domain.usecase.impl.GetAreasListUseCaseImpl
-import ru.practicum.android.diploma.country.domain.usecase.impl.GetCountriesUseCaseImpl
+import ru.practicum.android.diploma.country.domain.usecase.impl.GetCountriesListUseCaseImpl
 import ru.practicum.android.diploma.industry.domain.usecase.impl.GetIndustriesListUseCaseImpl
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.search.domain.usecase.impl.SearchUseCaseImpl
@@ -50,6 +50,6 @@ val domainModule = module {
     factoryOf(::ShareVacancyUseCaseImpl) { bind<ShareVacancyUseCase>() }
     /** Filter UseCases */
     factoryOf(::GetAreasListUseCaseImpl) { bind<GetAreasListUseCase>() }
-    factoryOf(::GetCountriesUseCaseImpl) { bind<GetCountriesUseCase>() }
+    factoryOf(::GetCountriesListUseCaseImpl) { bind<GetCountriesListUseCase>() }
     factoryOf(::GetIndustriesListUseCaseImpl) { bind<GetIndustriesListUseCase>() }
 }

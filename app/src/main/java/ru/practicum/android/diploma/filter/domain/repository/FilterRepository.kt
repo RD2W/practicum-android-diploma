@@ -2,6 +2,7 @@ package ru.practicum.android.diploma.filter.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.common.domain.model.RequestResult
+import ru.practicum.android.diploma.country.domain.model.Country
 import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.region.domain.model.Area
 

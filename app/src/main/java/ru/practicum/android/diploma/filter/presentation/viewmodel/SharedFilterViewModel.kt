@@ -1,8 +1,12 @@
 package ru.practicum.android.diploma.filter.presentation.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.practicum.android.diploma.common.domain.model.SingleLiveEvent
 import ru.practicum.android.diploma.country.domain.model.Country
 import ru.practicum.android.diploma.industry.domain.model.Industry
+import ru.practicum.android.diploma.region.domain.model.AreaRegion
+import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 class SharedFilterViewModel : ViewModel() {
 

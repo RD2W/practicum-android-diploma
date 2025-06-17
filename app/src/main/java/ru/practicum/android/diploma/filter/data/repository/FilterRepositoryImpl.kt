@@ -3,6 +3,7 @@ package ru.practicum.android.diploma.filter.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.common.domain.model.RequestResult
+import ru.practicum.android.diploma.country.domain.model.Country
 import ru.practicum.android.diploma.filter.data.mapper.toArea
 import ru.practicum.android.diploma.filter.data.mapper.toCountry
 import ru.practicum.android.diploma.filter.data.mapper.toIndustry
