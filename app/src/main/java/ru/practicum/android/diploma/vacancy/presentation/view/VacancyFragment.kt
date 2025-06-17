@@ -19,6 +19,7 @@ import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 import ru.practicum.android.diploma.vacancy.presentation.state.VacancyDetailsState
 import ru.practicum.android.diploma.vacancy.presentation.state.VacancyErrorType
 import ru.practicum.android.diploma.vacancy.presentation.viewmodel.VacancyViewModel
+import timber.log.Timber
 import kotlin.getValue
 
 class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
@@ -53,15 +54,29 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
                 viewModel.state.collectLatest { state ->
                     when (state) {
                         is VacancyDetailsState.Loading -> {
+                            Timber.d("State: Loading | Показан индикатор загрузки")
                             showLoading()
                         }
 
                         is VacancyDetailsState.Content -> {
+                            Timber.d(
+                                "%snull", "State: Content | Вакансия ID=${state.vacancy.id} " +
+                                    "| isFavorite=${state.isFavorite} "
+                            )
                             showVacancy(state.vacancy)
                             updateFavoriteIcon(state.isFavorite)
                         }
 
                         is VacancyDetailsState.Error -> {
+                            val errorMessage = when (state.errorType) {
+                                VacancyErrorType.SERVER_ERROR -> "Ошибка сервера (500)"
+                                VacancyErrorType.NOT_FOUND -> "Вакансия не найдена (404)"
+                                VacancyErrorType.NO_INTERNET -> "Нет интернета"
+                            }
+                            Timber.e(
+                                "State: Error | Тип: $errorMessage " +
+                                    "| isFavorite=${state.isFavorite}"
+                            )
                             showError(state.errorType)
                             updateFavoriteIcon(state.isFavorite)
                         }
