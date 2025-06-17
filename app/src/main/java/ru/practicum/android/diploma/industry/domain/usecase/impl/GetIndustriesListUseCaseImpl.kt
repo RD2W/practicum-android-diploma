@@ -3,11 +3,11 @@ package ru.practicum.android.diploma.industry.domain.usecase.impl
 import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.common.domain.model.RequestResult
 import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
-import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesUseCase
+import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.industry.domain.model.Industry
 
-class GetIndustriesUseCaseImpl(
+class GetIndustriesListUseCaseImpl(
     private val repository: FilterRepository,
-) : GetIndustriesUseCase {
+) : GetIndustriesListUseCase {
     override suspend operator fun invoke(): Flow<RequestResult<List<Industry>>> = repository.getIndustries()
 }

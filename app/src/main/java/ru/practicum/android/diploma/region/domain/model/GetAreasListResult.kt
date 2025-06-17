@@ -1,6 +1,4 @@
-package ru.practicum.android.diploma.region.data.repository.model
-
-import ru.practicum.android.diploma.region.domain.model.Area
+package ru.practicum.android.diploma.region.domain.model
 
 sealed interface GetAreasListResult {
     data class Success(val areas: List<Area>) : GetAreasListResult

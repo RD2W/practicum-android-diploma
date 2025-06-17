@@ -3,18 +3,12 @@ package ru.practicum.android.diploma.filter.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.common.domain.model.SingleLiveEvent
-import ru.practicum.android.diploma.country.domain.usecase.GetCountriesUseCase
 import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.industry.domain.model.Industry
-import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesUseCase
-import ru.practicum.android.diploma.region.domain.usecase.impl.GetAreasUseCaseImpl
-import timber.log.Timber
 
 class FilterViewModel(
     private val setFilterUseCase: SetFilterUseCase,

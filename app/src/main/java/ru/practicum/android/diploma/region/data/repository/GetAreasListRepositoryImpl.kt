@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.region.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.region.data.repository.model.GetAreasListResult
+import ru.practicum.android.diploma.region.domain.model.GetAreasListResult
 import ru.practicum.android.diploma.region.domain.repository.GetAreasListRepository
 import ru.practicum.android.diploma.region.domain.model.Area
 import ru.practicum.android.diploma.search.data.model.HHApiRequest

@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.industry.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.practicum.android.diploma.industry.data.repository.model.GetIndustriesListResult
+import ru.practicum.android.diploma.industry.domain.model.GetIndustriesListResult
 import ru.practicum.android.diploma.industry.domain.repository.GetIndustriesListRepository
 import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.search.data.model.HHApiRequest
