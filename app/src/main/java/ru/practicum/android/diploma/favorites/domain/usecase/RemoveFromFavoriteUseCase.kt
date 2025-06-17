@@ -1,17 +1,12 @@
 package ru.practicum.android.diploma.favorites.domain.usecase
 
-import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
-
 /**
- * Use case для удаления вакансии из избранного
- * @property repository Репозиторий для работы с избранными вакансиями
+ * Интерфейс для удаления вакансии из избранного
  */
-class RemoveFromFavoriteUseCase(
-    private val repository: FavoriteVacanciesRepository,
-) {
+interface RemoveFromFavoriteUseCase {
     /**
      * Удаляет вакансию из избранного
      * @param vacancyId ID вакансии для удаления
      */
-    suspend operator fun invoke(vacancyId: String) = repository.deleteFavoriteVacancy(vacancyId)
+    suspend operator fun invoke(vacancyId: String)
 }

@@ -9,11 +9,14 @@ import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacancie
 import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacancyByIdUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.RemoveFromFavoriteUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.ToggleFavoriteStatusUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetAreasListUseCase
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.AddToFavoriteUseCaseImpl
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.CheckIsFavoriteUseCaseImpl
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVacanciesUseCaseImpl
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVacancyByIdUseCaseImpl
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavoriteUseCaseImpl
+import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.GetAreasUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetAreasUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetCountriesUseCaseImpl
@@ -34,16 +37,12 @@ val domainModule = module {
     factoryOf(::GetDevTeamUseCaseImpl) { bind<GetDevTeamUseCase>() }
     factoryOf(::OpenGithubProfileUseCaseImpl) { bind<OpenGithubProfileUseCase>() }
     /** Favorite Vacancies UseCases */
-    factoryOf(::AddToFavoriteUseCase)
-    factoryOf(::CheckIsFavoriteUseCase)
-    factoryOf(::GetFavoriteVacanciesUseCase)
-    factoryOf(::GetFavoriteVacancyByIdUseCase)
-    factoryOf(::RemoveFromFavoriteUseCase)
-    factoryOf(::ToggleFavoriteStatusUseCase)
-    /** Any UseCases */
-    factoryOf(::GetCountriesListUseCase)
-    factoryOf(::GetAreasListUseCase)
-    factoryOf(::GetIndustriesListUseCase)
+    factoryOf(::AddToFavoriteUseCaseImpl) { bind<AddToFavoriteUseCase>() }
+    factoryOf(::CheckIsFavoriteUseCaseImpl) { bind<CheckIsFavoriteUseCase>() }
+    factoryOf(::GetFavoriteVacanciesUseCaseImpl) { bind<GetFavoriteVacanciesUseCase>() }
+    factoryOf(::GetFavoriteVacancyByIdUseCaseImpl) { bind<GetFavoriteVacancyByIdUseCase>() }
+    factoryOf(::RemoveFromFavoriteUseCaseImpl) { bind<RemoveFromFavoriteUseCase>() }
+    factoryOf(::ToggleFavoriteStatusUseCaseImpl) { bind<ToggleFavoriteStatusUseCase>() }
     /** Search Vacancies UseCases */
     factoryOf(::SearchUseCaseImpl) { bind<SearchUseCase>() }
     /** Get Vacancy Details UseCases */
