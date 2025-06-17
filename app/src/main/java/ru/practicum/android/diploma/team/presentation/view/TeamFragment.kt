@@ -26,7 +26,7 @@ class TeamFragment : Fragment(R.layout.fragment_team) {
     // ViewBinding
     private var _binding: FragmentTeamBinding? = null
     private val binding: FragmentTeamBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initiliazed!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     // ViewModel
     private val viewModel: TeamViewModel by viewModel()
