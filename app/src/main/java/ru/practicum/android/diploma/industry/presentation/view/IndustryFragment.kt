@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.industry.presentation.adapter.IndustriesAdapter
 import ru.practicum.android.diploma.industry.presentation.state.IndustryFragmentState
 import ru.practicum.android.diploma.industry.presentation.viewmodel.IndustryViewModel
+import kotlin.collections.sortedByDescending
 import kotlin.getValue
 
 class IndustryFragment : Fragment(R.layout.fragment_industry) {
@@ -110,7 +111,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
         absentViewsHide()
         contentViewsShow()
         adapter.industries.clear()
-        adapter.industries.addAll(industries)
+        adapter.industries.addAll(industries.sortedBy { industry -> industry.name })
         adapter.notifyDataSetChanged()
     }
 

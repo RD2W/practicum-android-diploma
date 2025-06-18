@@ -3,6 +3,9 @@ package ru.practicum.android.diploma.industry.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.industry.domain.model.GetIndustriesListResult
 import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.industry.presentation.state.IndustryFragmentState
@@ -15,25 +18,20 @@ class IndustryViewModel(
     fun observeIndustryFragmentState(): LiveData<IndustryFragmentState> = industryFragmentStateLiveData
 
     fun getIndustries() {
-        /*
         viewModelScope.launch {
             getIndustriesListUseCase.execute().collect { result ->
-
-
                 when (result) {
                     is GetIndustriesListResult.Success -> {
                         renderIndustryFragment(IndustryFragmentState.Content(result.industries))
                     }
 
                     is GetIndustriesListResult.Problem -> {
-                        renderUndustryFragment(IndustryFragmentState.Empty)
+                        renderIndustryFragment(IndustryFragmentState.Problem)
                     }
                 }
-
-
             }
         }
-        */
+        /*
         val i1 = Industry("1", "Инженеринг")
         val i2 = Industry("2", "Строительство")
         val i3 = Industry("3", "Медицина")
@@ -48,7 +46,7 @@ class IndustryViewModel(
         val i12 = Industry("12", "Туризм")
         val list = listOf(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12)
         renderIndustryFragment(IndustryFragmentState.Content(list))
-
+        */
     }
 
     private fun renderIndustryFragment(state: IndustryFragmentState) {
