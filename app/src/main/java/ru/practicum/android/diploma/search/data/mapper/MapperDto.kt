@@ -1,8 +1,28 @@
 package ru.practicum.android.diploma.search.data.mapper
 
+import ru.practicum.android.diploma.common.constants.AppConstants.PAGE_SIZE
+import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.utils.FormatStrings
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
+import ru.practicum.android.diploma.search.data.model.dto.VacancyDto
+import ru.practicum.android.diploma.search.domain.model.SearchParameters
+import ru.practicum.android.diploma.search.domain.model.SearchResult
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
+
+fun SearchParameters.toMap(): Map<String, String> {
+    return buildMap {
+        put("text", query)
+        put("page", page.toString())
+        put("per_page", PAGE_SIZE.toString())
+    }
+}
+
+fun HHApiResponse.Vacancies.toSearchResult() = SearchResult(
+    resultsFound = this.found,
+    totalPages = this.pages,
+    currentPage = this.page,
+    vacancies = this.items.map { it.toVacancy() },
+)
 
 fun HHApiResponse.VacancyDetails.toVacancyDetails() = VacancyDetails(
     id = this.id,
@@ -24,4 +44,13 @@ fun HHApiResponse.VacancyDetails.toVacancyDetails() = VacancyDetails(
     keySkills = this.keySkills?.joinToString(separator = ", ") { it.name },
     description = this.description,
     alternateUrl = this.alternateUrl,
+)
+
+fun VacancyDto.toVacancy() = Vacancy(
+    id = this.id,
+    titleOfVacancy = this.name,
+    regionName = this.area?.name,
+    salary = FormatStrings.formatSalary(this.salary),
+    employerName = this.employer.name,
+    employerLogoUrl = this.employer.logoUrls?.original
 )
