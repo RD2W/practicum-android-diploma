@@ -150,30 +150,29 @@ class SearchViewModel(
     ) {
         when (result) {
             is Result.Success -> {
-                result.data.let { searchResult ->
-                    loadedPages.add(pageToLoad)
-                    currentPage = searchResult.currentPage
-                    totalPages = searchResult.totalPages
+                val searchResult = result.data
+                loadedPages.add(pageToLoad)
+                currentPage = searchResult.currentPage
+                totalPages = searchResult.totalPages
 
-                    allVacancies = if (isNewSearch) {
-                        searchResult.vacancies
-                    } else {
-                        (allVacancies + searchResult.vacancies).distinctBy { it.id }
-                    }
+                allVacancies = if (isNewSearch) {
+                    searchResult.vacancies
+                } else {
+                    (allVacancies + searchResult.vacancies).distinctBy { it.id }
+                }
 
-                    _screenState.value = if (allVacancies.isEmpty()) {
-                        SearchVacanciesScreenState.NoResults
-                    } else {
-                        SearchVacanciesScreenState.Content(
-                            searchResult = SearchResult(
-                                resultsFound = searchResult.resultsFound,
-                                totalPages = totalPages,
-                                currentPage = currentPage,
-                                vacancies = allVacancies
-                            )
+                _screenState.value = if (allVacancies.isEmpty()) {
+                    SearchVacanciesScreenState.NoResults
+                } else {
+                    SearchVacanciesScreenState.Content(
+                        searchResult = SearchResult(
+                            resultsFound = searchResult.resultsFound,
+                            totalPages = totalPages,
+                            currentPage = currentPage,
+                            vacancies = allVacancies
                         )
+                    )
 
-                    }
                 }
             }
 

@@ -12,8 +12,8 @@ import ru.practicum.android.diploma.favorites.domain.usecase.CheckIsFavoriteUseC
 import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacancyByIdUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.ToggleFavoriteStatusUseCase
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
+import ru.practicum.android.diploma.vacancy.domain.usecase.GetVacancyDetailsByIdUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
-import ru.practicum.android.diploma.vacancy.domain.usecase.impl.GetVacancyDetailsByIdUseCaseImpl
 import ru.practicum.android.diploma.vacancy.presentation.state.VacancyDetailsState
 import ru.practicum.android.diploma.vacancy.presentation.state.VacancyErrorType
 
@@ -32,7 +32,7 @@ import ru.practicum.android.diploma.vacancy.presentation.state.VacancyErrorType
  * @param getFavoriteVacancyByIdUseCase UseCase для получения вакансии из избранного
  */
 class VacancyViewModel(
-    private val getVacancyDetailsByIdUseCase: GetVacancyDetailsByIdUseCaseImpl,
+    private val getVacancyDetailsByIdUseCase: GetVacancyDetailsByIdUseCase,
     private val shareVacancyUseCase: ShareVacancyUseCase,
     private val toggleFavoriteStatusUseCase: ToggleFavoriteStatusUseCase,
     private val checkIsFavoriteUseCase: CheckIsFavoriteUseCase,
