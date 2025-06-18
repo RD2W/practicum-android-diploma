@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCa
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 
 class CountryViewModel(
-    private val getCountriesUseCase: GetCountriesListUseCase
+    private val getCountriesListUseCase: GetCountriesListUseCase
 ) : ViewModel() {
 
     private val countryFragmentStateLiveData = MutableLiveData<CountryFragmentState>()
@@ -17,7 +17,7 @@ class CountryViewModel(
     fun getCountries() {
         /*
         viewModelScope.launch {
-            getCountriesUseCase.execute().collect { result ->
+            getCountriesListUseCase.execute().collect { result ->
                 when (result) {
                     is GetCountriesListResult.Success -> {
                         renderCountryFragment(CountryFragmentState.Content(result.countries))

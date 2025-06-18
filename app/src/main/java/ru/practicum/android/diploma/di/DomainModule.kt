@@ -20,6 +20,10 @@ import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCa
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.region.domain.usecase.impl.GetAreasListUseCaseImpl
 import ru.practicum.android.diploma.country.domain.usecase.impl.GetCountriesListUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.impl.GetFilterUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.impl.SetFilterUseCaseImpl
 import ru.practicum.android.diploma.industry.domain.usecase.impl.GetIndustriesListUseCaseImpl
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.search.domain.usecase.impl.SearchUseCaseImpl
@@ -52,4 +56,6 @@ val domainModule = module {
     factoryOf(::GetAreasListUseCaseImpl) { bind<GetAreasListUseCase>() }
     factoryOf(::GetCountriesListUseCaseImpl) { bind<GetCountriesListUseCase>() }
     factoryOf(::GetIndustriesListUseCaseImpl) { bind<GetIndustriesListUseCase>() }
+    factoryOf(::GetFilterUseCaseImpl) { bind<GetFilterUseCase>() }
+    factoryOf(::SetFilterUseCaseImpl) { bind<SetFilterUseCase>() }
 }

@@ -10,7 +10,9 @@ import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import java.net.HttpURLConnection
 
-class GetIndustriesListRepositoryImpl(private val networkClient: NetworkClient) : GetIndustriesListRepository {
+class GetIndustriesListRepositoryImpl(
+    private val networkClient: NetworkClient
+) : GetIndustriesListRepository {
     override fun getIndustriesList(): Flow<GetIndustriesListResult> = flow {
         val response = networkClient.doRequest(HHApiRequest.Industries)
         when (response.responseCode) {

@@ -1,13 +1,15 @@
 package ru.practicum.android.diploma.country.domain.usecase.impl
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.common.domain.model.RequestResult
 import ru.practicum.android.diploma.country.domain.model.Country
-import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
+import ru.practicum.android.diploma.country.domain.model.GetCountriesListResult
+import ru.practicum.android.diploma.country.domain.repository.GetCountriesListRepository
 import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 
 class GetCountriesListUseCaseImpl(
-    private val repository: FilterRepository,
+    private val getCountriesListRepository: GetCountriesListRepository
 ) : GetCountriesListUseCase {
-    override suspend operator fun invoke(): Flow<RequestResult<List<Country>>> = repository.getCountries()
+    override fun execute(): Flow<GetCountriesListResult> {
+        return getCountriesListRepository.getCountriesList()
+    }
 }

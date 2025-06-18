@@ -7,11 +7,13 @@ import ru.practicum.android.diploma.favorites.data.repository.FavoriteVacanciesR
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
 import ru.practicum.android.diploma.region.data.repository.GetAreasListRepositoryImpl
 import ru.practicum.android.diploma.country.data.repository.GetCountriesListRepositoryImpl
-import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
 import ru.practicum.android.diploma.industry.data.repository.GetIndustriesListRepositoryImpl
 import ru.practicum.android.diploma.region.domain.repository.GetAreasListRepository
 import ru.practicum.android.diploma.country.domain.repository.GetCountriesListRepository
-import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
+import ru.practicum.android.diploma.filter.data.repository.GetFilterRepositoryImpl
+import ru.practicum.android.diploma.filter.data.repository.SetFilterRepositoryImpl
+import ru.practicum.android.diploma.filter.domain.repository.GetFilterRepository
+import ru.practicum.android.diploma.filter.domain.repository.SetFilterRepository
 import ru.practicum.android.diploma.industry.domain.repository.GetIndustriesListRepository
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
@@ -34,5 +36,6 @@ val dataModule = module {
     /** Vacancy Repository */
     factoryOf(::VacancyDetailsRepositoryImpl) { bind<VacancyDetailsRepository>() }
     /** Filter Repository */
-    factoryOf(::FilterRepositoryImpl) { bind<FilterRepository>() }
+    factoryOf(::GetFilterRepositoryImpl) { bind<GetFilterRepository>() }
+    factoryOf(::SetFilterRepositoryImpl) { bind<SetFilterRepository>() }
 }
