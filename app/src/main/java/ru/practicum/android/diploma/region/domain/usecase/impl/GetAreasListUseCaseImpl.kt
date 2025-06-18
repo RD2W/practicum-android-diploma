@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.region.domain.repository.GetAreasListReposit
 class GetAreasListUseCaseImpl(
     private val getAreasListRepository: GetAreasListRepository
 ) : GetAreasListUseCase {
-    override fun execute(): Flow<GetAreasListResult> {
-        return getAreasListRepository.getAreasList("test")
+    override fun execute(countryId: String): Flow<GetAreasListResult> {
+        return getAreasListRepository.getAreasList(countryId)
     }
 }

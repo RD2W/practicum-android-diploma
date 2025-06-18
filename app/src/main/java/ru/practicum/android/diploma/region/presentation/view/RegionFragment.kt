@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.databinding.FragmentRegionBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterViewModel
 import ru.practicum.android.diploma.region.domain.model.AreaRegion
@@ -29,7 +30,7 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
     private val adapter = AreasAdapter()
     private var areas = emptyList<AreaRegion>()
-    private var areaId: String? = null
+    private var countryId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +39,7 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
         setupLiveDataObservers()
         setupRecyclerView()
         setupListeners()
-        viewModel.getAreas(areaId)
+        viewModel.getAreas(countryId!!)
     }
 
     override fun onDestroyView() {
@@ -48,8 +49,7 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        areaId = requireArguments().getString("flag")
+        countryId = requireArguments().getString(AppConstants.COUNTRY_ID_KEY)
     }
 
     private fun setupLiveDataObservers() {

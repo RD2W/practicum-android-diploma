@@ -10,4 +10,5 @@ object AppConstants {
     const val DATABASE_VERSION = 1
     const val PAGE_SIZE = 20
     const val FILTER_KEY = "filter"
+    const val COUNTRY_ID_KEY = "country_id"
 }

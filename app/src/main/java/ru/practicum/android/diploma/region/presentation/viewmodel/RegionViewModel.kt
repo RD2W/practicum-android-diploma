@@ -3,7 +3,9 @@ package ru.practicum.android.diploma.region.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.practicum.android.diploma.region.domain.model.AreaRegion
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.region.domain.model.GetAreasListResult
 import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
 import ru.practicum.android.diploma.region.presentation.state.AreaFragmentState
 
@@ -14,38 +16,24 @@ class RegionViewModel(
     private val areaFragmentStateLiveData = MutableLiveData<AreaFragmentState>()
     fun observeAreaFragmentState(): LiveData<AreaFragmentState> = areaFragmentStateLiveData
 
-    fun getAreas(flag: String?) {
-        /*
+    fun getAreas(countryId: String) {
+        renderRegionFragment(AreaFragmentState.Loading)
         viewModelScope.launch {
-            getCountriesUseCase.execute().collect { result ->
+            getAreasListUseCase.execute(countryId).collect { result ->
                 when (result) {
-                    is GetCountriesListResult.Success -> {
-                        renderCountryFragment(CountryFragmentState.Content(result.countries))
+                    is GetAreasListResult.Success -> {
+                        renderRegionFragment(AreaFragmentState.Content(result.areas))
                     }
 
-                    is GetCountriesListResult.Problem -> {
-                        renderCountryFragment(CountryFragmentState.Empty)
+                    is GetAreasListResult.Problem -> {
+                        renderRegionFragment(AreaFragmentState.Problem)
                     }
                 }
             }
         }
-
-         */
-        var list = emptyList<AreaRegion>()
-        val a1 = AreaRegion("1", "Республика Чувашия")
-        val a2 = AreaRegion("2", "Республика Мордовия")
-        val a3 = AreaRegion("3", "Республика Татарстан")
-        val a4 = AreaRegion("4", "Республика Бурятия")
-        val a5 = AreaRegion("5", "Приморский край")
-        val a6 = AreaRegion("6", "Калининградская область")
-        if (flag == "1") {
-            list = listOf(a1, a2, a3, a4, a5, a6)
-        }
-
-        renderCountryFragment(AreaFragmentState.Content(list))
     }
 
-    private fun renderCountryFragment(state: AreaFragmentState) {
+    private fun renderRegionFragment(state: AreaFragmentState) {
         areaFragmentStateLiveData.postValue(state)
     }
 }

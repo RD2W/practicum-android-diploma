@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.industry.domain.model.GetIndustriesListResult
-import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.industry.presentation.state.IndustryFragmentState
 

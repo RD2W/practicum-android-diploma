@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.country.domain.model.Country
 import ru.practicum.android.diploma.databinding.FragmentWorkplaceBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterViewModel
@@ -74,10 +75,10 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
 
         binding.regionButton.setOnClickListener {
             if (this.country != null) {
-                val b = Bundle()
-                b.putString("flag", this.areaId)
+                val bundle = Bundle()
+                bundle.putString(AppConstants.COUNTRY_ID_KEY, country!!.id.toString())
                 findNavController().navigate(
-                    R.id.action_workplaceFragment_to_regionFragment, b
+                    R.id.action_workplaceFragment_to_regionFragment, bundle
                 )
             }
         }
