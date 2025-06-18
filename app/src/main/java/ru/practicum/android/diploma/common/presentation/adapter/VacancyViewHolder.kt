@@ -20,7 +20,15 @@ class VacancyViewHolder(private val binding: ItemVacancyBinding) :
     fun bind(vacancy: Vacancy) {
         with(binding) {
             // Устанавливаем название вакансии
-            tvVacancyName.text = vacancy.titleOfVacancy
+            if (vacancy.regionName.isNullOrEmpty()) {
+                tvVacancyName.text = vacancy.titleOfVacancy
+            } else {
+                tvVacancyName.text = root.resources.getString(
+                    R.string.vacancy_with_city,
+                    vacancy.titleOfVacancy,
+                    vacancy.regionName
+                )
+            }
 
             // Устанавливаем название компании
             tvCompanyName.text = vacancy.employerName
@@ -35,7 +43,6 @@ class VacancyViewHolder(private val binding: ItemVacancyBinding) :
             .load(vacancy.employerLogoUrl)
             .placeholder(R.drawable.ic_vacancy_placeholder) // Заглушка на время загрузки
             .fitCenter()
-            .centerCrop()
             .into(binding.ivCompanyLogo)
     }
 }

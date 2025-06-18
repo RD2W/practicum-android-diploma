@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search"
@@ -10,44 +9,216 @@
     tools:context=".search.presentation.view.SearchFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
-        style="@style/CustomToolbarStyle"
         android:id="@+id/topAppBar"
+        style="@style/CustomToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/background"
-        app:title="@string/fragment_search_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Первая кнопка -->
-    <Button
-        android:id="@+id/firstButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/fragment_vacancy_name"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/secondButton"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <!-- Вторая кнопка -->
-    <Button
-        android:id="@+id/secondButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/fragment_filter_name"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/text"
-        app:layout_constraintTop_toBottomOf="@id/firstButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/fragment_search_name" />
+
+    <!-- Иконка фильтров в невыбранном состоянии -->
+    <ImageView
+        android:id="@+id/ic_filter_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/value_20"
+        android:src="@drawable/ic_filter_off"
+        app:layout_constraintBottom_toBottomOf="@+id/topAppBar"
+        app:layout_constraintEnd_toEndOf="@id/topAppBar"
+        app:layout_constraintTop_toTopOf="@+id/topAppBar" />
+
+    <!-- Иконка фильтров в выбранном состоянии по умолчанию скрыта-->
+    <ImageView
+        android:id="@+id/ic_filter_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/value_20"
+        android:src="@drawable/ic_filter_on"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/topAppBar"
+        app:layout_constraintEnd_toEndOf="@id/topAppBar"
+        app:layout_constraintTop_toTopOf="@+id/topAppBar" />
+
+    <!-- Поле поиска -->
+    <include
+        android:id="@+id/searchItem"
+        layout="@layout/item_search"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_vacancies_hint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar" />
+
+    <!-- ShapeableImageView для заглушки пока запрос не введен -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/svPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_placeholder_search_vacancy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <!-- Количество результатов вакансий -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/foundedVacancy"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/value_28"
+        android:layout_gravity="center|top"
+        android:layout_marginVertical="@dimen/value_8"
+        android:background="@drawable/background_blue_radius_12"
+        android:fontFamily="@font/ys_display_regular"
+        android:gravity="center"
+        android:text="@string/no_vacancies_found"
+        android:textColor="@color/white_universal"
+        android:textSize="@dimen/text_size_16"
+        android:visibility="gone"
+        android:paddingHorizontal="@dimen/value_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        android:elevation="@dimen/value_4"
+        tools:visibility="visible" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchVacancies"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingHorizontal="@dimen/value_16"
+        android:paddingTop="0dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_vacancy"
+        android:visibility="gone"/>
+
+    <!-- Прогрессбар загрузки -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:indicatorColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.40"
+        app:trackThickness="@dimen/value_6" />
+
+    <!-- Group для объединения ShapeableImageView и MaterialTextView заглушки Нет интернета -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupNoInternetPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="noInternetPlaceholder,noInternetStringPlaceholder" />
+
+    <!-- ShapeableImageView для заглушки Нет интернета-->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/noInternetPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_placeholder_no_internet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <!-- MaterialTextView для заглушки Нет интернета-->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/noInternetStringPlaceholder"
+        style="@style/TextMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_internet"
+        app:layout_constraintEnd_toEndOf="@id/noInternetPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/noInternetPlaceholder"
+        app:layout_constraintTop_toBottomOf="@id/noInternetPlaceholder" />
+
+    <!-- Group для объединения ShapeableImageView и MaterialTextView заглушки Не нашлись вакансии -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupNotFoundPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="notFoundPlaceholder,notFoundStringPlaceholder" />
+
+    <!-- ShapeableImageView для заглушки Не нашлись вакансии-->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/notFoundPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_placeholder_not_found"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <!-- MaterialTextView для заглушки Не нашлись вакансии-->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/notFoundStringPlaceholder"
+        style="@style/TextMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vacancy_not_found"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/notFoundPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/notFoundPlaceholder"
+        app:layout_constraintTop_toBottomOf="@id/notFoundPlaceholder" />
+
+    <!-- Group для объединения ShapeableImageView и MaterialTextView заглушки Ошибка сервера -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupServerErrorPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="serverErrorPlaceholder,serverErrorStringPlaceholder" />
+
+    <!-- ShapeableImageView для заглушки Ошибка сервера-->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/serverErrorPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_placeholder_server_error_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.50" />
+
+    <!-- MaterialTextView для заглушки Ошибка сервера -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/serverErrorStringPlaceholder"
+        style="@style/TextMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/server_error"
+        app:layout_constraintEnd_toEndOf="@id/serverErrorPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/serverErrorPlaceholder"
+        app:layout_constraintTop_toBottomOf="@id/serverErrorPlaceholder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

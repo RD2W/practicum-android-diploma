@@ -11,6 +11,7 @@
     <com.google.android.material.imageview.ShapeableImageView
         style="@style/CompanyLogoStyle"
         android:id="@+id/ivCompanyLogo"
+        android:background="@drawable/ic_background_vacancy"
         android:layout_width="@dimen/value_48"
         android:layout_height="@dimen/value_48"
         android:contentDescription="@string/company_logo_description"
