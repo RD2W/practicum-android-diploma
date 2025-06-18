@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.vacancy.domain.model
+package ru.practicum.android.diploma.common.domain.model
 
 /**
  * Обобщенный sealed-класс для представления результата операций с вакансиями.

@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.common.domain.model.Result
 import ru.practicum.android.diploma.favorites.domain.usecase.CheckIsFavoriteUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacancyByIdUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.ToggleFavoriteStatusUseCase
-import ru.practicum.android.diploma.vacancy.domain.model.Result
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 import ru.practicum.android.diploma.vacancy.domain.usecase.ShareVacancyUseCase
 import ru.practicum.android.diploma.vacancy.domain.usecase.impl.GetVacancyDetailsByIdUseCaseImpl

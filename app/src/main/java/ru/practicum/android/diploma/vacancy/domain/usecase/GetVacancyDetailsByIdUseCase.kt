@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.vacancy.domain.usecase
 
-import ru.practicum.android.diploma.vacancy.domain.model.Result
+import ru.practicum.android.diploma.common.domain.model.Result
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 
 /**
