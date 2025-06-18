@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.country.presentation.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -79,6 +80,7 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showContent(countries: List<Country>) {
         loadingViewsHide()
         problemViewsHide()
@@ -109,21 +111,21 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
     }
 
     private fun problemViewsShow() {
-        //binding.industryProblemPlaceholderPic.visibility = View.VISIBLE
-        //binding.industryProblemPlaceholderText.visibility = View.VISIBLE
+        binding.countryProblemPlaceholderPic.visibility = View.VISIBLE
+        binding.countryProblemPlaceholderText.visibility = View.VISIBLE
     }
 
     private fun problemViewsHide() {
-        //binding.industryProblemPlaceholderPic.visibility = View.INVISIBLE
-        //binding.industryProblemPlaceholderText.visibility = View.INVISIBLE
+        binding.countryProblemPlaceholderPic.visibility = View.INVISIBLE
+        binding.countryProblemPlaceholderText.visibility = View.INVISIBLE
     }
 
     private fun loadingViewsShow() {
-        //binding.industryProgressbar.visibility = View.VISIBLE
+        binding.countryProgressbar.visibility = View.VISIBLE
     }
 
     private fun loadingViewsHide() {
-        //binding.industryProgressbar.visibility = View.INVISIBLE
+        binding.countryProgressbar.visibility = View.INVISIBLE
     }
 
 }

@@ -3,7 +3,10 @@ package ru.practicum.android.diploma.country.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.country.domain.model.Country
+import ru.practicum.android.diploma.country.domain.model.GetCountriesListResult
 import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 import ru.practicum.android.diploma.country.presentation.state.CountryFragmentState
 
@@ -15,7 +18,7 @@ class CountryViewModel(
     fun observeCountryFragmentState(): LiveData<CountryFragmentState> = countryFragmentStateLiveData
 
     fun getCountries() {
-        /*
+        renderCountryFragment(CountryFragmentState.Loading)
         viewModelScope.launch {
             getCountriesListUseCase.execute().collect { result ->
                 when (result) {
@@ -24,21 +27,11 @@ class CountryViewModel(
                     }
 
                     is GetCountriesListResult.Problem -> {
-                        renderCountryFragment(CountryFragmentState.Empty)
+                        renderCountryFragment(CountryFragmentState.Problem)
                     }
                 }
             }
         }
-
-         */
-        val c1 = Country("1", "Россия")
-        val c2 = Country("2", "Китай")
-        val c3 = Country("3", "КНДР")
-        val c4 = Country("4", "Япония")
-        val c5 = Country("5", "Белоруссия")
-        val c6 = Country("6", "Австралия")
-        val list = listOf(c1, c2, c3, c4, c5, c6)
-        renderCountryFragment(CountryFragmentState.Content(list))
     }
 
     private fun renderCountryFragment(state: CountryFragmentState) {
