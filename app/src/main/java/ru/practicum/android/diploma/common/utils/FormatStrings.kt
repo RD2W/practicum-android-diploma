@@ -7,6 +7,11 @@ import java.text.NumberFormat
 import java.util.Locale
 
 object FormatStrings {
+    private const val HTML_UL_OPEN = "<ul>"
+    private const val HTML_UL_CLOSE = "</ul>"
+    private const val HTML_LI_OPEN = "<li>&nbsp;"
+    private const val HTML_LI_CLOSE = "</li>"
+
     fun formatSalary(salaryDto: SalaryDto?): String? {
         if (salaryDto == null) return null
 
@@ -66,8 +71,8 @@ object FormatStrings {
         return keySkills?.split(",")
             ?.map { it.trim() }
             ?.filter { it.isNotEmpty() }
-            ?.joinToString(prefix = "<ul>", postfix = "</ul>", separator = "") { skill ->
-                "<li>&nbsp;$skill</li>"
+            ?.joinToString(prefix = HTML_UL_OPEN, postfix = HTML_UL_CLOSE, separator = "") { skill ->
+                "${HTML_LI_OPEN}$skill${HTML_LI_CLOSE}"
             } ?: ""
     }
 }
