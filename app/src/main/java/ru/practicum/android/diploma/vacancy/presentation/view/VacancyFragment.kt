@@ -107,7 +107,8 @@ class VacancyFragment : Fragment(R.layout.fragment_vacancy) {
             vacancySphere.text = vacancyDetails.employerName
             vacancyCity.text = vacancyDetails.address ?: vacancyDetails.regionName
             vacancyExperienceMeaning.text = vacancyDetails.experience
-            vacancySchedule.text = vacancyDetails.scheduleType
+            vacancySchedule.text = listOfNotNull(vacancyDetails.employmentType, vacancyDetails.scheduleType)
+                .joinToString(separator = ", ")
             vacancyDescription.text = vacancyDetails.description?.let { FormatStrings.htmlToFormattedText(it) }
 
             if (vacancyDetails.keySkills.isNullOrBlank()) {
