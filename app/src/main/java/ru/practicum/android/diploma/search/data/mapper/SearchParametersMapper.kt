@@ -9,6 +9,11 @@ fun SearchParameters.toMap(): Map<String, String> {
     map["text"] = query
     map["page"] = page.toString()
     map["per_page"] = PAGE_SIZE.toString()
+    map["area"] = filter?.workplace?.areaId.toString()
+    map["industry"] = filter?.industry?.id.toString()
+    map["salary"] = filter?.salary?.from.toString()
+    map["currency"] = filter?.salary?.currency.toString()
+    map["only_with_salary"] = filter?.salaryMustHaveFlag.toString()
 
     return map
 }
