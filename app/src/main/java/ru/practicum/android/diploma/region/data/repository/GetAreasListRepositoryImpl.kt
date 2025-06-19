@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.region.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.filter.data.mapper.toAreaRegion
@@ -18,7 +17,8 @@ class GetAreasListRepositoryImpl(
         val response = networkClient.doRequest(HHApiRequest.Areas(countryId))
         when (response.responseCode) {
             HttpURLConnection.HTTP_OK -> {
-                val areaRegions = (response as HHApiResponse.Areas).chosenArea.areas!!.map { areaDto -> areaDto.toAreaRegion() }
+                val areaRegions = (response as HHApiResponse.Areas).chosenArea.areas!!
+                    .map { areaDto -> areaDto.toAreaRegion() }
                 emit(GetAreasListResult.Success(areaRegions))
             }
 
