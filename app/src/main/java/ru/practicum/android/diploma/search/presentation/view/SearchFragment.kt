@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.search.presentation.adapter.ListItem
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
+import timber.log.Timber
 import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -60,6 +61,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         isLoading = true
                         this@SearchFragment.adapter.addLoadingFooter()
                         viewModel.loadNextPage()
+                    } else {
+                        this@SearchFragment.adapter.removeLoadingFooter()
                     }
                 }
             }
@@ -86,6 +89,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setupSearchField() {
         // Получаем доступ к элементам из layout
+        Timber.d("Новый поиск $isFirstPageLoaded")
+
         var lastText = ""
         with(binding) {
             with(searchItem) { // Дополнительный with для searchItem
@@ -98,7 +103,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         lastText = newText
                         searchIcon.isVisible = newText.isEmpty()
                         clearIcon.isVisible = newText.isNotEmpty()
-                        viewModel.onSearchQueryChanged(newText)
+                        viewModel.onSearchQueryChanged(newText, isNewSearch = true)
+                        isFirstPageLoaded = false
                     }
                     // Обработка клика по иконке очистки
                     clearIcon.setOnClickListener {
@@ -247,6 +253,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun showContent(state: SearchVacanciesScreenState.Content) {
         isFirstPageLoaded = true
+        Timber.d("Cостояние isFirstPageLoaded: $isFirstPageLoaded, в методе showContent")
         switchUiMode(showContent = true)
 
         adapter.removeLoadingFooter()
@@ -277,18 +284,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Состояние нет интернета
      */
     private fun showNetworkError() {
-        isFirstPageLoaded = true
-        switchUiMode(showNetworkError = true)
-        showToast(getString(R.string.check_internet_connection))
+        if (isFirstPageLoaded) {
+            showToast(getString(R.string.check_internet_connection))
+        } else {
+            switchUiMode(showNetworkError = true)
+        }
     }
 
     /**
      * Состояние ошибки сервера
      */
     private fun showServerError() {
-        isFirstPageLoaded = true
-        switchUiMode(showServerError = true)
-        showToast(getString(R.string.something_went_wrong))
+        if (isFirstPageLoaded) {
+            showToast(getString(R.string.something_went_wrong))
+        } else {
+            switchUiMode(showServerError = true)
+        }
     }
 
     /**

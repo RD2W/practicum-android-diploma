@@ -34,12 +34,13 @@ class SearchViewModel(
     private val _screenState = MutableStateFlow<SearchVacanciesScreenState>(SearchVacanciesScreenState.Initial)
     val screenState: StateFlow<SearchVacanciesScreenState> = _screenState
 
-    private var currentQuery = ""
+    private var lastQuery = ""
     private var currentFilter: Filter? = null
     private var currentPage = 0
     private var totalPages = 1
     private val loadedPages = mutableSetOf<Int>()
     private var allVacancies = emptyList<Vacancy>()
+    private var isNewSearch: Boolean = true
 
     /**
      * Дебаунс
@@ -49,24 +50,24 @@ class SearchViewModel(
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
-        performSearch(query, currentFilter, isNewSearch = true)
+        performSearch(query, currentFilter, isNewSearch = isNewSearch)
     }
 
     /**
      * Обрабатывает изменение поискового запроса
      * @param query Введенный поисковый запрос
      */
-    fun onSearchQueryChanged(query: String) {
+    fun onSearchQueryChanged(query: String, isNewSearch: Boolean) {
         val trimmedQuery = query.trim()
-
+        this.isNewSearch = isNewSearch
         // Если запрос не изменился - ничего не делаем
-        if (trimmedQuery == currentQuery) {
+        if (trimmedQuery == lastQuery) {
             Timber.d("Query didn't change: '$trimmedQuery'")
             return
         }
 
         // Сохраняем новый запрос
-        currentQuery = trimmedQuery
+        lastQuery = trimmedQuery
 
         when {
             // Если запрос пустой - сбрасываем состояние
@@ -79,7 +80,7 @@ class SearchViewModel(
             // Запускаем поиск с debounce
             else -> {
                 Timber.d("New search query: '$trimmedQuery'")
-                debouncedSearch(trimmedQuery)
+                debouncedSearch(trimmedQuery,)
             }
         }
     }
@@ -89,8 +90,8 @@ class SearchViewModel(
      */
     fun onFiltersChanged(filter: Filter?) {
         currentFilter = filter
-        if (currentQuery.isNotEmpty()) {
-            performSearch(currentQuery, filter, isNewSearch = true)
+        if (lastQuery.isNotEmpty()) {
+            performSearch(lastQuery, filter, isNewSearch)
         }
     }
 
@@ -99,7 +100,7 @@ class SearchViewModel(
      */
     fun loadNextPage() {
         if (currentPage < totalPages && !loadedPages.contains(currentPage + 1)) {
-            performSearch(currentQuery, currentFilter, isNewSearch = false)
+            performSearch(lastQuery, currentFilter, isNewSearch = false)
         }
     }
 
