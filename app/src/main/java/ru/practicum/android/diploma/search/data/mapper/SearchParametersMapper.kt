@@ -1,19 +1,18 @@
 package ru.practicum.android.diploma.search.data.mapper
 
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.common.constants.AppConstants.PAGE_SIZE
 import ru.practicum.android.diploma.search.domain.model.SearchParameters
 
 fun SearchParameters.toMap(): Map<String, String> {
-    val map = mutableMapOf<String, String>()
-
-    map["text"] = query
-    map["page"] = page.toString()
-    map["per_page"] = PAGE_SIZE.toString()
-    map["area"] = filter?.workplace?.areaId.toString()
-    map["industry"] = filter?.industry?.id.toString()
-    map["salary"] = filter?.salary?.from.toString()
-    map["currency"] = filter?.salary?.currency.toString()
-    map["only_with_salary"] = filter?.salaryMustHaveFlag.toString()
-
-    return map
+    return buildMap {
+        put(AppConstants.SEARCH_QUERY_KEY, query)
+        put(AppConstants.SEARCH_PAGE_KEY, page.toString())
+        put(AppConstants.SEARCH_PER_PAGE_KEY, PAGE_SIZE.toString())
+        put(AppConstants.SEARCH_AREA_KEY, filter?.workplace?.areaId.toString())
+        put(AppConstants.SEARCH_INDUSTRY_KEY, filter?.industry?.id.toString())
+        put(AppConstants.SEARCH_SALARY_KEY, filter?.salary?.from.toString())
+        put(AppConstants.SEARCH_CURRENCY_KEY, filter?.salary?.currency.toString())
+        put(AppConstants.SEARCH_ONLY_WITH_SALARY_KEY, filter?.salaryMustHaveFlag.toString())
+    }
 }
