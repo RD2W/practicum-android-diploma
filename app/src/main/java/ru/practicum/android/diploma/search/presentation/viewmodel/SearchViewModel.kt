@@ -56,6 +56,7 @@ class SearchViewModel(
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
+        //Тут происходит чтение настроек фильтра из Shared Preferences
         currentFilter = getFilterUseCase.execute()
         performSearch(query, currentFilter, isNewSearch = true)
     }

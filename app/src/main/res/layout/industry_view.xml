@@ -11,6 +11,7 @@
         android:fontFamily="@font/ys_display_regular"
         android:letterSpacing="0"
         android:maxLines="2"
+        android:ellipsize="end"
         android:paddingEnd="@dimen/value_8"
         android:textAllCaps="false"
         android:textColor="@color/industry_item_text_color"
