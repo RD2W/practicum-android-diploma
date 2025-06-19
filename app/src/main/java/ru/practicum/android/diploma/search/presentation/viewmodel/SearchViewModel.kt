@@ -40,7 +40,7 @@ class SearchViewModel(
     private var totalPages = 1
     private val loadedPages = mutableSetOf<Int>()
     private var allVacancies = emptyList<Vacancy>()
-    private var isNewSearch : Boolean = true
+    private var isNewSearch: Boolean = true
 
     /**
      * Дебаунс

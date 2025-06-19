@@ -22,7 +22,6 @@ class VacancyLoadMoreAdapter(
     private var isLoadingFooterAdded = false
 
     private var loadingStartTime: Long = 0
-    private val minLoadingTime = 500L // Минимальное время показа ProgressBar (500 мс)
     private var loadingJob: Job? = null
 
     override fun getItemViewType(position: Int): Int {
@@ -73,7 +72,7 @@ class VacancyLoadMoreAdapter(
             loadingJob?.cancel()
             loadingJob = CoroutineScope(Dispatchers.Main).launch {
                 val elapsedTime = System.currentTimeMillis() - loadingStartTime
-                val remainingTime = max(ZERO_MS, minLoadingTime - elapsedTime)
+                val remainingTime = max(ZERO_MS, MIN_LOADING_TIME - elapsedTime)
 
                 if (remainingTime > ZERO_MS) {
                     delay(remainingTime)
@@ -99,6 +98,7 @@ class VacancyLoadMoreAdapter(
         private const val VIEW_TYPE_ITEM = 0
         private const val VIEW_TYPE_LOADING = 1
         private const val ZERO_MS = 0L
+        private const val MIN_LOADING_TIME = 500L // Минимальное время показа ProgressBar (500 мс)
     }
 
 }

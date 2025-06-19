@@ -286,9 +286,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showNetworkError() {
         if (isFirstPageLoaded) {
             showToast(getString(R.string.check_internet_connection))
-
-        }
-        else {
+        } else {
             switchUiMode(showNetworkError = true)
         }
     }
@@ -299,8 +297,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun showServerError() {
         if (isFirstPageLoaded) {
             showToast(getString(R.string.something_went_wrong))
-        }
-        else {
+        } else {
             switchUiMode(showServerError = true)
         }
     }
