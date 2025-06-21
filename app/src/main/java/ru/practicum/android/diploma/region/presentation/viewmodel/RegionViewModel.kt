@@ -25,7 +25,7 @@ class RegionViewModel(
                         renderRegionFragment(AreaFragmentState.Content(result.areas))
                     }
 
-                    is GetAreasListResult.Problem -> {
+                    is GetAreasListResult.Error -> {
                         renderRegionFragment(AreaFragmentState.Error)
                     }
                 }

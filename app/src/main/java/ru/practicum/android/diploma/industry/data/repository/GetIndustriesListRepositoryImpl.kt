@@ -26,7 +26,7 @@ class GetIndustriesListRepositoryImpl(
                 emit(GetIndustriesListResult.Success(industries))
             }
             else -> {
-                emit(GetIndustriesListResult.Problem)
+                emit(GetIndustriesListResult.Error)
             }
         }
     }

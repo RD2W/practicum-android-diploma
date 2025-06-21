@@ -26,7 +26,7 @@ class CountryViewModel(
                         renderCountryFragment(CountryFragmentState.Content(result.countries))
                     }
 
-                    is GetCountriesListResult.Problem -> {
+                    is GetCountriesListResult.Error -> {
                         renderCountryFragment(CountryFragmentState.Error)
                     }
                 }

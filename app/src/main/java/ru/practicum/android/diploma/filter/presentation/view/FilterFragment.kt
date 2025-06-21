@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -171,11 +172,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun applyButtonVisibilitySet(isVisible: Boolean) {
-        if (isVisible) {
-            binding.applyFilterButton.visibility = View.VISIBLE
-        } else {
-            binding.applyFilterButton.visibility = View.INVISIBLE
-        }
+        binding.applyFilterButton.isVisible = isVisible
     }
 
     private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
@@ -192,19 +189,11 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun salaryClearButtonVisibilitySet(isVisible: Boolean) {
-        if (isVisible) {
-            binding.salaryClearButton.visibility = View.VISIBLE
-        } else {
-            binding.salaryClearButton.visibility = View.INVISIBLE
-        }
+        binding.salaryClearButton.isVisible = isVisible
     }
 
     private fun skipButtonVisibilitySet(isVisible: Boolean) {
-        if (isVisible) {
-            binding.skipFilterButton.visibility = View.VISIBLE
-        } else {
-            binding.skipFilterButton.visibility = View.INVISIBLE
-        }
+        binding.skipFilterButton.isVisible = isVisible
     }
 
     private fun salaryInnerHeadlineOutFocusSetTextColor(s: String?) {

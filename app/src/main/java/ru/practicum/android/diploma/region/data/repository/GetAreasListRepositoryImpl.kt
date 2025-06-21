@@ -23,7 +23,7 @@ class GetAreasListRepositoryImpl(
             }
 
             else -> {
-                emit(GetAreasListResult.Problem)
+                emit(GetAreasListResult.Error)
             }
         }
     }

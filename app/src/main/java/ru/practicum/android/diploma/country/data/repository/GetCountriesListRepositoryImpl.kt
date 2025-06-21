@@ -26,7 +26,7 @@ class GetCountriesListRepositoryImpl(
                 emit(GetCountriesListResult.Success(countries))
             }
             else -> {
-                emit(GetCountriesListResult.Problem)
+                emit(GetCountriesListResult.Error)
             }
         }
     }

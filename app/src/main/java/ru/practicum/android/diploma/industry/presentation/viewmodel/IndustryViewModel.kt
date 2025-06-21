@@ -25,7 +25,7 @@ class IndustryViewModel(
                         renderIndustryFragment(IndustryFragmentState.Content(result.industries))
                     }
 
-                    is GetIndustriesListResult.Problem -> {
+                    is GetIndustriesListResult.Error -> {
                         renderIndustryFragment(IndustryFragmentState.Error)
                     }
                 }
