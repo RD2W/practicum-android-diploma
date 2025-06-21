@@ -35,7 +35,7 @@ interface HHApiService {
     /**
      * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-areas-from-specified)
      */
-    suspend fun getAreasByCountry(@Path("id") countryId: String): List<AreaDto>
+    suspend fun getAreasByCountry(@Path("id") countryId: String): AreaDto
 
     @GET("/industries")
     /**

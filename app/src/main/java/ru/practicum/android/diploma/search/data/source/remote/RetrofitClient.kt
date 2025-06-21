@@ -89,7 +89,7 @@ class RetrofitClient(private val hhApiService: HHApiService, private val network
 
     private suspend fun getAreasByCountry(id: String): HHApiResponse.Areas {
         val response = hhApiService.getAreasByCountry(id)
-        return HHApiResponse.Areas(areas = response)
+        return HHApiResponse.Areas(chosenArea = response)
     }
 
     private suspend fun getIndustries(): HHApiResponse.Industries {

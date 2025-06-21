@@ -10,6 +10,7 @@ import ru.practicum.android.diploma.common.domain.model.Result
 import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.utils.debounce
 import ru.practicum.android.diploma.filter.domain.model.Filter
+import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.search.domain.model.SearchParameters
 import ru.practicum.android.diploma.search.domain.model.SearchResult
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
@@ -28,6 +29,7 @@ import java.io.IOException
  */
 
 class SearchViewModel(
+    private val getFilterUseCase: GetFilterUseCase,
     private val searchUseCase: SearchUseCase,
 ) : ViewModel() {
 
@@ -50,6 +52,7 @@ class SearchViewModel(
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
+        currentFilter = getFilterUseCase.execute()
         performSearch(query, currentFilter, isNewSearch = isNewSearch)
     }
 

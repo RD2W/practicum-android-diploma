@@ -49,7 +49,7 @@ sealed class HHApiResponse {
     ) : HHApiResponse()
 
     data class Areas(
-        val areas: List<AreaDto>
+        val chosenArea: AreaDto
     ) : HHApiResponse()
 
     data class Industries(
