@@ -1,10 +1,10 @@
 package ru.practicum.android.diploma.filter.presentation.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -68,28 +68,27 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun setupListeners() {
         binding.industryButton.setOnClickListener {
-            findNavController().navigate(
-                FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
-            )
+            industryButtonOnClick()
         }
 
         binding.workPlaceButton.setOnClickListener {
-            findNavController().navigate(
-                FilterFragmentDirections.actionFilterFragmentToWorkplaceFragment()
-            )
+            workplaceButtonOnClick()
         }
 
-        binding.desiredSalaryEdit.addTextChangedListener(textWatcherCustom())
+        binding.desiredSalaryEdit.doOnTextChanged { text, start, before, count ->
+            desiredSalaryEditOnChanged(text)
+        }
+
+        binding.desiredSalaryEdit.doAfterTextChanged {
+            viewModel.checkUpdates()
+        }
 
         binding.salaryClearButton.setOnClickListener {
             binding.desiredSalaryEdit.setText("")
         }
 
-        binding.unknownSalaryChecker.setOnClickListener {
-            binding.desiredSalaryEdit.clearFocus()
-            viewModel.checkFilterLoad()
-            viewModel.updateSalaryMustHaveFlagValue(binding.unknownSalaryChecker.isChecked)
-            viewModel.checkUpdates()
+        binding.mustHaveSalaryChecker.setOnClickListener {
+            mustHaveSalaryCheckerOnClick()
         }
 
         binding.desiredSalaryEdit.setOnFocusChangeListener { view, hasFocus ->
@@ -101,16 +100,11 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         }
 
         binding.skipFilterButton.setOnClickListener {
-            viewModel.skipValuesAndFilter()
-            sharedFilterViewModel.resetValues()
-            binding.desiredSalaryEdit.clearFocus()
+            skipFilterButtonOnClick()
         }
 
         binding.applyFilterButton.setOnClickListener {
-            viewModel.applyFilter()
-            sharedFilterViewModel.resetValues()
-            binding.desiredSalaryEdit.clearFocus()
-            findNavController().navigateUp()
+            applyFilterButtonOnClick()
         }
 
         binding.filter.setOnClickListener {
@@ -146,7 +140,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         binding.industryButton.text = industryName ?: resources.getText(R.string.button_industry_name)
         industryButtonBannersSet(industryName)
         binding.desiredSalaryEdit.setText(desiredSalary?.toString())
-        binding.unknownSalaryChecker.isChecked = salaryMustHaveFlag
+        binding.mustHaveSalaryChecker.isChecked = salaryMustHaveFlag
         viewModel.checkFilterLoad()
         salaryInnerHeadlineOutFocusSetTextColor(desiredSalary?.toString())
     }
@@ -175,19 +169,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         binding.applyFilterButton.isVisible = isVisible
     }
 
-    private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            salaryClearButtonVisibilitySet(!s.isNullOrEmpty())
-            viewModel.checkFilterLoad()
-            viewModel.updateSalaryValue(s?.toString()?.toIntOrNull())
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            viewModel.checkUpdates()
-        }
-    }
-
     private fun salaryClearButtonVisibilitySet(isVisible: Boolean) {
         binding.salaryClearButton.isVisible = isVisible
     }
@@ -214,6 +195,44 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun renderFilterSkipButtonState(isVisible: Boolean) {
         skipButtonVisibilitySet(isVisible)
+    }
+
+    private fun mustHaveSalaryCheckerOnClick() {
+        binding.desiredSalaryEdit.clearFocus()
+        viewModel.checkFilterLoad()
+        viewModel.updateSalaryMustHaveFlagValue(binding.mustHaveSalaryChecker.isChecked)
+        viewModel.checkUpdates()
+    }
+
+    private fun desiredSalaryEditOnChanged(text: CharSequence?) {
+        salaryClearButtonVisibilitySet(!text.isNullOrEmpty())
+        viewModel.checkFilterLoad()
+        viewModel.updateSalaryValue(text?.toString()?.toIntOrNull())
+    }
+
+    private fun skipFilterButtonOnClick() {
+        viewModel.skipValuesAndFilter()
+        sharedFilterViewModel.resetValues()
+        binding.desiredSalaryEdit.clearFocus()
+    }
+
+    private fun applyFilterButtonOnClick() {
+        viewModel.applyFilter()
+        sharedFilterViewModel.resetValues()
+        binding.desiredSalaryEdit.clearFocus()
+        findNavController().navigateUp()
+    }
+
+    private fun industryButtonOnClick() {
+        findNavController().navigate(
+            FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
+        )
+    }
+
+    private fun workplaceButtonOnClick() {
+        findNavController().navigate(
+            FilterFragmentDirections.actionFilterFragmentToWorkplaceFragment()
+        )
     }
 
 }

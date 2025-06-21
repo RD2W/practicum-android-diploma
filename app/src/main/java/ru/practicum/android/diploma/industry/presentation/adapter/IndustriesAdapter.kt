@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.industry.domain.model.Industry
 
-class IndustriesAdapter() : RecyclerView.Adapter<IndustryViewHolder>() {
+class IndustriesAdapter : RecyclerView.Adapter<IndustryViewHolder>() {
     var industries = ArrayList<Industry>()
 
     var onItemClickListener: ((Industry) -> Unit)? = null

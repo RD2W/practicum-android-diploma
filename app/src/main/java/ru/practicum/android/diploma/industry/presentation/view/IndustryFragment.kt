@@ -1,9 +1,8 @@
 package ru.practicum.android.diploma.industry.presentation.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,6 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.industry.presentation.adapter.IndustriesAdapter
 import ru.practicum.android.diploma.industry.presentation.state.IndustryFragmentState
 import ru.practicum.android.diploma.industry.presentation.viewmodel.IndustryViewModel
-import kotlin.collections.sortedByDescending
 import kotlin.getValue
 
 class IndustryFragment : Fragment(R.layout.fragment_industry) {
@@ -72,7 +70,11 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
             findNavController().navigateUp()
         }
 
-        binding.industryEdit.addTextChangedListener(textWatcherCustom())
+        binding.industryEdit.doOnTextChanged { text, start, before, count ->
+            industrySearchButtonSetState(text)
+            filterIndustriesSet(text, industries)
+            adapter.selectedPosition = -1
+        }
 
         binding.industryClearButton.setOnClickListener {
             binding.industryEdit.setText("")
@@ -179,17 +181,6 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
 
     private fun applyButtonHide() {
         binding.chooseIndustryButton.visibility = View.GONE
-    }
-
-    private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            industrySearchButtonSetState(s)
-            filterIndustriesSet(s, industries)
-            adapter.selectedPosition = -1
-        }
-
-        override fun afterTextChanged(s: Editable?) {}
     }
 
     private fun industrySearchButtonSetState(s: CharSequence?) {

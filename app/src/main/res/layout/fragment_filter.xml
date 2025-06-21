@@ -143,7 +143,7 @@
             android:textColor="@color/salary_cb_text_color" />
 
         <CheckBox
-            android:id="@+id/unknown_salary_checker"
+            android:id="@+id/must_have_salary_checker"
             android:layout_width="@dimen/value_20"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"

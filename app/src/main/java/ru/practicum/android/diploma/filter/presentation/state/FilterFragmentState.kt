@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.filter.presentation.state
 
-import ru.practicum.android.diploma.salary.domain.model.Salary
+import ru.practicum.android.diploma.filter.domain.model.Salary
 
 interface FilterFragmentState {
     data class Content(

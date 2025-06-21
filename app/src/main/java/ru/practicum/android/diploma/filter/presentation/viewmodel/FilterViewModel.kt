@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.common.domain.model.SingleLiveEvent
 import ru.practicum.android.diploma.filter.domain.model.Filter
+import ru.practicum.android.diploma.filter.domain.model.Salary
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.industry.domain.model.Industry
-import ru.practicum.android.diploma.salary.domain.model.Salary
 import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 class FilterViewModel(
@@ -91,21 +91,24 @@ class FilterViewModel(
     }
 
     private fun concatWorkplaceName(workplace: Workplace?): String? {
-        if (workplace == null) return null
-        else {
+        if (workplace == null) {
+            return null
+        } else {
             var workplaceName = workplace.countryName
             if (workplace.areaName != null) {
-                workplaceName = workplaceName+", "+workplace.areaName
+                workplaceName = workplaceName + ", " + workplace.areaName
             }
             return workplaceName
         }
     }
 
     private fun filterParamsAreNotNull(): Boolean {
-        return ((this.workplace != null)
-            || (this.industry != null)
-            || (this.salary?.from != null)
-            || ((this.salaryMustHaveFlag != null) && this.salaryMustHaveFlag == true))
+        return (
+            this.workplace != null
+                || this.industry != null
+                || this.salary?.from != null
+                || this.salaryMustHaveFlag != null && this.salaryMustHaveFlag == true
+            )
     }
 
     fun skipValuesAndFilter() {
@@ -140,10 +143,10 @@ class FilterViewModel(
     }
 
     private fun filterAndValuesAreEqual(): Boolean {
-        return (filter?.workplace == this.workplace)
-            && (filter?.industry == this.industry)
-            && (filter?.salary?.from == this.salary?.from)
-            && (filter?.salaryMustHaveFlag == this.salaryMustHaveFlag)
+        return filter?.workplace == this.workplace
+            && filter?.industry == this.industry
+            && filter?.salary?.from == this.salary?.from
+            && filter?.salaryMustHaveFlag == this.salaryMustHaveFlag
     }
 
     fun checkFilterLoad() {

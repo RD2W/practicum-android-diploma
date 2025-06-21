@@ -1,9 +1,9 @@
 package ru.practicum.android.diploma.region.domain.usecase.impl
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
 import ru.practicum.android.diploma.region.domain.model.GetAreasListResult
 import ru.practicum.android.diploma.region.domain.repository.GetAreasListRepository
+import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
 
 class GetAreasListUseCaseImpl(
     private val getAreasListRepository: GetAreasListRepository

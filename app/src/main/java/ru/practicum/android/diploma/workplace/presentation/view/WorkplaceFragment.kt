@@ -60,7 +60,6 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
             this.areaId = updatedArea?.id
         }
 
-
         viewModel.observeWorkplaceFragmentState().observe(viewLifecycleOwner) {
             renderState(it)
         }
@@ -78,7 +77,8 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
                 val bundle = Bundle()
                 bundle.putString(AppConstants.COUNTRY_ID_KEY, country!!.id.toString())
                 findNavController().navigate(
-                    R.id.action_workplaceFragment_to_regionFragment, bundle
+                    R.id.action_workplaceFragment_to_regionFragment,
+                    bundle
                 )
             }
         }
@@ -155,7 +155,4 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         }
     }
 
-    private fun regionItemButtonAbilitySet(isEnabled: Boolean) {
-        binding.regionButton.isEnabled = isEnabled
-    }
 }

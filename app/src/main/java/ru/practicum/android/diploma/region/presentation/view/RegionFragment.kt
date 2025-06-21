@@ -2,9 +2,8 @@ package ru.practicum.android.diploma.region.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -71,7 +70,10 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
             findNavController().navigateUp()
         }
 
-        binding.regionEdit.addTextChangedListener(textWatcherCustom())
+        binding.regionEdit.doOnTextChanged { text, start, before, count ->
+            filterAreasSet(text, areas)
+            regionSearchButtonSetState(text)
+        }
     }
 
     private fun renderState(state: AreaFragmentState) {
@@ -98,7 +100,6 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
             showContent(areas)
         }
     }
-
 
     private fun showContent(areas: List<AreaRegion>) {
         loadingViewsHide()
@@ -165,16 +166,6 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
     private fun absentViewsHide() {
         binding.regionAbsentPlaceholderPic.visibility = View.INVISIBLE
         binding.regionAbsentPlaceholderText.visibility = View.INVISIBLE
-    }
-
-    private fun textWatcherCustom(): TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            filterAreasSet(s, areas)
-            regionSearchButtonSetState(s)
-        }
-
-        override fun afterTextChanged(s: Editable?) {}
     }
 
     private fun filterAreasSet(s: CharSequence?, areas: List<AreaRegion>) {

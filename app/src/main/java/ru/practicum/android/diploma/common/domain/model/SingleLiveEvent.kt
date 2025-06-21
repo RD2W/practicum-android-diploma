@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
-class SingleLiveEvent<T>: MediatorLiveData<T>() {
+class SingleLiveEvent<T> : MediatorLiveData<T>() {
     private val pending = AtomicBoolean(false)
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {

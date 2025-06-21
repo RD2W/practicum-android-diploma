@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.region.domain.model.AreaRegion
 
-class AreasAdapter() : RecyclerView.Adapter<AreaViewHolder>() {
+class AreasAdapter : RecyclerView.Adapter<AreaViewHolder>() {
 
     var areas = ArrayList<AreaRegion>()
 

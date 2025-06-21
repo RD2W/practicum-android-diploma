@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.country.domain.model.Country
 
-class CountriesAdapter() : RecyclerView.Adapter<CountryViewHolder>() {
+class CountriesAdapter : RecyclerView.Adapter<CountryViewHolder>() {
 
     var countries = ArrayList<Country>()
 
