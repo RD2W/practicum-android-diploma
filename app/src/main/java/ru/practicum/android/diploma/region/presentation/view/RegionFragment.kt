@@ -81,7 +81,7 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
                 areas = state.areas
             }
 
-            is AreaFragmentState.Problem -> {
+            is AreaFragmentState.Error -> {
                 showProblem()
             }
 

@@ -4,6 +4,6 @@ import ru.practicum.android.diploma.region.domain.model.AreaRegion
 
 sealed interface AreaFragmentState {
     data class Content(val areas: List<AreaRegion>) : AreaFragmentState
-    object Problem : AreaFragmentState
+    object Error : AreaFragmentState
     object Loading : AreaFragmentState
 }

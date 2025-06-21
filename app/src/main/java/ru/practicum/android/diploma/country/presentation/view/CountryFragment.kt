@@ -70,7 +70,7 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
                 countries = state.countries
             }
 
-            is CountryFragmentState.Problem -> {
+            is CountryFragmentState.Error -> {
                 showProblem()
             }
 

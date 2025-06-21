@@ -87,7 +87,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
                 industries = state.industries
             }
 
-            is IndustryFragmentState.Problem -> {
+            is IndustryFragmentState.Error -> {
                 showProblem()
             }
 

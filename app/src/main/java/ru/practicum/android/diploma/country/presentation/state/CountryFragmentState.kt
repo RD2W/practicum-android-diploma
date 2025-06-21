@@ -4,6 +4,6 @@ import ru.practicum.android.diploma.country.domain.model.Country
 
 sealed interface CountryFragmentState {
     data class Content(val countries: List<Country>) : CountryFragmentState
-    object Problem : CountryFragmentState
+    object Error : CountryFragmentState
     object Loading : CountryFragmentState
 }
