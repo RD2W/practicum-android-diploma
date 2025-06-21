@@ -1,7 +1,5 @@
 package ru.practicum.android.diploma.filter.presentation.state
 
-import ru.practicum.android.diploma.salary.domain.model.Salary
-
 interface FilterFragmentState {
     data class Content(
         val workplaceName: String?,

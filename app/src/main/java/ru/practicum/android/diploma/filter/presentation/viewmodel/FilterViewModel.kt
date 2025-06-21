@@ -9,7 +9,6 @@ import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.industry.domain.model.Industry
-import ru.practicum.android.diploma.salary.domain.model.Salary
 import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 class FilterViewModel(
