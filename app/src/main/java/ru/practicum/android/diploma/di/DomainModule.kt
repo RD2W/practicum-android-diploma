@@ -15,12 +15,6 @@ import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVac
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVacancyByIdUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavoriteUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.GetAreasUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetAreasUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetCountriesUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetIndustriesUseCaseImpl
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.search.domain.usecase.impl.SearchUseCaseImpl
 import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase

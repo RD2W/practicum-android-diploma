@@ -5,14 +5,6 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import ru.practicum.android.diploma.favorites.data.repository.FavoriteVacanciesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
-import ru.practicum.android.diploma.filter.data.repository.AreasListGetterImpl
-import ru.practicum.android.diploma.filter.data.repository.CountriesListGetterImpl
-import ru.practicum.android.diploma.filter.data.repository.FilterRepositoryImpl
-import ru.practicum.android.diploma.filter.data.repository.IndustriesListGetterImpl
-import ru.practicum.android.diploma.filter.domain.repository.AreasListGetter
-import ru.practicum.android.diploma.filter.domain.repository.CountriesListGetter
-import ru.practicum.android.diploma.filter.domain.repository.FilterRepository
-import ru.practicum.android.diploma.filter.domain.repository.IndustriesListGetter
 import ru.practicum.android.diploma.search.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.search.domain.repository.SearchRepository
 import ru.practicum.android.diploma.team.data.repository.DevTeamRepositoryImpl
