@@ -25,11 +25,11 @@ interface HHApiService {
      */
     suspend fun getVacancyDetails(@Path("id") vacancyId: String): HHApiResponse.VacancyDetails
 
-    @GET("/areas/countries")
+    @GET("/areas")
     /**
-     * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-countries)
+     * Раздел документации [по ссылке](https://api.hh.ru/openapi/redoc#tag/Obshie-spravochniki/operation/get-areas)
      */
-    suspend fun getCountries(): List<CountryDto>
+    suspend fun getCountries(): List<AreaDto>
 
     @GET("/areas/{id}")
     /**

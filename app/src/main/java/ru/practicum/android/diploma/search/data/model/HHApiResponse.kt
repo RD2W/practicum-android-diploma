@@ -45,7 +45,7 @@ sealed class HHApiResponse {
     ) : HHApiResponse()
 
     data class Countries(
-        val countries: List<CountryDto>
+        val countries: List<AreaDto>
     ) : HHApiResponse()
 
     data class Areas(
