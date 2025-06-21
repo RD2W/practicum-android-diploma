@@ -5,7 +5,6 @@ import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.model.dto.AreaDto
-import ru.practicum.android.diploma.search.data.model.dto.CountryDto
 import ru.practicum.android.diploma.search.data.model.dto.IndustryDto
 
 /**

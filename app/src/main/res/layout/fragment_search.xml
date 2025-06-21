@@ -20,27 +20,15 @@
         app:title="@string/fragment_search_name" />
 
     <!-- Иконка фильтров в невыбранном состоянии -->
-    <ImageView
-        android:id="@+id/ic_filter_off"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ic_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/value_20"
         android:src="@drawable/ic_filter_off"
-        app:layout_constraintBottom_toBottomOf="@+id/topAppBar"
+        app:layout_constraintBottom_toBottomOf="@id/topAppBar"
         app:layout_constraintEnd_toEndOf="@id/topAppBar"
-        app:layout_constraintTop_toTopOf="@+id/topAppBar" />
-
-    <!-- Иконка фильтров в выбранном состоянии по умолчанию скрыта-->
-    <ImageView
-        android:id="@+id/ic_filter_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/value_20"
-        android:src="@drawable/ic_filter_on"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/topAppBar"
-        app:layout_constraintEnd_toEndOf="@id/topAppBar"
-        app:layout_constraintTop_toTopOf="@+id/topAppBar" />
+        app:layout_constraintTop_toTopOf="@id/topAppBar" />
 
     <!-- Поле поиска -->
     <include
@@ -84,7 +72,7 @@
         android:paddingHorizontal="@dimen/value_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        app:layout_constraintTop_toBottomOf="@id/searchItem"
         android:elevation="@dimen/value_4"
         tools:visibility="visible" />
 
@@ -101,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchItem"
+        app:layout_constraintTop_toBottomOf="@id/searchItem"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_vacancy"
         android:visibility="gone"/>

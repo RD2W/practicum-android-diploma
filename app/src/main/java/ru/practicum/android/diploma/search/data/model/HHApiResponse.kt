@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.search.data.model
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.search.data.model.dto.AddressDto
 import ru.practicum.android.diploma.search.data.model.dto.AreaDto
-import ru.practicum.android.diploma.search.data.model.dto.CountryDto
 import ru.practicum.android.diploma.search.data.model.dto.EmployerDto
 import ru.practicum.android.diploma.search.data.model.dto.EmploymentDto
 import ru.practicum.android.diploma.search.data.model.dto.ExperienceDto
