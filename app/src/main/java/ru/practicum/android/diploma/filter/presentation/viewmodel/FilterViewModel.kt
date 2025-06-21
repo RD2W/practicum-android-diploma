@@ -106,12 +106,6 @@ class FilterViewModel(
 
     private fun filterSavedParamsAreNotNull(): Boolean {
         return checkFilterLoadUseCase.execute()
-        //(
-        //    this.workplace != null
-        //        || this.industry != null
-        //        || this.salary?.from != null
-        //        || this.salaryMustHaveFlag == true
-        //    )
     }
 
     fun skipValuesAndFilter() {

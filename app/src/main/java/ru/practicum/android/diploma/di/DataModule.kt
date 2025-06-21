@@ -7,12 +7,12 @@ import ru.practicum.android.diploma.country.data.repository.GetCountriesListRepo
 import ru.practicum.android.diploma.country.domain.repository.GetCountriesListRepository
 import ru.practicum.android.diploma.favorites.data.repository.FavoriteVacanciesRepositoryImpl
 import ru.practicum.android.diploma.favorites.domain.repository.FavoriteVacanciesRepository
+import ru.practicum.android.diploma.filter.data.repository.CheckFilterLoadRepositoryImpl
 import ru.practicum.android.diploma.filter.data.repository.GetFilterRepositoryImpl
 import ru.practicum.android.diploma.filter.data.repository.SetFilterRepositoryImpl
-import ru.practicum.android.diploma.filter.data.repository.CheckFilterLoadRepositoryImpl
+import ru.practicum.android.diploma.filter.domain.repository.CheckFilterLoadRepository
 import ru.practicum.android.diploma.filter.domain.repository.GetFilterRepository
 import ru.practicum.android.diploma.filter.domain.repository.SetFilterRepository
-import ru.practicum.android.diploma.filter.domain.repository.CheckFilterLoadRepository
 import ru.practicum.android.diploma.industry.data.repository.GetIndustriesListRepositoryImpl
 import ru.practicum.android.diploma.industry.domain.repository.GetIndustriesListRepository
 import ru.practicum.android.diploma.region.data.repository.GetAreasListRepositoryImpl

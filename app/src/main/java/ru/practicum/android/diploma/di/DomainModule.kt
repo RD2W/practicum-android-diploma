@@ -17,12 +17,12 @@ import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVac
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVacancyByIdUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavoriteUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.CheckFilterLoadUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.CheckFilterLoadUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.impl.CheckFilterLoadUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetFilterUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.SetFilterUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.impl.CheckFilterLoadUseCaseImpl
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.industry.domain.usecase.impl.GetIndustriesListUseCaseImpl
 import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase

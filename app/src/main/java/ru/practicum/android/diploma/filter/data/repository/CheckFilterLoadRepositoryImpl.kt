@@ -17,11 +17,11 @@ class CheckFilterLoadRepositoryImpl(
 
     private fun filterLoadCheck(filter: Filter): Boolean {
         return !(filter.workplace?.areaId == null
-                &&
-                filter.industry?.id == null
-                &&
-                filter.salary?.from == null
-                &&
-                filter.salaryMustHaveFlag == false)
+            &&
+            filter.industry?.id == null
+            &&
+            filter.salary?.from == null
+            &&
+            filter.salaryMustHaveFlag == false)
     }
 }
