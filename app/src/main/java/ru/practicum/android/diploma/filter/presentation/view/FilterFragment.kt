@@ -199,14 +199,12 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun mustHaveSalaryCheckerOnClick() {
         binding.desiredSalaryEdit.clearFocus()
-        viewModel.checkFilterLoad()
         viewModel.updateSalaryMustHaveFlagValue(binding.mustHaveSalaryChecker.isChecked)
         viewModel.checkUpdates()
     }
 
     private fun desiredSalaryEditOnChanged(text: CharSequence?) {
         salaryClearButtonVisibilitySet(!text.isNullOrEmpty())
-        viewModel.checkFilterLoad()
         viewModel.updateSalaryValue(text?.toString()?.toIntOrNull())
     }
 

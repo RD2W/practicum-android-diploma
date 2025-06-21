@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import ru.practicum.android.diploma.common.domain.model.SingleLiveEvent
 import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.model.Salary
+import ru.practicum.android.diploma.filter.domain.usecase.CheckFilterLoadUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
@@ -14,7 +15,8 @@ import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 class FilterViewModel(
     private val setFilterUseCase: SetFilterUseCase,
-    private val getFilterUseCase: GetFilterUseCase
+    private val getFilterUseCase: GetFilterUseCase,
+    private val checkFilterLoadUseCase: CheckFilterLoadUseCase
 ) : ViewModel() {
 
     private var filter: Filter? = null
@@ -81,7 +83,7 @@ class FilterViewModel(
             industryName = this.industry?.name,
             salary = this.salary,
             salaryMustHaveFlag = this.salaryMustHaveFlag,
-            skipButtonVisibility = filterParamsAreNotNull()
+            skipButtonVisibility = filterSavedParamsAreNotNull()
         )
         renderFilterFragment(filterFragmentState)
     }
@@ -102,13 +104,14 @@ class FilterViewModel(
         }
     }
 
-    private fun filterParamsAreNotNull(): Boolean {
-        return (
-            this.workplace != null
-                || this.industry != null
-                || this.salary?.from != null
-                || this.salaryMustHaveFlag != null && this.salaryMustHaveFlag == true
-            )
+    private fun filterSavedParamsAreNotNull(): Boolean {
+        return checkFilterLoadUseCase.execute()
+        //(
+        //    this.workplace != null
+        //        || this.industry != null
+        //        || this.salary?.from != null
+        //        || this.salaryMustHaveFlag == true
+        //    )
     }
 
     fun skipValuesAndFilter() {
@@ -150,7 +153,7 @@ class FilterViewModel(
     }
 
     fun checkFilterLoad() {
-        renderFilterSkipButtonState(filterParamsAreNotNull())
+        renderFilterSkipButtonState(filterSavedParamsAreNotNull())
     }
 
     fun checkUpdates() {
