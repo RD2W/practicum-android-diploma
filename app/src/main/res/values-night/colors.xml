@@ -2,4 +2,16 @@
 <resources>
     <color name="background">@color/black_universal</color>
     <color name="text">@color/white_universal</color>
+
+    <!-- Цвета для экрана "Фильтры" -->
+    <color name="edit_shape_color">#AEAFB4</color>
+    <color name="edit_text_hint_color">#FDFDFD</color>
+    <color name="ic_forward_color">#FDFDFD</color>
+    <color name="salary_cb_text_color">#FDFDFD</color>
+    <color name="regions_search_placeholder_text_color">#FDFDFD</color>
+    <color name="inner_text_color">#FDFDFD</color>
+    <color name="button_item_text_color">#FDFDFD</color>
+    <color name="industry_item_text_color">#FDFDFD</color>
+    <color name="country_item_text_color">#FDFDFD</color>
+    <color name="region_item_text_color">#FDFDFD</color>
 </resources>
