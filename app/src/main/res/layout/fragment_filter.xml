@@ -138,15 +138,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:text="Не показывать без зарплаты"
+            android:layout_gravity="start|center"
+            android:text="@string/check_without_salary_hide"
             android:textColor="@color/salary_cb_text_color" />
 
         <CheckBox
             android:id="@+id/must_have_salary_checker"
             android:layout_width="@dimen/value_20"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
+            android:layout_gravity="end|center"
             android:buttonTint="@color/blue" />
 
     </FrameLayout>
