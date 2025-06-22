@@ -7,10 +7,11 @@ import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.repository.GetFilterRepository
 
 class GetFilterRepositoryImpl(
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val gson: Gson
 ) : GetFilterRepository {
     override fun getFilter(): Filter? {
         val json = sharedPreferences.getString(AppConstants.FILTER_KEY, null) ?: return null
-        return Gson().fromJson(json, Filter::class.java)
+        return gson.fromJson(json, Filter::class.java)
     }
 }

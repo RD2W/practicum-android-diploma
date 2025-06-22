@@ -8,10 +8,11 @@ import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.repository.SetFilterRepository
 
 class SetFilterRepositoryImpl(
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val gson: Gson
 ) : SetFilterRepository {
     override fun setFilter(filter: Filter) {
-        val json = Gson().toJson(filter)
+        val json = gson.toJson(filter)
         sharedPreferences.edit {
             putString(AppConstants.FILTER_KEY, json)
         }

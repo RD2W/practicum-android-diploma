@@ -7,11 +7,12 @@ import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.repository.CheckFilterLoadRepository
 
 class CheckFilterLoadRepositoryImpl(
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val gson: Gson
 ) : CheckFilterLoadRepository {
     override fun checkFilterLoad(): Boolean {
         val json = sharedPreferences.getString(AppConstants.FILTER_KEY, null) ?: return false
-        val filter = Gson().fromJson(json, Filter::class.java)
+        val filter = gson.fromJson(json, Filter::class.java)
         return filterLoadCheck(filter)
     }
 
