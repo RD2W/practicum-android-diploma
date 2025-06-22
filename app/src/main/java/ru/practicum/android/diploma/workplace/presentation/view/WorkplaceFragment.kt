@@ -62,7 +62,10 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
             )
             this.areaName = updatedArea?.name
             this.areaId = updatedArea?.id
-            this.countryName = updatedArea?.countryName //new
+            if (updatedArea?.countryName != null) {
+                this.countryName = updatedArea.countryName
+            }
+
         }
 
         viewModel.observeWorkplaceFragmentState().observe(viewLifecycleOwner) {
