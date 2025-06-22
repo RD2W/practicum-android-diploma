@@ -70,9 +70,15 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
             findNavController().navigateUp()
         }
 
-        binding.regionEdit.doOnTextChanged { text, start, before, count ->
-            filterAreasSet(text, areas)
-            regionSearchButtonSetState(text)
+        with(binding) {
+            regionEdit.doOnTextChanged { text, start, before, count ->
+                filterAreasSet(text, areas)
+                regionSearchButtonSetState(text)
+            }
+
+            regionClearButton.setOnClickListener {
+                regionEdit.setText("")
+            }
         }
     }
 
