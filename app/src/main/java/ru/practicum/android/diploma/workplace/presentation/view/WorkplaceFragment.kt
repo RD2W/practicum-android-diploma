@@ -52,12 +52,17 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         }
 
         sharedFilterViewModel.getArea().observe(viewLifecycleOwner) { updatedArea ->
+            if (updatedArea?.countryId != null && updatedArea.countryName != null) {
+                this.country = Country(updatedArea.countryId, updatedArea.countryName)
+            }
             viewModel.synchronizeState(
                 country = this.country,
-                area = updatedArea
+                area = updatedArea,
+
             )
             this.areaName = updatedArea?.name
             this.areaId = updatedArea?.id
+            this.countryName = updatedArea?.countryName //new
         }
 
         viewModel.observeWorkplaceFragmentState().observe(viewLifecycleOwner) {
@@ -73,14 +78,12 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         }
 
         binding.regionButton.setOnClickListener {
-            if (this.country != null) {
-                val bundle = Bundle()
-                bundle.putString(AppConstants.COUNTRY_ID_KEY, country!!.id.toString())
-                findNavController().navigate(
-                    R.id.action_workplaceFragment_to_regionFragment,
-                    bundle
-                )
-            }
+            val bundle = Bundle()
+            val countryId = country?.id ?: ""
+            bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
+            findNavController().navigate(
+                R.id.action_workplaceFragment_to_regionFragment,
+                bundle)
         }
 
         binding.chooseWorkPlaceButton.setOnClickListener {
