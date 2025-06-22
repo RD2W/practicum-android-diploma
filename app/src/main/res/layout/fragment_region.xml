@@ -30,6 +30,8 @@
         android:layout_marginTop="@dimen/value_24"
         android:background="@drawable/shape_edit_salary_background"
         android:hint="@string/edit_hint_region_input"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
         android:maxLines="1"
         android:padding="@dimen/value_16"
         android:textColor="@color/salary_not_null_text_color"
