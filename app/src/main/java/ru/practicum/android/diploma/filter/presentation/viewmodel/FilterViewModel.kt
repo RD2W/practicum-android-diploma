@@ -35,11 +35,19 @@ class FilterViewModel(
     fun observeFilterSkipButtonState(): LiveData<Boolean> = filterSkipButtonStateLiveData
 
     fun updateSalaryMustHaveFlagValue(isChecked: Boolean) {
-        this.salaryMustHaveFlag = isChecked
+        if (isChecked) {
+            this.salaryMustHaveFlag = true
+        } else {
+            this.salaryMustHaveFlag = null
+        }
     }
 
     fun updateSalaryValue(salarySum: Int?) {
-        this.salary = Salary(from = salarySum)
+        if (salarySum != null) {
+            this.salary = Salary(from = salarySum)
+            return
+        }
+        this.salary = null
     }
 
     fun synchronizeState(

@@ -21,8 +21,8 @@ class CheckFilterLoadRepositoryImpl(
             &&
             filter.industry?.id == null
             &&
-            filter.salary?.from == null
+            filter.salary == null
             &&
-            filter.onlyWithSalary == false)
+            filter.onlyWithSalary == null)
     }
 }
