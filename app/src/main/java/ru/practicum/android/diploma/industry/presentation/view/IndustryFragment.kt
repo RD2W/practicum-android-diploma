@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.industry.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment

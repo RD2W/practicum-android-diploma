@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -16,7 +15,6 @@ import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterViewModel
-import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import kotlin.getValue
 
 class FilterFragment : Fragment(R.layout.fragment_filter) {
