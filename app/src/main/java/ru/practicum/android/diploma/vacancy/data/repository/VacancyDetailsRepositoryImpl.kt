@@ -103,7 +103,7 @@ class VacancyDetailsRepositoryImpl(
     }
 
     private fun handleUnexpectedResponse(): Result<VacancyDetails> {
-        return Result.ServerError(Exception("Unexpected response type"))
+        return Result.ServerError(IllegalStateException("Unexpected response type"))
     }
 
     private fun handleNetworkException(e: IOException): Result<VacancyDetails> {
@@ -113,6 +113,6 @@ class VacancyDetailsRepositoryImpl(
 
     private fun createServerError(errorMessage: String?): Result<VacancyDetails> {
         val message = errorMessage?.takeIf { it.isNotBlank() } ?: "Server error"
-        return Result.ServerError(Exception(message))
+        return Result.ServerError(IllegalStateException(message))
     }
 }
