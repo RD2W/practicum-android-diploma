@@ -62,7 +62,7 @@ class FilterViewModel(
         if (this.workplace == null) this.workplace = filter?.workplace
         if (this.industry == null) this.industry = filter?.industry
         if (this.salary == null) this.salary = filter?.salary
-        if (this.salaryMustHaveFlag == null) this.salaryMustHaveFlag = filter?.salaryMustHaveFlag == true
+        if (this.salaryMustHaveFlag == null) this.salaryMustHaveFlag = filter?.salaryMustHaveFlag
     }
 
     private fun passFragmentNotNullDataToValues(

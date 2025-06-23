@@ -86,7 +86,8 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
             bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
             findNavController().navigate(
                 R.id.action_workplaceFragment_to_regionFragment,
-                bundle)
+                bundle
+            )
         }
 
         binding.chooseWorkPlaceButton.setOnClickListener {

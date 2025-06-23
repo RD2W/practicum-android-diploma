@@ -119,7 +119,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                     state.workplaceName,
                     state.industryName,
                     state.salary?.from,
-                    state.salaryMustHaveFlag!!,
+                    state.salaryMustHaveFlag,
                     state.skipButtonVisibility
                 )
             }
@@ -132,7 +132,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         areaName: String?,
         industryName: String?,
         desiredSalary: Int?,
-        salaryMustHaveFlag: Boolean,
+        salaryMustHaveFlag: Boolean?,
         skipButtonVisibility: Boolean
     ) {
         binding.workPlaceButton.text = areaName ?: resources.getText(R.string.button_work_place_name)
@@ -140,7 +140,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         binding.industryButton.text = industryName ?: resources.getText(R.string.button_industry_name)
         industryButtonBannersSet(industryName)
         binding.desiredSalaryEdit.setText(desiredSalary?.toString())
-        binding.mustHaveSalaryChecker.isChecked = salaryMustHaveFlag
+        binding.mustHaveSalaryChecker.isChecked = salaryMustHaveFlag == true
         viewModel.checkFilterLoad()
         salaryInnerHeadlineOutFocusSetTextColor(desiredSalary?.toString())
     }

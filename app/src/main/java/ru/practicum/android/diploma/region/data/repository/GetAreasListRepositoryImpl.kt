@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.region.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.practicum.android.diploma.filter.data.mapper.toAreaRegion
@@ -9,7 +8,6 @@ import ru.practicum.android.diploma.region.domain.model.GetAreasListResult
 import ru.practicum.android.diploma.region.domain.repository.GetAreasListRepository
 import ru.practicum.android.diploma.search.data.model.HHApiRequest
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
-import ru.practicum.android.diploma.search.data.model.dto.AreaDto
 import ru.practicum.android.diploma.search.data.source.remote.NetworkClient
 import java.net.HttpURLConnection
 
@@ -31,7 +29,7 @@ class GetAreasListRepositoryImpl(
                         }
                     }
 
-                    emit(GetAreasListResult.Success(areas.sortedBy { areas -> areas.name }), )
+                    emit(GetAreasListResult.Success(areas.sortedBy { areas -> areas.name }))
                 }
                 else -> {
                     emit(GetAreasListResult.Error)
