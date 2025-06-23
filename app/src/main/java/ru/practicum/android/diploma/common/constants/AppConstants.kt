@@ -11,15 +11,12 @@ object AppConstants {
     const val PAGE_SIZE = 20
     const val FILTER_KEY = "filter"
     const val COUNTRY_ID_KEY = "country_id"
-    const val SEARCH_QUERY_KEY = "query"
-    const val SEARCH_PAGE_KEY = "page"
-    const val SEARCH_PER_PAGE_KEY = "per_page"
     const val SEARCH_AREA_KEY = "area"
     const val SEARCH_INDUSTRY_KEY = "industry"
     const val SEARCH_SALARY_KEY = "salary"
     const val SEARCH_CURRENCY_KEY = "currency"
     const val SEARCH_ONLY_WITH_SALARY_KEY = "only_with_salary"
     const val INDUSTRY_ID_KEY = "industry_id"
-    const val COUNTRY_NAME_KEY = "industry_id"
-    const val AREA_NAME_KEY = "industry_id"
+    const val COUNTRY_NAME_KEY = "country_name"
+    const val AREA_NAME_KEY = "area_name"
 }

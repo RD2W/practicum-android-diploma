@@ -231,7 +231,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun applyFilterButtonOnClick() {
         viewModel.applyFilter()
-        sharedFilterViewModel.resetValues()
         binding.desiredSalaryEdit.clearFocus()
         findNavController().navigateUp()
     }
@@ -254,7 +253,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
         bundle.putString(AppConstants.COUNTRY_NAME_KEY, countryName)
         bundle.putString(AppConstants.AREA_NAME_KEY, areaName)
-        Log.d("wtf", countryId.toString())
         findNavController().navigate(
             R.id.action_filterFragment_to_workplaceFragment,
             bundle

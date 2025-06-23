@@ -5,9 +5,9 @@ import ru.practicum.android.diploma.filter.domain.model.Salary
 interface FilterFragmentState {
     data class Content(
         val workplaceName: String?,
-        val countryId: String?,//new
-        val countryName: String?,//new
-        val areaName: String?,//new
+        val countryId: String?, // new
+        val countryName: String?, // new
+        val areaName: String?, // new
         val industryId: String?,
         val industryName: String?,
         val salary: Salary?,

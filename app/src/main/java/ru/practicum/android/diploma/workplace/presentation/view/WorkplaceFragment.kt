@@ -2,7 +2,6 @@ package ru.practicum.android.diploma.workplace.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,7 +27,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     private var countryName: String? = null
     private var areaName: String? = null
     private var areaId: String? = null
-    private var countryId: String? = null //new
+    private var countryId: String? = null // new
     private var chosenCountryId: String? = null
     private var chosenCountryName: String? = null
     private var chosenAreaName: String? = null
@@ -39,7 +38,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWorkplaceBinding.bind(view)
-
+        showContent(chosenCountryName, chosenAreaName)
         setupLiveDataObservers()
         setupButtonListeners()
     }
@@ -49,16 +48,21 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        showContent(countryName, chosenAreaName)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         chosenCountryId = requireArguments().getString(AppConstants.COUNTRY_ID_KEY)
         chosenCountryName = requireArguments().getString(AppConstants.COUNTRY_NAME_KEY, "")
         chosenAreaName = requireArguments().getString(AppConstants.AREA_NAME_KEY)
         if (chosenCountryId != null) {
-            this.countryId = chosenCountryId////new
+            this.countryId = chosenCountryId // //new
         }
         if (chosenCountryName != "") {
-            this.countryName = chosenCountryName///new
+            this.countryName = chosenCountryName // /new
         }
 
     }
@@ -69,7 +73,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
             this.country = updatedCountry
             this.countryName = updatedCountry?.name
             this.areaId = updatedCountry?.id
-            this.countryId = updatedCountry?.id//new
+            this.countryId = updatedCountry?.id // new
         }
 
         sharedFilterViewModel.getArea().observe(viewLifecycleOwner) { updatedArea ->
@@ -84,6 +88,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
             this.areaName = updatedArea?.name
             this.areaId = updatedArea?.id
             if (updatedArea?.countryName != null) {
+                this.countryId = updatedArea.countryId
                 this.countryName = updatedArea.countryName
             }
 
@@ -102,8 +107,8 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         }
 
         binding.regionButton.setOnClickListener {
-            val bundle = Bundle()//этот поиск ищет нужные регионы
-            val countryId = this.countryId ?: "" //country?.id ?: ""
+            val bundle = Bundle() // этот поиск ищет нужные регионы
+            val countryId = this.countryId ?: "" // country?.id ?: ""
             bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
             findNavController().navigate(
                 R.id.action_workplaceFragment_to_regionFragment,
@@ -131,7 +136,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         when (state) {
             is WorkplaceFragmentState.Content -> {
                 showContent(
-                    state.country?.name,
+                    state.country?.name ?: chosenCountryName,
                     state.area?.name
                 )
             }
