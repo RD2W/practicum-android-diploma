@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.filter.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -19,19 +18,15 @@ import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterVi
 import kotlin.getValue
 
 class FilterFragment : Fragment(R.layout.fragment_filter) {
-
     private var _binding: FragmentFilterBinding? = null
     private val binding: FragmentFilterBinding
         get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
-
     private var historyIndustryId: String? = null
     private var historyCountryId: String? = null
     private var historyCountryName: String? = null
     private var historyAreaName: String? = null
-
     private val viewModel: FilterViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFilterBinding.bind(view)
@@ -39,17 +34,14 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         setupListeners()
         viewModel.synchronizeState()
     }
-
     override fun onStart() {
         super.onStart()
         salaryInnerHeadlineOutFocusSetTextColor(binding.desiredSalaryEdit.text.toString())
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     private fun setupLiveDataObservers() {
         viewModel.observeFilterFragmentState().observe(viewLifecycleOwner) { state ->
             renderState(state)
@@ -62,71 +54,38 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 }
             }
         }
-
-        viewModel.observeFilterApplyButtonState().observe(viewLifecycleOwner) {
-            renderFilterApplyButtonState(it)
-        }
-
-        viewModel.observeFilterSkipButtonState().observe(viewLifecycleOwner) {
-            renderFilterSkipButtonState(it)
-        }
-
+        viewModel.observeFilterApplyButtonState().observe(viewLifecycleOwner) { renderFilterApplyButtonState(it) }
+        viewModel.observeFilterSkipButtonState().observe(viewLifecycleOwner) { renderFilterSkipButtonState(it) }
         sharedFilterViewModel.getWorkplace().observe(viewLifecycleOwner) { updatedWorkplace ->
             viewModel.synchronizeState(workplace = updatedWorkplace)
         }
-
         sharedFilterViewModel.getIndustry().observe(viewLifecycleOwner) { updatedIndustry ->
             viewModel.synchronizeState(industry = updatedIndustry)
             viewModel.checkUpdates()
         }
     }
-
     private fun setupListeners() {
-        binding.industryButton.setOnClickListener {
-            industryButtonOnClick()
-        }
-
-        binding.workPlaceButton.setOnClickListener {
-            workplaceButtonOnClick()
-        }
-
-        binding.desiredSalaryEdit.doOnTextChanged { text, start, before, count ->
-            desiredSalaryEditOnChanged(text)
-        }
-
-        binding.desiredSalaryEdit.doAfterTextChanged {
-            viewModel.checkUpdates()
-        }
-
-        binding.salaryClearButton.setOnClickListener {
-            binding.desiredSalaryEdit.setText("")
-        }
-
-        binding.mustHaveSalaryChecker.setOnClickListener {
-            mustHaveSalaryCheckerOnClick()
-        }
-
-        binding.desiredSalaryEdit.setOnFocusChangeListener { view, hasFocus ->
-            if (!hasFocus) {
-                salaryInnerHeadlineOutFocusSetTextColor(binding.desiredSalaryEdit.text.toString())
-            } else {
-                salaryInnerHeadlineInFocusSetTextColor()
+        with(binding) {
+            industryButton.setOnClickListener { industryButtonOnClick() }
+            workPlaceButton.setOnClickListener { workplaceButtonOnClick() }
+            desiredSalaryEdit.doOnTextChanged { text, start, before, count ->
+                desiredSalaryEditOnChanged(text)
             }
-        }
-
-        binding.skipFilterButton.setOnClickListener {
-            skipFilterButtonOnClick()
-        }
-
-        binding.applyFilterButton.setOnClickListener {
-            applyFilterButtonOnClick()
-        }
-
-        binding.filter.setOnClickListener {
-            binding.desiredSalaryEdit.clearFocus()
+            desiredSalaryEdit.doAfterTextChanged { viewModel.checkUpdates() }
+            salaryClearButton.setOnClickListener { desiredSalaryEdit.setText("") }
+            mustHaveSalaryChecker.setOnClickListener { mustHaveSalaryCheckerOnClick() }
+            desiredSalaryEdit.setOnFocusChangeListener { view, hasFocus ->
+                if (!hasFocus) {
+                    salaryInnerHeadlineOutFocusSetTextColor(desiredSalaryEdit.text.toString())
+                } else {
+                    salaryInnerHeadlineInFocusSetTextColor()
+                }
+            }
+            skipFilterButton.setOnClickListener { skipFilterButtonOnClick() }
+            applyFilterButton.setOnClickListener { applyFilterButtonOnClick() }
+            filter.setOnClickListener { desiredSalaryEdit.clearFocus() }
         }
     }
-
     private fun renderState(state: FilterFragmentState) {
         when (state) {
             is FilterFragmentState.Content -> {
@@ -138,11 +97,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                     state.skipButtonVisibility
                 )
             }
-
             is FilterFragmentState.Loading -> {}
         }
     }
-
     private fun showContent(
         areaName: String?,
         industryName: String?,
@@ -159,7 +116,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         viewModel.checkFilterLoad()
         salaryInnerHeadlineOutFocusSetTextColor(desiredSalary?.toString())
     }
-
     private fun workplaceButtonBannersSet(value: Any?) {
         if (value == null) {
             binding.workplaceInner.visibility = View.INVISIBLE
@@ -169,7 +125,6 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.workPlaceButton.setTextColor(resources.getColor(R.color.button_item_text_color))
         }
     }
-
     private fun industryButtonBannersSet(value: Any?) {
         if (value == null) {
             binding.industryInner.visibility = View.INVISIBLE
@@ -179,19 +134,15 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.industryButton.setTextColor(resources.getColor(R.color.button_item_text_color))
         }
     }
-
     private fun applyButtonVisibilitySet(isVisible: Boolean) {
         binding.applyFilterButton.isVisible = isVisible
     }
-
     private fun salaryClearButtonVisibilitySet(isVisible: Boolean) {
         binding.salaryClearButton.isVisible = isVisible
     }
-
     private fun skipButtonVisibilitySet(isVisible: Boolean) {
         binding.skipFilterButton.isVisible = isVisible
     }
-
     private fun salaryInnerHeadlineOutFocusSetTextColor(s: String?) {
         if (s.isNullOrEmpty()) {
             binding.salaryInner.setTextColor(resources.getColor(R.color.edit_text_hint_color))
@@ -199,64 +150,44 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             binding.salaryInner.setTextColor(resources.getColor(R.color.salary_not_null_text_color))
         }
     }
-
     private fun salaryInnerHeadlineInFocusSetTextColor() {
         binding.salaryInner.setTextColor(resources.getColor(R.color.blue))
     }
-
     private fun renderFilterApplyButtonState(isVisible: Boolean) {
         applyButtonVisibilitySet(isVisible)
     }
-
     private fun renderFilterSkipButtonState(isVisible: Boolean) {
         skipButtonVisibilitySet(isVisible)
     }
-
     private fun mustHaveSalaryCheckerOnClick() {
         binding.desiredSalaryEdit.clearFocus()
         viewModel.updateSalaryMustHaveFlagValue(binding.mustHaveSalaryChecker.isChecked)
         viewModel.checkUpdates()
     }
-
     private fun desiredSalaryEditOnChanged(text: CharSequence?) {
         salaryClearButtonVisibilitySet(!text.isNullOrEmpty())
         viewModel.updateSalaryValue(text?.toString()?.toIntOrNull())
     }
-
     private fun skipFilterButtonOnClick() {
         viewModel.skipValuesAndFilter()
         sharedFilterViewModel.resetValues()
         binding.desiredSalaryEdit.clearFocus()
     }
-
     private fun applyFilterButtonOnClick() {
         viewModel.applyFilter()
         binding.desiredSalaryEdit.clearFocus()
         findNavController().navigateUp()
     }
-
     private fun industryButtonOnClick() {
         val bundle = Bundle()
-        val industryId = this.historyIndustryId ?: ""
-        bundle.putString(AppConstants.INDUSTRY_ID_KEY, industryId)
-        findNavController().navigate(
-            R.id.action_filterFragment_to_industryFragment,
-            bundle
-        )
+        bundle.putString(AppConstants.INDUSTRY_ID_KEY, this.historyIndustryId ?: "")
+        findNavController().navigate(R.id.action_filterFragment_to_industryFragment, bundle)
     }
-
     private fun workplaceButtonOnClick() {
         val bundle = Bundle()
-        val countryId = this.historyCountryId ?: ""
-        val countryName = this.historyCountryName ?: ""
-        val areaName = this.historyAreaName ?: ""
-        bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
-        bundle.putString(AppConstants.COUNTRY_NAME_KEY, countryName)
-        bundle.putString(AppConstants.AREA_NAME_KEY, areaName)
-        findNavController().navigate(
-            R.id.action_filterFragment_to_workplaceFragment,
-            bundle
-        )
+        bundle.putString(AppConstants.COUNTRY_ID_KEY, this.historyCountryId ?: "")
+        bundle.putString(AppConstants.COUNTRY_NAME_KEY, this.historyCountryName ?: "")
+        bundle.putString(AppConstants.AREA_NAME_KEY, this.historyAreaName ?: "")
+        findNavController().navigate(R.id.action_filterFragment_to_workplaceFragment, bundle)
     }
-
 }
