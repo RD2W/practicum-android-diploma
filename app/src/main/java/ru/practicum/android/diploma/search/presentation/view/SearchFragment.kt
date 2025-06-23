@@ -125,10 +125,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Обработка клика по кнопкам
      */
     private fun setupButtonListeners() {
-        with(binding) {
-            icFilterOff.setOnClickListener { navigateToFilters() }
-            icFilterOn.setOnClickListener { navigateToFilters() }
-        }
+        binding.icFilter.setOnClickListener { navigateToFilters() }
     }
 
     /**
@@ -144,9 +141,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Обработка состояние иконки фильтров (выбраны или нет)
      */
     private fun updateFilterIcons(hasFilters: Boolean) {
-        binding.icFilterOff.isVisible = !hasFilters
-        binding.icFilterOn.isVisible = hasFilters
+        binding.icFilter.setImageResource(if (hasFilters) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
     }
+
+//    private fun SearchVacanciesScreenState.getHasActiveFilters(): Boolean = when (this) {
+//        is SearchVacanciesScreenState.Initial -> hasActiveFilters
+//        is SearchVacanciesScreenState.Loading -> hasActiveFilters
+//        is SearchVacanciesScreenState.Pagination -> hasActiveFilters
+//        is SearchVacanciesScreenState.Content -> hasActiveFilters
+//        is SearchVacanciesScreenState.NoResults -> hasActiveFilters
+//        is SearchVacanciesScreenState.NetworkError -> hasActiveFilters
+//        is SearchVacanciesScreenState.ServerError -> hasActiveFilters
+//    }
 
     /**
      * Настраивает RecyclerView с адаптером
@@ -188,6 +194,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.screenState.collect { state ->
+                    updateFilterIcons(state.hasActiveFilters)
                     when (state) {
                         is SearchVacanciesScreenState.Initial -> showInitialState()
                         is SearchVacanciesScreenState.Loading -> showLoading()

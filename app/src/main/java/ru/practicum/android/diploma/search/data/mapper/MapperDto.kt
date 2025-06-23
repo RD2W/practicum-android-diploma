@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.search.data.mapper
 
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.common.constants.AppConstants.PAGE_SIZE
 import ru.practicum.android.diploma.common.domain.model.Vacancy
 import ru.practicum.android.diploma.common.utils.FormatStrings
@@ -10,10 +11,20 @@ import ru.practicum.android.diploma.search.domain.model.SearchResult
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 
 fun SearchParameters.toMap(): Map<String, String> {
+    val area = filter?.workplace?.areaId
+    val industry = filter?.industry?.id
+    val salary = filter?.salary?.from
+    val currency = filter?.salary?.currency
+    val onlyWithSalary = filter?.onlyWithSalary
     return buildMap {
         put("text", query)
         put("page", page.toString())
         put("per_page", PAGE_SIZE.toString())
+        area?.let { put(AppConstants.SEARCH_AREA_KEY, area) }
+        industry?.let { put(AppConstants.SEARCH_INDUSTRY_KEY, industry) }
+        salary?.let { put(AppConstants.SEARCH_SALARY_KEY, salary.toString()) }
+        currency?.let { put(AppConstants.SEARCH_CURRENCY_KEY, currency) }
+        onlyWithSalary?.let { put(AppConstants.SEARCH_ONLY_WITH_SALARY_KEY, onlyWithSalary.toString()) }
     }
 }
 

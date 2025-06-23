@@ -14,43 +14,49 @@ import ru.practicum.android.diploma.search.domain.model.SearchResult
  * - Ошибка загрузки данных
  */
 sealed class SearchVacanciesScreenState {
+    /** Флаг, указывающий, что применены активные фильтры */
+    abstract val hasActiveFilters: Boolean
+
     /**
-     * Состояние инициализации
+     * Состояние инициализации.
      */
-    data object Initial : SearchVacanciesScreenState()
+    data class Initial(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 
     /**
      * Состояние загрузки данных.
      * Используется при первоначальной загрузке или обновлении списка.
      */
-    data object Loading : SearchVacanciesScreenState()
+    data class Loading(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 
     /**
-     * Используется при пагинации.
+     * Состояние пагинации (подгрузки данных).
      */
-    data object Pagination : SearchVacanciesScreenState()
+    data class Pagination(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 
     /**
      * Состояние успешной загрузки списка найденных вакансий.
-     * @property searchResult Список объектов searchResult для отображения.
+     * @param searchResult Список объектов SearchResult для отображения.
      */
-    data class Content(val searchResult: SearchResult) : SearchVacanciesScreenState()
+    data class Content(
+        val searchResult: SearchResult,
+        override val hasActiveFilters: Boolean = false,
+    ) : SearchVacanciesScreenState()
 
     /**
      * Состояние пустого списка найденных вакансий.
-     * Используется, когда не нашлась ни одна вакансия
+     * Используется, когда не нашлось ни одной вакансии.
      */
-    data object NoResults : SearchVacanciesScreenState()
+    data class NoResults(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 
     /**
-     * Состояние, если происходит ошибка интернета
-     * Используется, если в в момент поиска произошла ошибка интернета
+     * Состояние ошибки интернета.
+     * Используется, если в момент поиска произошла сетевая ошибка.
      */
-    data object NetworkError : SearchVacanciesScreenState()
+    data class NetworkError(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 
     /**
-     * Состояние, если происходит ошибка сервера
-     * Используется, если в в момент поиска произошла ошибка сервера
+     * Состояние ошибки сервера.
+     * Используется, если в момент поиска сервер вернул ошибку.
      */
-    data object ServerError : SearchVacanciesScreenState()
+    data class ServerError(override val hasActiveFilters: Boolean = false) : SearchVacanciesScreenState()
 }
