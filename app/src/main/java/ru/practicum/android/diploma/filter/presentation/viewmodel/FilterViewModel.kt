@@ -62,7 +62,7 @@ class FilterViewModel(
         if (this.workplace == null) this.workplace = filter?.workplace
         if (this.industry == null) this.industry = filter?.industry
         if (this.salary == null) this.salary = filter?.salary
-        if (this.salaryMustHaveFlag == null) this.salaryMustHaveFlag = filter?.salaryMustHaveFlag
+        if (this.salaryMustHaveFlag == null) this.salaryMustHaveFlag = filter?.onlyWithSalary
     }
 
     private fun passFragmentNotNullDataToValues(
@@ -123,7 +123,7 @@ class FilterViewModel(
             workplace = null,
             industry = null,
             salary = null,
-            salaryMustHaveFlag = false
+            onlyWithSalary = false
         )
         setFilterUseCase.execute(filterNull)
     }
@@ -133,7 +133,7 @@ class FilterViewModel(
             workplace = this.workplace,
             industry = this.industry,
             salary = this.salary,
-            salaryMustHaveFlag = this.salaryMustHaveFlag
+            onlyWithSalary = this.salaryMustHaveFlag
         )
         setFilterUseCase.execute(filterLoaded)
         synchronizeState()
@@ -143,7 +143,7 @@ class FilterViewModel(
         return filter?.workplace == this.workplace
             && filter?.industry == this.industry
             && filter?.salary?.from == this.salary?.from
-            && filter?.salaryMustHaveFlag == this.salaryMustHaveFlag
+            && filter?.onlyWithSalary == this.salaryMustHaveFlag
     }
 
     fun checkFilterLoad() {

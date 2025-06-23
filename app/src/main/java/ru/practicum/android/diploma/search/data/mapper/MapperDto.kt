@@ -15,7 +15,7 @@ fun SearchParameters.toMap(): Map<String, String> {
     val industry = filter?.industry?.id
     val salary = filter?.salary?.from
     val currency = filter?.salary?.currency
-    val onlyWithSalary = filter?.salaryMustHaveFlag
+    val onlyWithSalary = filter?.onlyWithSalary
     return buildMap {
         put("text", query)
         put("page", page.toString())

@@ -23,6 +23,6 @@ class CheckFilterLoadRepositoryImpl(
             &&
             filter.salary?.from == null
             &&
-            filter.salaryMustHaveFlag == false)
+            filter.onlyWithSalary == false)
     }
 }

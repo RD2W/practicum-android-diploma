@@ -140,28 +140,34 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
 
     private fun contentViewsShow() {
         binding.regionsRecycler.visibility = View.VISIBLE
+        binding.regionEdit.isEnabled = true
     }
 
     private fun contentViewsHide() {
         binding.regionsRecycler.visibility = View.INVISIBLE
+        binding.regionEdit.isEnabled = false
     }
 
     private fun problemViewsShow() {
         binding.regionProblemPlaceholderPic.visibility = View.VISIBLE
         binding.regionProblemPlaceholderText.visibility = View.VISIBLE
+        binding.regionEdit.isEnabled = false
     }
 
     private fun problemViewsHide() {
         binding.regionProblemPlaceholderPic.visibility = View.INVISIBLE
         binding.regionProblemPlaceholderText.visibility = View.INVISIBLE
+        binding.regionEdit.isEnabled = true
     }
 
     private fun loadingViewsShow() {
         binding.regionProgressbar.visibility = View.VISIBLE
+        binding.regionEdit.isEnabled = false
     }
 
     private fun loadingViewsHide() {
         binding.regionProgressbar.visibility = View.INVISIBLE
+        binding.regionEdit.isEnabled = true
     }
 
     private fun absentViewsShow() {

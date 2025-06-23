@@ -7,5 +7,5 @@ data class Filter(
     val workplace: Workplace?,
     val industry: Industry?,
     val salary: Salary?,
-    val salaryMustHaveFlag: Boolean? = null
+    val onlyWithSalary: Boolean? = null
 )
