@@ -88,6 +88,9 @@ class FilterViewModel(
     private fun updateState() {
         val filterFragmentState = FilterFragmentState.Content(
             workplaceName = concatWorkplaceName(this.workplace),
+            countryId = this.workplace?.countryId,
+            countryName = this.workplace?.countryName,
+            areaName = this.workplace?.areaName,
             industryId = this.industry?.id,
             industryName = this.industry?.name,
             salary = this.salary,

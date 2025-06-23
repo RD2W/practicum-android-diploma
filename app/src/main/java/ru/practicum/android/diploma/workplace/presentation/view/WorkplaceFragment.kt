@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.workplace.presentation.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +28,10 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     private var countryName: String? = null
     private var areaName: String? = null
     private var areaId: String? = null
+    private var countryId: String? = null //new
+    private var chosenCountryId: String? = null
+    private var chosenCountryName: String? = null
+    private var chosenAreaName: String? = null
 
     private val viewModel: WorkplaceViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
@@ -43,12 +49,27 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         _binding = null
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        chosenCountryId = requireArguments().getString(AppConstants.COUNTRY_ID_KEY)
+        chosenCountryName = requireArguments().getString(AppConstants.COUNTRY_NAME_KEY, "")
+        chosenAreaName = requireArguments().getString(AppConstants.AREA_NAME_KEY)
+        if (chosenCountryId != null) {
+            this.countryId = chosenCountryId////new
+        }
+        if (chosenCountryName != "") {
+            this.countryName = chosenCountryName///new
+        }
+
+    }
+
     private fun setupLiveDataObservers() {
         sharedFilterViewModel.getCountry().observe(viewLifecycleOwner) { updatedCountry ->
             viewModel.synchronizeState(country = updatedCountry)
             this.country = updatedCountry
             this.countryName = updatedCountry?.name
             this.areaId = updatedCountry?.id
+            this.countryId = updatedCountry?.id//new
         }
 
         sharedFilterViewModel.getArea().observe(viewLifecycleOwner) { updatedArea ->
@@ -81,8 +102,8 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
         }
 
         binding.regionButton.setOnClickListener {
-            val bundle = Bundle()
-            val countryId = country?.id ?: ""
+            val bundle = Bundle()//этот поиск ищет нужные регионы
+            val countryId = this.countryId ?: "" //country?.id ?: ""
             bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
             findNavController().navigate(
                 R.id.action_workplaceFragment_to_regionFragment,
@@ -99,6 +120,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     private fun prepareWorkplace() {
         val workplace = Workplace(
             countryName = this.countryName,
+            countryId = this.countryId,
             areaName = this.areaName,
             areaId = this.areaId
         )

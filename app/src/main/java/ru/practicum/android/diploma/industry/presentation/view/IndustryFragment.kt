@@ -152,28 +152,34 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
 
     private fun contentViewsShow() {
         binding.industriesRecycler.visibility = View.VISIBLE
+        binding.industryEdit.isEnabled = true
     }
 
     private fun contentViewsHide() {
         binding.industriesRecycler.visibility = View.INVISIBLE
+        binding.industryEdit.isEnabled = false
     }
 
     private fun problemViewsShow() {
         binding.industryProblemPlaceholderPic.visibility = View.VISIBLE
         binding.industryProblemPlaceholderText.visibility = View.VISIBLE
+        binding.industryEdit.isEnabled = false
     }
 
     private fun problemViewsHide() {
         binding.industryProblemPlaceholderPic.visibility = View.INVISIBLE
         binding.industryProblemPlaceholderText.visibility = View.INVISIBLE
+        binding.industryEdit.isEnabled = true
     }
 
     private fun loadingViewsShow() {
         binding.industryProgressbar.visibility = View.VISIBLE
+        binding.industryEdit.isEnabled = false
     }
 
     private fun loadingViewsHide() {
         binding.industryProgressbar.visibility = View.INVISIBLE
+        binding.industryEdit.isEnabled = true
     }
 
     private fun absentViewsShow() {

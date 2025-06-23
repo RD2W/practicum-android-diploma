@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -23,7 +24,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private val binding: FragmentFilterBinding
         get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
 
-    private var industryId: String? = null
+    private var historyIndustryId: String? = null
+    private var historyCountryId: String? = null
+    private var historyCountryName: String? = null
+    private var historyAreaName: String? = null
 
     private val viewModel: FilterViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
@@ -51,7 +55,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             renderState(state)
             when (state) {
                 is FilterFragmentState.Content -> {
-                    industryId = state.industryId
+                    historyIndustryId = state.industryId
+                    historyCountryId = state.countryId
+                    historyCountryName = state.countryName
+                    historyAreaName = state.areaName
                 }
             }
         }
@@ -231,7 +238,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
 
     private fun industryButtonOnClick() {
         val bundle = Bundle()
-        val industryId = this.industryId ?: ""
+        val industryId = this.historyIndustryId ?: ""
         bundle.putString(AppConstants.INDUSTRY_ID_KEY, industryId)
         findNavController().navigate(
             R.id.action_filterFragment_to_industryFragment,
@@ -240,8 +247,17 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun workplaceButtonOnClick() {
+        val bundle = Bundle()
+        val countryId = this.historyCountryId ?: ""
+        val countryName = this.historyCountryName ?: ""
+        val areaName = this.historyAreaName ?: ""
+        bundle.putString(AppConstants.COUNTRY_ID_KEY, countryId)
+        bundle.putString(AppConstants.COUNTRY_NAME_KEY, countryName)
+        bundle.putString(AppConstants.AREA_NAME_KEY, areaName)
+        Log.d("wtf", countryId.toString())
         findNavController().navigate(
-            FilterFragmentDirections.actionFilterFragmentToWorkplaceFragment()
+            R.id.action_filterFragment_to_workplaceFragment,
+            bundle
         )
     }
 
