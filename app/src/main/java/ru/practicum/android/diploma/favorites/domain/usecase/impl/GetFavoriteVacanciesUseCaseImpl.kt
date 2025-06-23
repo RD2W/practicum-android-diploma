@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacancie
  * Use case для получения списка избранных вакансий
  * @property repository Репозиторий для работы с избранными вакансиями
  */
-class GetFavoriteVacanciesUseCaseImpl(
+internal class GetFavoriteVacanciesUseCaseImpl(
     private val repository: FavoriteVacanciesRepository,
 ) : GetFavoriteVacanciesUseCase {
     /**

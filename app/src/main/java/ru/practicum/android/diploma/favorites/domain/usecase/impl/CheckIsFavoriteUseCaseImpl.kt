@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.favorites.domain.usecase.CheckIsFavoriteUseC
  * Use case для проверки, находится ли вакансия в избранном
  * @property repository Репозиторий для работы с избранными вакансиями
  */
-class CheckIsFavoriteUseCaseImpl(
+internal class CheckIsFavoriteUseCaseImpl(
     private val repository: FavoriteVacanciesRepository,
 ) : CheckIsFavoriteUseCase {
     /**

@@ -4,7 +4,7 @@ import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.filter.domain.repository.GetFilterRepository
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
 
-class GetFilterUseCaseImpl(
+internal class GetFilterUseCaseImpl(
     private val getFilterRepository: GetFilterRepository
 ) : GetFilterUseCase {
     override fun execute(): Filter? {

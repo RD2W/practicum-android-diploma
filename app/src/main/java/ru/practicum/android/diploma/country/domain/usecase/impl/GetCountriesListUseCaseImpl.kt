@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.country.domain.model.GetCountriesListResult
 import ru.practicum.android.diploma.country.domain.repository.GetCountriesListRepository
 import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
 
-class GetCountriesListUseCaseImpl(
+internal class GetCountriesListUseCaseImpl(
     private val getCountriesListRepository: GetCountriesListRepository
 ) : GetCountriesListUseCase {
     override fun execute(): Flow<GetCountriesListResult> {
