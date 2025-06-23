@@ -23,7 +23,7 @@ class RegionFragment : Fragment(R.layout.fragment_region) {
 
     private var _binding: FragmentRegionBinding? = null
     private val binding: FragmentRegionBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private val viewModel: RegionViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()

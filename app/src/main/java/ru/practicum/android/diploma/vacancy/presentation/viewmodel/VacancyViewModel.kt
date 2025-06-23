@@ -164,11 +164,4 @@ class VacancyViewModel(
             }
         }
     }
-
-    /**
-     * Повторяет попытку загрузки данных для текущей вакансии.
-     */
-    fun retryLoading() {
-        currentVacancyId?.let { loadVacancyDetails(it) }
-    }
 }

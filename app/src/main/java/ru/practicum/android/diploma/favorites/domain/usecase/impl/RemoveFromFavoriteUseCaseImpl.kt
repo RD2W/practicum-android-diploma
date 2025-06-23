@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.favorites.domain.usecase.RemoveFromFavoriteU
  * Use case для удаления вакансии из избранного
  * @property repository Репозиторий для работы с избранными вакансиями
  */
-class RemoveFromFavoriteUseCaseImpl(
+internal class RemoveFromFavoriteUseCaseImpl(
     private val repository: FavoriteVacanciesRepository,
 ) : RemoveFromFavoriteUseCase {
     /**

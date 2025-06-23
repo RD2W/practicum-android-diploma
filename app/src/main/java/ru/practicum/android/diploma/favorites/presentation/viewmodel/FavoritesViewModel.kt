@@ -69,13 +69,4 @@ class FavoritesViewModel(
                 }
         }
     }
-
-    /**
-     * Обновляет список избранных вакансий.
-     * Логирует факт обновления данных.
-     */
-    fun refresh() {
-        Timber.d("Manual refresh triggered")
-        loadFavorites()
-    }
 }

@@ -72,7 +72,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
-
+        viewModel.observeFilterChanges()
         setupSearchField()
         setupButtonListeners()
         setupRecyclerView()
@@ -143,16 +143,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun updateFilterIcons(hasFilters: Boolean) {
         binding.icFilter.setImageResource(if (hasFilters) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
     }
-
-//    private fun SearchVacanciesScreenState.getHasActiveFilters(): Boolean = when (this) {
-//        is SearchVacanciesScreenState.Initial -> hasActiveFilters
-//        is SearchVacanciesScreenState.Loading -> hasActiveFilters
-//        is SearchVacanciesScreenState.Pagination -> hasActiveFilters
-//        is SearchVacanciesScreenState.Content -> hasActiveFilters
-//        is SearchVacanciesScreenState.NoResults -> hasActiveFilters
-//        is SearchVacanciesScreenState.NetworkError -> hasActiveFilters
-//        is SearchVacanciesScreenState.ServerError -> hasActiveFilters
-//    }
 
     /**
      * Настраивает RecyclerView с адаптером

@@ -21,7 +21,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
 
     private var _binding: FragmentWorkplaceBinding? = null
     private val binding: FragmentWorkplaceBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private var country: Country? = null
     private var countryName: String? = null

@@ -46,10 +46,6 @@ class SearchViewModel(
     private var allVacancies = emptyList<Vacancy>()
     private var isNewSearch: Boolean = true
 
-    init {
-        observeFilterChanges()
-    }
-
     /**
      * Дебаунс
      */
@@ -61,7 +57,7 @@ class SearchViewModel(
         performSearch(query, isNewSearch = isNewSearch)
     }
 
-    private fun observeFilterChanges() {
+    fun observeFilterChanges() {
         viewModelScope.launch {
             getFilterUseCase().collect { filter ->
                 Timber.d("Filter is updated: $filter")

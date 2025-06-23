@@ -5,7 +5,7 @@ import ru.practicum.android.diploma.industry.domain.model.GetIndustriesListResul
 import ru.practicum.android.diploma.industry.domain.repository.GetIndustriesListRepository
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 
-class GetIndustriesListUseCaseImpl(
+internal class GetIndustriesListUseCaseImpl(
     private val getIndustriesListRepository: GetIndustriesListRepository
 ) : GetIndustriesListUseCase {
     override fun execute(): Flow<GetIndustriesListResult> {
