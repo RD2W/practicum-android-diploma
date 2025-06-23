@@ -21,7 +21,7 @@ class CountryFragment : Fragment(R.layout.fragment_country) {
 
     private var _binding: FragmentCountryBinding? = null
     private val binding: FragmentCountryBinding
-        get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+        get() = requireNotNull(_binding) { "Binding is null!" }
 
     private val viewModel: CountryViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
