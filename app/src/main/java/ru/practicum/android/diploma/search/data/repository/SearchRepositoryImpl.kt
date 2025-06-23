@@ -87,7 +87,8 @@ class SearchRepositoryImpl(
             json?.let {
                 gson.fromJson(it, Filter::class.java).takeIf { filter ->
                     // Дополнительная проверка на валидность фильтра
-                    filter.workplace != null || filter.industry != null || filter.salary != null
+                    filter.workplace != null || filter.industry != null
+                        || filter.salary != null || filter.onlyWithSalary != null
                 }
             }
         } catch (e: JsonParseException) {
