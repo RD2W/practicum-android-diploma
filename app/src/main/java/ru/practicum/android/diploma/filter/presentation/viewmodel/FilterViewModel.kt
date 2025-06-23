@@ -88,6 +88,7 @@ class FilterViewModel(
     private fun updateState() {
         val filterFragmentState = FilterFragmentState.Content(
             workplaceName = concatWorkplaceName(this.workplace),
+            industryId = this.industry?.id,
             industryName = this.industry?.name,
             salary = this.salary,
             salaryMustHaveFlag = this.salaryMustHaveFlag,
@@ -120,7 +121,7 @@ class FilterViewModel(
         this.workplace = null
         this.industry = null
         this.salary = null
-        this.salaryMustHaveFlag = false
+        this.salaryMustHaveFlag = null
         this.filter = null
         skipFilter()
         updateState()
@@ -131,7 +132,7 @@ class FilterViewModel(
             workplace = null,
             industry = null,
             salary = null,
-            onlyWithSalary = false
+            onlyWithSalary = null
         )
         setFilterUseCase.execute(filterNull)
     }

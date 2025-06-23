@@ -1,6 +1,8 @@
 package ru.practicum.android.diploma.industry.presentation.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -9,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.databinding.FragmentIndustryBinding
 import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterViewModel
 import ru.practicum.android.diploma.industry.domain.model.Industry
@@ -28,11 +31,11 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
     private val adapter = IndustriesAdapter()
     private var industry: Industry? = null
     private var industries = emptyList<Industry>()
+    private var chosenIndustryId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentIndustryBinding.bind(view)
-
         setupLiveDataObservers()
         setupRecyclerView()
         setupListeners()
@@ -42,6 +45,11 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        chosenIndustryId = requireArguments().getString(AppConstants.INDUSTRY_ID_KEY)
     }
 
     private fun setupLiveDataObservers() {
@@ -112,9 +120,13 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
         problemViewsHide()
         absentViewsHide()
         contentViewsShow()
+        val sortedIndustries = industries.sortedBy { industry -> industry.name }
+        val idPos = sortedIndustries.indexOfFirst { industry -> industry.id == chosenIndustryId }
+        adapter.selectedPosition = idPos
         adapter.industries.clear()
-        adapter.industries.addAll(industries.sortedBy { industry -> industry.name })
+        adapter.industries.addAll(sortedIndustries)
         adapter.notifyDataSetChanged()
+        binding.industriesRecycler.layoutManager?.scrollToPosition(idPos)
     }
 
     private fun showProblem() {

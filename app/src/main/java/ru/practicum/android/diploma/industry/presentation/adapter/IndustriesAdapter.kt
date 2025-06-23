@@ -8,7 +8,6 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 
 class IndustriesAdapter : RecyclerView.Adapter<IndustryViewHolder>() {
     var industries = ArrayList<Industry>()
-
     var onItemClickListener: ((Industry) -> Unit)? = null
     var selectedPosition = -1
 

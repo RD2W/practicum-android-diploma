@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.filter.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -10,10 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.constants.AppConstants
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
 import ru.practicum.android.diploma.filter.presentation.viewmodel.SharedFilterViewModel
+import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import kotlin.getValue
 
 class FilterFragment : Fragment(R.layout.fragment_filter) {
@@ -21,6 +24,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private var _binding: FragmentFilterBinding? = null
     private val binding: FragmentFilterBinding
         get() = requireNotNull(_binding) { "Binding wasn't initialized!" }
+
+    private var industryId: String? = null
 
     private val viewModel: FilterViewModel by viewModel()
     private val sharedFilterViewModel: SharedFilterViewModel by activityViewModels()
@@ -44,8 +49,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun setupLiveDataObservers() {
-        viewModel.observeFilterFragmentState().observe(viewLifecycleOwner) {
-            renderState(it)
+        viewModel.observeFilterFragmentState().observe(viewLifecycleOwner) { state ->
+            renderState(state)
+            when (state) {
+                is FilterFragmentState.Content -> {
+                    industryId = state.industryId
+                }
+            }
         }
 
         viewModel.observeFilterApplyButtonState().observe(viewLifecycleOwner) {
@@ -222,8 +232,12 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
 
     private fun industryButtonOnClick() {
+        val bundle = Bundle()
+        val industryId = this.industryId ?: ""
+        bundle.putString(AppConstants.INDUSTRY_ID_KEY, industryId)
         findNavController().navigate(
-            FilterFragmentDirections.actionFilterFragmentToIndustryFragment()
+            R.id.action_filterFragment_to_industryFragment,
+            bundle
         )
     }
 

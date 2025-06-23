@@ -19,4 +19,5 @@ object AppConstants {
     const val SEARCH_SALARY_KEY = "salary"
     const val SEARCH_CURRENCY_KEY = "currency"
     const val SEARCH_ONLY_WITH_SALARY_KEY = "only_with_salary"
+    const val INDUSTRY_ID_KEY = "industry_id"
 }
