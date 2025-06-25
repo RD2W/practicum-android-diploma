@@ -188,9 +188,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     }
     private fun workplaceButtonOnClick() {
         val bundle = Bundle()
-        bundle.putString(AppConstants.COUNTRY_ID_KEY, this.historyCountryId ?: "")
-        bundle.putString(AppConstants.COUNTRY_NAME_KEY, this.historyCountryName ?: "")
-        bundle.putString(AppConstants.AREA_NAME_KEY, this.historyAreaName ?: "")
+        bundle.putString(AppConstants.COUNTRY_ID_KEY, this.historyCountryId)
+        bundle.putString(AppConstants.COUNTRY_NAME_KEY, this.historyCountryName)
+        bundle.putString(AppConstants.AREA_NAME_KEY, this.historyAreaName)
         findNavController().navigate(R.id.action_filterFragment_to_workplaceFragment, bundle)
     }
 }
