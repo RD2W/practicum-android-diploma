@@ -56,7 +56,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         chosenCountryId = requireArguments().getString(AppConstants.COUNTRY_ID_KEY)
-        chosenCountryName = requireArguments().getString(AppConstants.COUNTRY_NAME_KEY, "")
+        chosenCountryName = requireArguments().getString(AppConstants.COUNTRY_NAME_KEY)
         chosenAreaName = requireArguments().getString(AppConstants.AREA_NAME_KEY)
         if (chosenCountryId != null) {
             this.countryId = chosenCountryId // //new
@@ -178,7 +178,7 @@ class WorkplaceFragment : Fragment(R.layout.fragment_workplace) {
     }
 
     private fun chooseWorkplaceButtonVisibilitySet(countryName: String?, areaName: String?) {
-        chooseWorkplaceButtonIsVisible(!countryName.isNullOrEmpty() || !areaName.isNullOrEmpty())
+        chooseWorkplaceButtonIsVisible(!countryName.isNullOrBlank() || !areaName.isNullOrBlank())
     }
 
     private fun chooseWorkplaceButtonIsVisible(isVisible: Boolean) {
