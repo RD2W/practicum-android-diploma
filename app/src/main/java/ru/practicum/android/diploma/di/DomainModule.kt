@@ -19,10 +19,14 @@ import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavo
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.CheckFilterLoadUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUserInterfaceUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUserInterfaceUseCase
 import ru.practicum.android.diploma.filter.domain.usecase.impl.CheckFilterLoadUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.GetFilterUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.impl.GetFilterUserInterfaceUseCaseImpl
 import ru.practicum.android.diploma.filter.domain.usecase.impl.SetFilterUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.impl.SetFilterUserInterfaceUseCaseImpl
 import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
 import ru.practicum.android.diploma.industry.domain.usecase.impl.GetIndustriesListUseCaseImpl
 import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
@@ -64,4 +68,6 @@ val domainModule = module {
     factoryOf(::GetFilterUseCaseImpl) { bind<GetFilterUseCase>() }
     factoryOf(::SetFilterUseCaseImpl) { bind<SetFilterUseCase>() }
     factoryOf(::CheckFilterLoadUseCaseImpl) { bind<CheckFilterLoadUseCase>() }
+    factoryOf(::GetFilterUserInterfaceUseCaseImpl) { bind<GetFilterUserInterfaceUseCase>() }
+    factoryOf(::SetFilterUserInterfaceUseCaseImpl) { bind<SetFilterUserInterfaceUseCase>() }
 }
