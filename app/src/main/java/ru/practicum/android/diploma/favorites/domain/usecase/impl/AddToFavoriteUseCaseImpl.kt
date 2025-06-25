@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
  * Use case для добавления вакансии в избранное
  * @property repository Репозиторий для работы с избранными вакансиями
  */
-class AddToFavoriteUseCaseImpl(
+internal class AddToFavoriteUseCaseImpl(
     private val repository: FavoriteVacanciesRepository,
 ) : AddToFavoriteUseCase {
     /**

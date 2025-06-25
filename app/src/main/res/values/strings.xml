@@ -56,4 +56,21 @@
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="something_went_wrong">An error occurred</string>
     <string name="key_skills">Key skills</string>
+
+    <!-- Названия для экрана фильтров -->
+    <string name="button_work_place_name">Work Place</string>
+    <string name="button_industry_name">Industry</string>
+    <string name="edit_hint_desired_salary_input">Input salary</string>
+    <string name="edit_desired_salary_headline">Desired salary</string>
+    <string name="check_without_salary_hide">Hide without salary</string>
+    <string name="button_country_name">Country</string>
+    <string name="button_region_name">Region</string>
+    <string name="edit_hint_region_input">Input region</string>
+    <string name="button_choose_work_place">Choose</string>
+    <string name="button_apply_filter">Apply</string>
+    <string name="button_skip_filter">Skip</string>
+    <string name="edit_hint_industry_input">Input industry</string>
+    <string name="list_problem_placeholder_text">List retrieve failure</string>
+    <string name="industry_absent_placeholder_text">Industry not exists</string>
+    <string name="region_absent_placeholder_text">Area not exists</string>
 </resources>

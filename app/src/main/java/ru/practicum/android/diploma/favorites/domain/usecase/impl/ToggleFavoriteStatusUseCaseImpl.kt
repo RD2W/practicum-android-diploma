@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
  * @property removeFromFavoriteUseCase Use case для удаления из избранного
  * @property checkIsFavoriteUseCase Use case для проверки статуса избранного
  */
-class ToggleFavoriteStatusUseCaseImpl(
+internal class ToggleFavoriteStatusUseCaseImpl(
     private val addToFavoriteUseCase: AddToFavoriteUseCaseImpl,
     private val removeFromFavoriteUseCase: RemoveFromFavoriteUseCaseImpl,
     private val checkIsFavoriteUseCase: CheckIsFavoriteUseCaseImpl,

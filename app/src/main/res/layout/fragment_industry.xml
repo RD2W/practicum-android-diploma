@@ -1,14 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/industry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="16dp"
     tools:context=".industry.presentation.view.IndustryFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/value_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/value_16" />
+
+    <!-- Поле ввода "Отрасль" -->
+    <EditText
+        android:id="@+id/industryEdit"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:layout_marginTop="@dimen/value_24"
+        android:background="@drawable/shape_edit_salary_background"
+        android:hint="@string/edit_hint_industry_input"
+        android:inputType="text"
+        android:paddingStart="@dimen/value_16"
+        android:textColor="@color/salary_not_null_text_color"
+        android:textColorHint="@color/edit_text_hint_color"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Кнопка очистки поля ввода отрасли -->
+    <ImageView
+        android:id="@+id/industry_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/value_14"
+        android:padding="@dimen/value_4"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/industryEdit"
+        app:layout_constraintEnd_toEndOf="@id/industryEdit"
+        app:layout_constraintTop_toTopOf="@id/industryEdit" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/zero_dp"
+        android:layout_marginTop="@dimen/value_16"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/chooseIndustryButton"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/industryEdit">
+
+        <!-- Industries RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/industries_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
+        <!-- ProblemPlaceholderPicture -->
+        <ImageView
+            android:id="@+id/industry_problem_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found_regions"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ProblemPlaceholderText -->
+        <TextView
+            android:id="@+id/industry_problem_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_16"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/list_problem_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/industry_problem_placeholder_pic" />
+
+        <!-- AbsentPlaceholderPicture -->
+        <ImageView
+            android:id="@+id/industry_absent_placeholder_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_placeholder_not_found"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- AbsentPlaceholderText -->
+        <TextView
+            android:id="@+id/industry_absent_placeholder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_16"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/industry_absent_placeholder_text"
+            android:textColor="@color/regions_search_placeholder_text_color"
+            android:textSize="@dimen/text_size_22"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/industry_absent_placeholder_pic" />
+
+        <ProgressBar
+            android:id="@+id/industry_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Кнопка "Выбрать" -->
+    <Button
+        android:id="@+id/chooseIndustryButton"
+        style="@style/FilterApplymentButtonStyle"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/value_64"
+        android:text="@string/button_choose_work_place"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

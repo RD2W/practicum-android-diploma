@@ -4,22 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import ru.practicum.android.diploma.common.constants.AppConstants
-import ru.practicum.android.diploma.common.domain.model.RequestResult
+import ru.practicum.android.diploma.common.domain.model.Result
 import ru.practicum.android.diploma.common.domain.model.Vacancy
-import ru.practicum.android.diploma.common.utils.NetworkUtils
 import ru.practicum.android.diploma.common.utils.debounce
 import ru.practicum.android.diploma.filter.domain.model.Filter
 import ru.practicum.android.diploma.search.domain.model.SearchParameters
 import ru.practicum.android.diploma.search.domain.model.SearchResult
+import ru.practicum.android.diploma.search.domain.usecase.GetActiveFilterUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import timber.log.Timber
 import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.SocketTimeoutException
 
 /**
  * ViewModel для экрана "Поиск вакансии".
@@ -30,21 +29,22 @@ import java.net.SocketTimeoutException
  *
  * @property searchUseCase UseCase для получения списка найденных вакансий
  */
-
 class SearchViewModel(
+    private val getFilterUseCase: GetActiveFilterUseCase,
     private val searchUseCase: SearchUseCase,
-    private val networkUtils: NetworkUtils
 ) : ViewModel() {
 
-    private val _screenState = MutableStateFlow<SearchVacanciesScreenState>(SearchVacanciesScreenState.Initial)
-    val screenState: StateFlow<SearchVacanciesScreenState> = _screenState
+    private val _screenState = MutableStateFlow<SearchVacanciesScreenState>(
+        SearchVacanciesScreenState.Initial(hasActiveFilters = false)
+    )
+    val screenState: StateFlow<SearchVacanciesScreenState> = _screenState.asStateFlow()
 
-    private var currentQuery = ""
-    private var currentFilter: Filter? = null
+    private var lastQuery = ""
     private var currentPage = 0
     private var totalPages = 1
     private val loadedPages = mutableSetOf<Int>()
     private var allVacancies = emptyList<Vacancy>()
+    private var isNewSearch: Boolean = true
 
     /**
      * Дебаунс
@@ -54,30 +54,72 @@ class SearchViewModel(
         coroutineScope = viewModelScope,
         useLastParam = true
     ) { query ->
-        performSearch(query, currentFilter, isNewSearch = true)
+        performSearch(query, isNewSearch = isNewSearch)
+    }
+
+    fun observeFilterChanges() {
+        viewModelScope.launch {
+            getFilterUseCase().collect { filter ->
+                Timber.d("Filter is updated: $filter")
+                updateCurrentFilter(filter)
+                onFiltersChanged()
+            }
+        }
+    }
+
+    private fun updateCurrentFilter(filter: Filter?) {
+        val currentState = _screenState.value
+        val hasFiltersNow = filter != null
+
+        if (getCurrentHasActiveFilters(currentState) != hasFiltersNow) {
+            val newState = when (currentState) {
+                is SearchVacanciesScreenState.Initial -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.Loading -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.Pagination -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.Content -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.NoResults -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.NetworkError -> currentState.copy(hasActiveFilters = hasFiltersNow)
+                is SearchVacanciesScreenState.ServerError -> currentState.copy(hasActiveFilters = hasFiltersNow)
+            }
+            _screenState.value = newState
+        }
+    }
+
+    private fun getCurrentHasActiveFilters(state: SearchVacanciesScreenState): Boolean {
+        return when (state) {
+            is SearchVacanciesScreenState.Initial -> state.hasActiveFilters
+            is SearchVacanciesScreenState.Loading -> state.hasActiveFilters
+            is SearchVacanciesScreenState.Pagination -> state.hasActiveFilters
+            is SearchVacanciesScreenState.Content -> state.hasActiveFilters
+            is SearchVacanciesScreenState.NoResults -> state.hasActiveFilters
+            is SearchVacanciesScreenState.NetworkError -> state.hasActiveFilters
+            is SearchVacanciesScreenState.ServerError -> state.hasActiveFilters
+        }
     }
 
     /**
      * Обрабатывает изменение поискового запроса
      * @param query Введенный поисковый запрос
      */
-    fun onSearchQueryChanged(query: String) {
+    fun onSearchQueryChanged(query: String, isNewSearch: Boolean) {
         val trimmedQuery = query.trim()
-
+        this.isNewSearch = isNewSearch
         // Если запрос не изменился - ничего не делаем
-        if (trimmedQuery == currentQuery) {
+        if (trimmedQuery == lastQuery) {
             Timber.d("Query didn't change: '$trimmedQuery'")
             return
         }
 
         // Сохраняем новый запрос
-        currentQuery = trimmedQuery
+        lastQuery = trimmedQuery
 
         when {
             // Если запрос пустой - сбрасываем состояние
             trimmedQuery.isBlank() -> {
                 Timber.d("Empty query, resetting state")
-                _screenState.value = SearchVacanciesScreenState.Initial
+                _screenState.value = SearchVacanciesScreenState.Initial(
+                    hasActiveFilters = getCurrentHasActiveFilters(_screenState.value)
+                )
                 loadedPages.clear()
                 allVacancies = emptyList()
             }
@@ -92,10 +134,9 @@ class SearchViewModel(
     /**
      * Настройка изменения фильтров
      */
-    fun onFiltersChanged(filter: Filter?) {
-        currentFilter = filter
-        if (currentQuery.isNotEmpty()) {
-            performSearch(currentQuery, filter, isNewSearch = true)
+    private fun onFiltersChanged() {
+        if (lastQuery.isNotEmpty()) {
+            performSearch(lastQuery, isNewSearch)
         }
     }
 
@@ -104,17 +145,17 @@ class SearchViewModel(
      */
     fun loadNextPage() {
         if (currentPage < totalPages && !loadedPages.contains(currentPage + 1)) {
-            performSearch(currentQuery, currentFilter, isNewSearch = false)
+            performSearch(lastQuery, isNewSearch = false)
         }
     }
 
-    private fun performSearch(query: String, filter: Filter?, isNewSearch: Boolean) {
+    private fun performSearch(query: String, isNewSearch: Boolean) {
         if (query.isBlank()) return
 
         updateScreenStateBeforeSearch(isNewSearch)
 
         viewModelScope.launch {
-            Timber.d("Starting search: query='%s', filter=%s, isNewSearch=%s", query, filter, isNewSearch)
+            Timber.d("Starting search: query='%s', isNewSearch=%s", query, isNewSearch)
 
             val pageToLoad = preparePageToLoad(isNewSearch)
             if (!shouldLoadPage(pageToLoad)) {
@@ -124,7 +165,7 @@ class SearchViewModel(
                     val searchParameters = SearchParameters(
                         query = query,
                         page = pageToLoad,
-                        filter = filter
+                        filter = getCurrentFilter()
                     )
 
                     searchUseCase(searchParameters).collect { result ->
@@ -132,70 +173,74 @@ class SearchViewModel(
                     }
                 } catch (e: IOException) {
                     Timber.e(e, "Network error")
-                    _screenState.value = SearchVacanciesScreenState.NetworkError
-                } catch (e: HttpException) {
-                    Timber.e(e, "HTTP error")
-                    _screenState.value = mapExceptionToScreenState(e)
+                    _screenState.value = SearchVacanciesScreenState.NetworkError(
+                        hasActiveFilters = getCurrentHasActiveFilters(_screenState.value)
+                    )
                 }
             }
         }
     }
 
-    private fun mapExceptionToScreenState(e: Exception) = when (getErrorCodeFromException(e)) {
-        HttpURLConnection.HTTP_UNAVAILABLE,
-        HttpURLConnection.HTTP_CLIENT_TIMEOUT -> SearchVacanciesScreenState.NetworkError
-
-        else -> SearchVacanciesScreenState.ServerError
+    private suspend fun getCurrentFilter(): Filter? {
+        return getFilterUseCase().first()
     }
 
     private fun shouldLoadPage(page: Int): Boolean = !loadedPages.contains(page)
 
     private fun updateScreenStateBeforeSearch(isNewSearch: Boolean) {
-        if (isNewSearch) {
-            _screenState.value = SearchVacanciesScreenState.Loading
+        val hasFilters = getCurrentHasActiveFilters(_screenState.value)
+        _screenState.value = if (isNewSearch) {
+            SearchVacanciesScreenState.Loading(hasActiveFilters = hasFilters)
         } else {
-            _screenState.value = SearchVacanciesScreenState.Pagination
+            SearchVacanciesScreenState.Pagination(hasActiveFilters = hasFilters)
         }
     }
 
     private fun handleSearchResult(
-        result: RequestResult<SearchResult>,
+        result: Result<SearchResult>,
         pageToLoad: Int,
         isNewSearch: Boolean
     ) {
+        val hasFilters = getCurrentHasActiveFilters(_screenState.value)
+
         when (result) {
-            is RequestResult.Success -> {
-                result.searchResult?.let { searchResult ->
-                    loadedPages.add(pageToLoad)
-                    currentPage = searchResult.currentPage
-                    totalPages = searchResult.totalPages
+            is Result.Success -> {
+                val searchResult = result.data
+                loadedPages.add(pageToLoad)
+                currentPage = searchResult.currentPage
+                totalPages = searchResult.totalPages
 
-                    allVacancies = if (isNewSearch) {
-                        searchResult.vacancies
-                    } else {
-                        (allVacancies + searchResult.vacancies).distinctBy { it.id }
-                    }
+                allVacancies = if (isNewSearch) {
+                    searchResult.vacancies
+                } else {
+                    (allVacancies + searchResult.vacancies).distinctBy { it.id }
+                }
 
-                    _screenState.value = if (allVacancies.isEmpty()) {
-                        SearchVacanciesScreenState.NoResults
-                    } else {
-                        SearchVacanciesScreenState.Content(
-                            searchResult = SearchResult(
-                                resultsFound = searchResult.resultsFound,
-                                totalPages = totalPages,
-                                currentPage = currentPage,
-                                vacancies = allVacancies
-                            )
-                        )
-
-                    }
-                } ?: run {
-                    _screenState.value = SearchVacanciesScreenState.ServerError
+                _screenState.value = if (allVacancies.isEmpty()) {
+                    SearchVacanciesScreenState.NoResults(hasActiveFilters = hasFilters)
+                } else {
+                    SearchVacanciesScreenState.Content(
+                        searchResult = SearchResult(
+                            resultsFound = searchResult.resultsFound,
+                            totalPages = totalPages,
+                            currentPage = currentPage,
+                            vacancies = allVacancies
+                        ),
+                        hasActiveFilters = hasFilters
+                    )
                 }
             }
 
-            is RequestResult.Error -> {
-                handleError(result.errorType ?: HttpURLConnection.HTTP_INTERNAL_ERROR)
+            is Result.NotFound -> {
+                _screenState.value = SearchVacanciesScreenState.NoResults(hasActiveFilters = hasFilters)
+            }
+
+            is Result.ServerError -> {
+                _screenState.value = SearchVacanciesScreenState.ServerError(hasActiveFilters = hasFilters)
+            }
+
+            is Result.NoInternet -> {
+                _screenState.value = SearchVacanciesScreenState.NetworkError(hasActiveFilters = hasFilters)
             }
         }
     }
@@ -208,36 +253,8 @@ class SearchViewModel(
         currentPage + 1
     }
 
-    private fun handleError(errorCode: Int) {
-        _screenState.value = when {
-            errorCode == HttpURLConnection.HTTP_UNAUTHORIZED ->
-                SearchVacanciesScreenState.ServerError
-            errorCode == HttpURLConnection.HTTP_FORBIDDEN ->
-                SearchVacanciesScreenState.ServerError
-            errorCode == HttpURLConnection.HTTP_NOT_FOUND ->
-                SearchVacanciesScreenState.NoResults
-            !networkUtils.isNetworkAvailable() -> // Используется NetworkUtils
-                SearchVacanciesScreenState.NetworkError
-            else ->
-                SearchVacanciesScreenState.ServerError
-        }
-    }
-
-    /**
-     * Определяет код ошибки на основе перехваченного исключения
-     * @param e Исключение, которое нужно обработать
-     * @return Код HTTP ошибки для определения типа состояния экрана
-     */
-    private fun getErrorCodeFromException(e: Exception): Int {
-        return when (e) {
-            is IOException, is SocketTimeoutException -> HttpURLConnection.HTTP_UNAVAILABLE
-            is HttpException -> e.code()
-            else -> HttpURLConnection.HTTP_INTERNAL_ERROR
-        }
-    }
-
     companion object {
         // Константы для поиска
-        const val INITIAL_PAGE = 0
+        private const val INITIAL_PAGE = 0
     }
 }

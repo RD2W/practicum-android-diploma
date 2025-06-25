@@ -23,6 +23,7 @@ import ru.practicum.android.diploma.search.presentation.adapter.ListItem
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
 import ru.practicum.android.diploma.search.presentation.state.SearchVacanciesScreenState
 import ru.practicum.android.diploma.search.presentation.viewmodel.SearchViewModel
+import timber.log.Timber
 import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -60,6 +61,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         isLoading = true
                         this@SearchFragment.adapter.addLoadingFooter()
                         viewModel.loadNextPage()
+                    } else {
+                        this@SearchFragment.adapter.removeLoadingFooter()
                     }
                 }
             }
@@ -69,7 +72,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
-
+        viewModel.observeFilterChanges()
         setupSearchField()
         setupButtonListeners()
         setupRecyclerView()
@@ -86,6 +89,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun setupSearchField() {
         // Получаем доступ к элементам из layout
+        Timber.d("Новый поиск $isFirstPageLoaded")
+
         var lastText = ""
         with(binding) {
             with(searchItem) { // Дополнительный with для searchItem
@@ -98,7 +103,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         lastText = newText
                         searchIcon.isVisible = newText.isEmpty()
                         clearIcon.isVisible = newText.isNotEmpty()
-                        viewModel.onSearchQueryChanged(newText)
+                        viewModel.onSearchQueryChanged(newText, isNewSearch = true)
+                        isFirstPageLoaded = false
                     }
                     // Обработка клика по иконке очистки
                     clearIcon.setOnClickListener {
@@ -119,10 +125,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Обработка клика по кнопкам
      */
     private fun setupButtonListeners() {
-        with(binding) {
-            icFilterOff.setOnClickListener { navigateToFilters() }
-            icFilterOn.setOnClickListener { navigateToFilters() }
-        }
+        binding.icFilter.setOnClickListener { navigateToFilters() }
     }
 
     /**
@@ -138,8 +141,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Обработка состояние иконки фильтров (выбраны или нет)
      */
     private fun updateFilterIcons(hasFilters: Boolean) {
-        binding.icFilterOff.isVisible = !hasFilters
-        binding.icFilterOn.isVisible = hasFilters
+        binding.icFilter.setImageResource(if (hasFilters) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
     }
 
     /**
@@ -182,6 +184,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.screenState.collect { state ->
+                    updateFilterIcons(state.hasActiveFilters)
                     when (state) {
                         is SearchVacanciesScreenState.Initial -> showInitialState()
                         is SearchVacanciesScreenState.Loading -> showLoading()
@@ -247,6 +250,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun showContent(state: SearchVacanciesScreenState.Content) {
         isFirstPageLoaded = true
+        Timber.d("Cостояние isFirstPageLoaded: $isFirstPageLoaded, в методе showContent")
         switchUiMode(showContent = true)
 
         adapter.removeLoadingFooter()
@@ -277,18 +281,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Состояние нет интернета
      */
     private fun showNetworkError() {
-        isFirstPageLoaded = true
-        switchUiMode(showNetworkError = true)
-        showToast(getString(R.string.check_internet_connection))
+        if (isFirstPageLoaded) {
+            showToast(getString(R.string.check_internet_connection))
+        } else {
+            switchUiMode(showNetworkError = true)
+        }
     }
 
     /**
      * Состояние ошибки сервера
      */
     private fun showServerError() {
-        isFirstPageLoaded = true
-        switchUiMode(showServerError = true)
-        showToast(getString(R.string.something_went_wrong))
+        if (isFirstPageLoaded) {
+            showToast(getString(R.string.something_went_wrong))
+        } else {
+            switchUiMode(showServerError = true)
+        }
     }
 
     /**

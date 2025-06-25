@@ -4,12 +4,12 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import com.google.gson.JsonParseException
+import ru.practicum.android.diploma.common.domain.model.Result
 import ru.practicum.android.diploma.common.utils.NetworkUtils
 import ru.practicum.android.diploma.search.data.mapper.toVacancyDetails
 import ru.practicum.android.diploma.search.data.model.HHApiRequest
 import ru.practicum.android.diploma.search.data.model.HHApiResponse
 import ru.practicum.android.diploma.search.data.source.remote.RetrofitClient
-import ru.practicum.android.diploma.vacancy.domain.model.Result
 import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
 import ru.practicum.android.diploma.vacancy.domain.repository.VacancyDetailsRepository
 import timber.log.Timber
@@ -103,7 +103,7 @@ class VacancyDetailsRepositoryImpl(
     }
 
     private fun handleUnexpectedResponse(): Result<VacancyDetails> {
-        return Result.ServerError(Exception("Unexpected response type"))
+        return Result.ServerError(IllegalStateException("Unexpected response type"))
     }
 
     private fun handleNetworkException(e: IOException): Result<VacancyDetails> {
@@ -113,6 +113,6 @@ class VacancyDetailsRepositoryImpl(
 
     private fun createServerError(errorMessage: String?): Result<VacancyDetails> {
         val message = errorMessage?.takeIf { it.isNotBlank() } ?: "Server error"
-        return Result.ServerError(Exception(message))
+        return Result.ServerError(IllegalStateException(message))
     }
 }

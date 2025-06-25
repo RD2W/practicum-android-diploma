@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.di
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
+import ru.practicum.android.diploma.country.domain.usecase.GetCountriesListUseCase
+import ru.practicum.android.diploma.country.domain.usecase.impl.GetCountriesListUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.AddToFavoriteUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.CheckIsFavoriteUseCase
 import ru.practicum.android.diploma.favorites.domain.usecase.GetFavoriteVacanciesUseCase
@@ -15,13 +17,19 @@ import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVac
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.GetFavoriteVacancyByIdUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.RemoveFromFavoriteUseCaseImpl
 import ru.practicum.android.diploma.favorites.domain.usecase.impl.ToggleFavoriteStatusUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.GetAreasUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetCountriesUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.GetIndustriesUseCase
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetAreasUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetCountriesUseCaseImpl
-import ru.practicum.android.diploma.filter.domain.usecase.impl.GetIndustriesUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.CheckFilterLoadUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.GetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.SetFilterUseCase
+import ru.practicum.android.diploma.filter.domain.usecase.impl.CheckFilterLoadUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.impl.GetFilterUseCaseImpl
+import ru.practicum.android.diploma.filter.domain.usecase.impl.SetFilterUseCaseImpl
+import ru.practicum.android.diploma.industry.domain.usecase.GetIndustriesListUseCase
+import ru.practicum.android.diploma.industry.domain.usecase.impl.GetIndustriesListUseCaseImpl
+import ru.practicum.android.diploma.region.domain.usecase.GetAreasListUseCase
+import ru.practicum.android.diploma.region.domain.usecase.impl.GetAreasListUseCaseImpl
+import ru.practicum.android.diploma.search.domain.usecase.GetActiveFilterUseCase
 import ru.practicum.android.diploma.search.domain.usecase.SearchUseCase
+import ru.practicum.android.diploma.search.domain.usecase.impl.GetActiveFilterUseCaseImpl
 import ru.practicum.android.diploma.search.domain.usecase.impl.SearchUseCaseImpl
 import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase
 import ru.practicum.android.diploma.team.domain.usecase.OpenGithubProfileUseCase
@@ -45,11 +53,15 @@ val domainModule = module {
     factoryOf(::ToggleFavoriteStatusUseCaseImpl) { bind<ToggleFavoriteStatusUseCase>() }
     /** Search Vacancies UseCases */
     factoryOf(::SearchUseCaseImpl) { bind<SearchUseCase>() }
-    /** Get Vacancy Details UseCases */
+    factoryOf(::GetActiveFilterUseCaseImpl) { bind<GetActiveFilterUseCase>() }
+    /** Vacancy Details UseCases */
     factoryOf(::GetVacancyDetailsByIdUseCaseImpl) { bind<GetVacancyDetailsByIdUseCase>() }
     factoryOf(::ShareVacancyUseCaseImpl) { bind<ShareVacancyUseCase>() }
     /** Filter UseCases */
-    factoryOf(::GetAreasUseCaseImpl) { bind<GetAreasUseCase>() }
-    factoryOf(::GetCountriesUseCaseImpl) { bind<GetCountriesUseCase>() }
-    factoryOf(::GetIndustriesUseCaseImpl) { bind<GetIndustriesUseCase>() }
+    factoryOf(::GetAreasListUseCaseImpl) { bind<GetAreasListUseCase>() }
+    factoryOf(::GetCountriesListUseCaseImpl) { bind<GetCountriesListUseCase>() }
+    factoryOf(::GetIndustriesListUseCaseImpl) { bind<GetIndustriesListUseCase>() }
+    factoryOf(::GetFilterUseCaseImpl) { bind<GetFilterUseCase>() }
+    factoryOf(::SetFilterUseCaseImpl) { bind<SetFilterUseCase>() }
+    factoryOf(::CheckFilterLoadUseCaseImpl) { bind<CheckFilterLoadUseCase>() }
 }

@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.filter.domain.model
 
-import ru.practicum.android.diploma.salary.domain.model.Salary
+import ru.practicum.android.diploma.industry.domain.model.Industry
+import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 data class Filter(
-    val areaId: String?,
-    val industryId: String?,
-    val salary: Salary?
+    val workplace: Workplace?,
+    val industry: Industry?,
+    val salary: Salary?,
+    val onlyWithSalary: Boolean? = null
 )

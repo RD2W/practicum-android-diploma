@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.team.domain.usecase.OpenGithubProfileUseCase
  * UseCase для открытия профиля GitHub
  * @property repository Репозиторий для работы с данными о команде
  */
-class OpenGithubProfileUseCaseImpl(
+internal class OpenGithubProfileUseCaseImpl(
     private val repository: DevTeamRepository,
 ) : OpenGithubProfileUseCase {
     /**

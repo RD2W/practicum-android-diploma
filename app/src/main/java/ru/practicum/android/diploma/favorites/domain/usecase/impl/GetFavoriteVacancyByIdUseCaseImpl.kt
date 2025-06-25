@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.vacancy.domain.model.VacancyDetails
  * Use case для получения конкретной избранной вакансии по ID
  * @property repository Репозиторий для работы с избранными вакансиями
  */
-class GetFavoriteVacancyByIdUseCaseImpl(
+internal class GetFavoriteVacancyByIdUseCaseImpl(
     private val repository: FavoriteVacanciesRepository,
 ) : GetFavoriteVacancyByIdUseCase {
     /**

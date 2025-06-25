@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.team.domain.usecase.GetDevTeamUseCase
  * UseCase для получения списка разработчиков команды
  * @property repository Репозиторий для работы с данными о команде
  */
-class GetDevTeamUseCaseImpl(
+internal class GetDevTeamUseCaseImpl(
     private val repository: DevTeamRepository,
 ) : GetDevTeamUseCase {
     /**

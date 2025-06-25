@@ -56,4 +56,21 @@
     <string name="no_vacancies_found">Таких вакансий нет</string>
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="something_went_wrong">Произошла ошибка</string>
+
+    <!-- Названия для экрана фильтров -->
+    <string name="button_work_place_name">Место работы</string>
+    <string name="button_industry_name">Отрасль</string>
+    <string name="edit_hint_desired_salary_input">Введите сумму</string>
+    <string name="edit_desired_salary_headline">Ожидаемая зарплата</string>
+    <string name="check_without_salary_hide">Не показывать без зарплаты</string>
+    <string name="button_country_name">Страна</string>
+    <string name="button_region_name">Регион</string>
+    <string name="edit_hint_region_input">Введите регион</string>
+    <string name="button_choose_work_place">Выбрать</string>
+    <string name="button_apply_filter">Применить</string>
+    <string name="button_skip_filter">Сбросить</string>
+    <string name="edit_hint_industry_input">Введите отрасль</string>
+    <string name="list_problem_placeholder_text">Не удалось получить список</string>
+    <string name="industry_absent_placeholder_text">Такой отрасли нет</string>
+    <string name="region_absent_placeholder_text">Такого региона нет</string>
 </resources>
