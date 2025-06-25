@@ -66,27 +66,30 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
 
     private fun setupListeners() {
         adapter.onItemClickListener = { industry ->
+            chosenIndustryId = industry.id
+            adapter.selectedIndustryId = chosenIndustryId
             applyButtonShow()
             this.industry = industry
         }
 
         binding.chooseIndustryButton.setOnClickListener {
-            if (industry != null) {
-                sharedFilterViewModel.setIndustry(industry!!)
+            chosenIndustryId?.let { id ->
+                val selectedIndustry = industries.find { it.id == id }
+                if (selectedIndustry != null) {
+                    sharedFilterViewModel.setIndustry(selectedIndustry)
+                }
             }
             findNavController().navigateUp()
         }
 
-        binding.industryEdit.doOnTextChanged { text, start, before, count ->
+        binding.industryEdit.doOnTextChanged { text, _, _, _ ->
             industrySearchButtonSetState(text)
-            filterIndustriesSet(text, industries)
-            adapter.selectedPosition = -1
+            filterIndustriesSet(text)
         }
 
         binding.industryClearButton.setOnClickListener {
             binding.industryEdit.setText("")
         }
-
     }
 
     private fun renderState(state: IndustryFragmentState) {
@@ -119,13 +122,19 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
         problemViewsHide()
         absentViewsHide()
         contentViewsShow()
-        val sortedIndustries = industries.sortedBy { industry -> industry.name }
-        val idPos = sortedIndustries.indexOfFirst { industry -> industry.id == chosenIndustryId }
-        adapter.selectedPosition = idPos
+        val sortedIndustries = industries.sortedBy { it.name }
+
         adapter.industries.clear()
         adapter.industries.addAll(sortedIndustries)
+        adapter.selectedIndustryId = chosenIndustryId.takeIf { id ->
+            sortedIndustries.any { it.id == id }
+        }
         adapter.notifyDataSetChanged()
-        binding.industriesRecycler.layoutManager?.scrollToPosition(idPos)
+
+        val pos = sortedIndustries.indexOfFirst { it.id == adapter.selectedIndustryId }
+        if (pos >= 0) {
+            binding.industriesRecycler.layoutManager?.scrollToPosition(pos)
+        }
     }
 
     private fun showProblem() {
@@ -210,7 +219,7 @@ class IndustryFragment : Fragment(R.layout.fragment_industry) {
         }
     }
 
-    private fun filterIndustriesSet(s: CharSequence?, industries: List<Industry>) {
+    private fun filterIndustriesSet(s: CharSequence?) {
         val industriesFiltered = when {
             !s.isNullOrEmpty() -> industries.filter { industry -> industry.name.contains(s, true) }
             else -> industries

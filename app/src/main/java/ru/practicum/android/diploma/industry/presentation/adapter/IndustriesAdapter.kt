@@ -9,7 +9,11 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 class IndustriesAdapter : RecyclerView.Adapter<IndustryViewHolder>() {
     var industries = ArrayList<Industry>()
     var onItemClickListener: ((Industry) -> Unit)? = null
-    var selectedPosition = -1
+    var selectedIndustryId: String? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.industry_view, parent, false)
@@ -17,13 +21,12 @@ class IndustriesAdapter : RecyclerView.Adapter<IndustryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: IndustryViewHolder, position: Int) {
-        holder.bind(industries[position])
-        holder.setState(position == selectedPosition)
+        val industry = industries[position]
+        holder.bind(industry)
+        holder.setState(industry.id == selectedIndustryId)
         holder.itemView.setOnClickListener {
-            val industry: Industry = industries[position]
-            selectedPosition = position
+            selectedIndustryId = industry.id
             onItemClickListener?.invoke(industry)
-            notifyDataSetChanged()
         }
     }
 
