@@ -14,9 +14,9 @@ import ru.practicum.android.diploma.industry.domain.model.Industry
 import ru.practicum.android.diploma.workplace.domain.model.Workplace
 
 class FilterViewModel(
-    private val setFilterUseCase: SetFilterUseCase,
     private val getFilterUseCase: GetFilterUseCase,
-    private val checkFilterLoadUseCase: CheckFilterLoadUseCase
+    private val setFilterUseCase: SetFilterUseCase,
+    private val checkFilterLoadUseCase: CheckFilterLoadUseCase,
 ) : ViewModel() {
 
     private var filter: Filter? = null
@@ -40,14 +40,17 @@ class FilterViewModel(
         } else {
             this.salaryMustHaveFlag = null
         }
+        autoSaveFilter()
     }
 
     fun updateSalaryValue(salarySum: Int?) {
         if (salarySum != null) {
             this.salary = Salary(from = salarySum)
+            autoSaveFilter()
             return
         }
         this.salary = null
+        autoSaveFilter()
     }
 
     fun synchronizeState(
@@ -71,6 +74,7 @@ class FilterViewModel(
         if (this.industry == null) this.industry = filter?.industry
         if (this.salary == null) this.salary = filter?.salary
         if (this.salaryMustHaveFlag == null) this.salaryMustHaveFlag = filter?.onlyWithSalary
+        autoSaveFilter()
     }
 
     private fun passFragmentNotNullDataToValues(
@@ -151,6 +155,16 @@ class FilterViewModel(
         synchronizeState()
     }
 
+    fun autoSaveFilter() {
+        val filterLoaded = Filter(
+            workplace = this.workplace,
+            industry = this.industry,
+            salary = this.salary,
+            onlyWithSalary = this.salaryMustHaveFlag
+        )
+        setFilterUseCase.execute(filterLoaded)
+    }
+
     private fun filterAndValuesAreEqual(): Boolean {
         return filter?.workplace == this.workplace
             && filter?.industry == this.industry
@@ -173,5 +187,4 @@ class FilterViewModel(
     private fun renderFilterSkipButtonState(setVisible: Boolean) {
         filterSkipButtonStateLiveData.postValue(setVisible)
     }
-
 }
