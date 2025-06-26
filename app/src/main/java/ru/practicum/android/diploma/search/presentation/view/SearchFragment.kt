@@ -131,9 +131,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Переход на экран фильтры
      */
     private fun navigateToFilters() {
-        findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToFilterFragment()
-        )
+        findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToFilterFragment())
     }
 
     /**
@@ -199,9 +197,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setupBackStackReloadObserver() {
-        findNavController().currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<Boolean>(SHOULD_RELOAD_KEY)
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(SHOULD_RELOAD_KEY)
             ?.observe(viewLifecycleOwner) { shouldReload ->
                 Timber.d("New filters applied - reload needed: $shouldReload")
                 if (shouldReload) {
@@ -212,9 +208,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun resetBackStackReloadFlag() {
-        findNavController().currentBackStackEntry
-            ?.savedStateHandle
-            ?.remove<Boolean>(SHOULD_RELOAD_KEY)
+        findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>(SHOULD_RELOAD_KEY)
     }
 
     private fun switchUiMode(
@@ -268,7 +262,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun showContent(state: SearchVacanciesScreenState.Content) {
         isFirstPageLoaded = true
-        Timber.d("Cостояние isFirstPageLoaded: $isFirstPageLoaded, в методе showContent")
         switchUiMode(showContent = true)
 
         adapter.removeLoadingFooter()
@@ -331,9 +324,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         } else {
             val focusedView = view ?: requireView().findFocus()
             if (focusedView is EditText) focusedView.clearFocus()
-            focusedView?.let {
-                imm.hideSoftInputFromWindow(it.windowToken, 0)
-            }
+            focusedView?.let { imm.hideSoftInputFromWindow(it.windowToken, 0) }
         }
     }
 
