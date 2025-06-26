@@ -66,7 +66,6 @@ class FilterViewModel(
     }
 
     private fun loadFilter() {
-        // filter = getFilterUserInterfaceUseCase.execute()
         filter = getFilterUseCase.execute()
     }
 
@@ -142,7 +141,6 @@ class FilterViewModel(
             salary = null,
             onlyWithSalary = null
         )
-        // setFilterUserInterfaceUseCase.execute(filterNull)
         setFilterUseCase.execute(filterNull)
     }
 
@@ -153,7 +151,6 @@ class FilterViewModel(
             salary = this.salary,
             onlyWithSalary = this.salaryMustHaveFlag
         )
-        // setFilterUserInterfaceUseCase.execute(filterLoaded)
         setFilterUseCase.execute(filterLoaded)
         synchronizeState()
     }
@@ -168,18 +165,6 @@ class FilterViewModel(
         setFilterUseCase.execute(filterLoaded)
     }
 
-/*
-    fun applyUserInterfaceFilter() {
-        val filterInstant = Filter(
-            workplace = this.workplace,
-            industry = this.industry,
-            salary = this.salary,
-            onlyWithSalary = this.salaryMustHaveFlag
-        )
-        setFilterUserInterfaceUseCase.execute(filterInstant)
-        synchronizeState()
-    }
-*/
     private fun filterAndValuesAreEqual(): Boolean {
         return filter?.workplace == this.workplace
             && filter?.industry == this.industry
@@ -202,5 +187,4 @@ class FilterViewModel(
     private fun renderFilterSkipButtonState(setVisible: Boolean) {
         filterSkipButtonStateLiveData.postValue(setVisible)
     }
-
 }
