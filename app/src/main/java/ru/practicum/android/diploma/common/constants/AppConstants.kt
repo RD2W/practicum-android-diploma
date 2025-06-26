@@ -19,4 +19,5 @@ object AppConstants {
     const val COUNTRY_NAME_KEY = "country_name"
     const val AREA_NAME_KEY = "area_name"
     const val FILTER_UI_KEY = "filter_ui"
+    const val SHOULD_RELOAD_KEY = "shouldReload"
 }

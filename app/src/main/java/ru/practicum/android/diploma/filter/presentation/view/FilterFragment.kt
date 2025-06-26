@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.common.constants.AppConstants
+import ru.practicum.android.diploma.common.constants.AppConstants.SHOULD_RELOAD_KEY
 import ru.practicum.android.diploma.databinding.FragmentFilterBinding
 import ru.practicum.android.diploma.filter.presentation.state.FilterFragmentState
 import ru.practicum.android.diploma.filter.presentation.viewmodel.FilterViewModel
@@ -179,6 +180,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun applyFilterButtonOnClick() {
         viewModel.applyFilter()
         binding.desiredSalaryEdit.clearFocus()
+        findNavController().previousBackStackEntry
+            ?.savedStateHandle
+            ?.set(SHOULD_RELOAD_KEY, true)
         findNavController().navigateUp()
     }
     private fun industryButtonOnClick() {

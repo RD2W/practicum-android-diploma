@@ -66,7 +66,6 @@ class SearchViewModel(
             getFilterUseCase().collect { filter ->
                 Timber.d("Filter is updated: $filter")
                 updateCurrentFilter(filter)
-                onFiltersChanged()
             }
         }
     }
@@ -138,7 +137,7 @@ class SearchViewModel(
     /**
      * Настройка изменения фильтров
      */
-    private fun onFiltersChanged() {
+    fun onFiltersChanged() {
         if (lastQuery.isNotEmpty()) {
             performSearch(lastQuery, isNewSearch)
         }
