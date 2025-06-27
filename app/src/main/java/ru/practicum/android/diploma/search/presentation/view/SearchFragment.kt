@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.common.constants.AppConstants.SHOULD_RELOAD_KEY
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.search.presentation.adapter.ListItem
 import ru.practicum.android.diploma.search.presentation.adapter.VacancyLoadMoreAdapter
@@ -72,13 +73,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
-        viewModel.observeFilterChanges()
+        setupBackStackReloadObserver()
         setupSearchField()
         setupButtonListeners()
         setupRecyclerView()
         observeViewModel()
-
-        // Инициализация состояния фильтров
         updateFilterIcons(false) // По умолчанию фильтры не выбраны
     }
 
@@ -132,9 +131,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      * Переход на экран фильтры
      */
     private fun navigateToFilters() {
-        findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToFilterFragment()
-        )
+        findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToFilterFragment())
     }
 
     /**
@@ -199,6 +196,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    private fun setupBackStackReloadObserver() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(SHOULD_RELOAD_KEY)
+            ?.observe(viewLifecycleOwner) { shouldReload ->
+                Timber.d("New filters applied - reload needed: $shouldReload")
+                if (shouldReload) {
+                    viewModel.onFiltersChanged()
+                    resetBackStackReloadFlag()
+                }
+            }
+    }
+
+    private fun resetBackStackReloadFlag() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>(SHOULD_RELOAD_KEY)
+    }
+
     private fun switchUiMode(
         showLoading: Boolean = false,
         showContent: Boolean = false,
@@ -250,7 +262,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      */
     private fun showContent(state: SearchVacanciesScreenState.Content) {
         isFirstPageLoaded = true
-        Timber.d("Cостояние isFirstPageLoaded: $isFirstPageLoaded, в методе showContent")
         switchUiMode(showContent = true)
 
         adapter.removeLoadingFooter()
@@ -313,9 +324,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         } else {
             val focusedView = view ?: requireView().findFocus()
             if (focusedView is EditText) focusedView.clearFocus()
-            focusedView?.let {
-                imm.hideSoftInputFromWindow(it.windowToken, 0)
-            }
+            focusedView?.let { imm.hideSoftInputFromWindow(it.windowToken, 0) }
         }
     }
 
